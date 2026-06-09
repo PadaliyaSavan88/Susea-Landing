@@ -191,7 +191,7 @@ section{position:relative}
   background-size:64px 64px;mask-image:radial-gradient(1100px 640px at 50% 0%,#000 30%,transparent 72%);
   -webkit-mask-image:radial-gradient(1100px 640px at 50% 0%,#000 30%,transparent 72%);pointer-events:none}
 .hero-top{position:relative;text-align:center;display:flex;flex-direction:column;align-items:center;gap:22px}
-.hero h1{margin:0;max-width:1000px}
+.hero h1{margin:0;max-width:1200px;font-size:clamp(32px,3.8vw,58px);text-wrap:pretty}
 .hero p.lead{text-align:center;margin:0 auto}
 .hero-ctas{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
 .hero-trust{display:flex;gap:16px;align-items:center;color:var(--ink-3);font-size:13px;margin-top:2px;flex-wrap:wrap;justify-content:center}

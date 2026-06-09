@@ -10,7 +10,7 @@ export default function WhySusea() {
     if (ref.current) io.observe(ref.current)
     return () => io.disconnect()
   }, [])
-  const v90 = useCountUp(90, run), v60 = useCountUp(60, run), v14 = useCountUp(14, run), v3 = useCountUp(3, run)
+  const v90 = useCountUp(90, run), v60 = useCountUp(60, run), v120 = useCountUp(120, run), v3 = useCountUp(3, run)
 
   const before = [
     'Rates scattered across Excel & WhatsApp',
@@ -21,7 +21,7 @@ export default function WhySusea() {
     'Selection & savings impossible to audit',
   ]
   const after = [
-    'Live rates from 14+ carriers on one surface',
+    'Live rates from 120+ carriers on one surface',
     <>Your whole agent network competes in <b>one click</b></>,
     <>Branded customer quotes in <b>&lt; 90 seconds</b></>,
     <>Tenders awarded in <b>1–3 days</b>, audit-ready</>,
@@ -41,7 +41,7 @@ export default function WhySusea() {
         <div className="impact-grid">
           <div className="stat"><div className="v"><span className="mono">{v90}</span><span className="u">%</span></div><div className="l">Faster quotation creation across pricing desks running Susea.</div></div>
           <div className="stat"><div className="v"><span style={{ fontSize: 18, fontWeight: 600, color: 'var(--ink-3)' }}>up to </span><span className="mono">{v60}</span><span className="u" style={{ color: 'var(--orange-600)' }}>%</span></div><div className="l">Lower freight cost once your agents compete in a live auction.</div></div>
-          <div className="stat"><div className="v"><span className="mono">{v14}</span><span className="u">+</span></div><div className="l">Carrier rates compared on every quote, in one view.</div></div>
+          <div className="stat"><div className="v"><span className="mono">{v120}</span><span className="u">+</span></div><div className="l">Carrier rates compared on every quote, in one view.</div></div>
           <div className="stat"><div className="v"><span className="mono">{v3}</span><span className="u" style={{ color: 'var(--orange-600)' }}>d</span></div><div className="l">From launching a tender to a signed, audited award.</div></div>
         </div>
 

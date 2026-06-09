@@ -24,7 +24,7 @@ function HeroDashboard() {
         <div className="hero-bar">
           <div className="dots"><i></i><i></i><i></i></div>
           <div className="urlbar"><span className="mono">susea.app/pricing/quote/SQ-48217</span></div>
-          <span className="pill live"><i></i> Live rates · 14 carriers</span>
+          <span className="pill live"><i></i> Live rates · 120 carriers</span>
         </div>
         <div className="hero-grid">
           <div className="panel">
@@ -103,7 +103,7 @@ function HeroDashboard() {
       <div className="floats">
         <FloatChip pos="f1" ico="blue" icon="zap" title="90% Faster Quotations" sub="Avg time: 18 min → 90s" />
         <FloatChip pos="f2" ico="amber" icon="file-scan" title="AI Tariff Extraction" sub="PDF · XLS · Email · WhatsApp" />
-        <FloatChip pos="f3" ico="orange" icon="layers" title="Multi-Carrier Pricing" sub="14+ shipping lines aggregated" />
+        <FloatChip pos="f3" ico="orange" icon="layers" title="Multi-Carrier Pricing" sub="120+ shipping lines aggregated" />
         <FloatChip pos="f4" ico="good" icon="radio" title="Live Rate Visibility" sub="Updated every 60s" />
       </div>
     </div>
@@ -117,7 +117,7 @@ export default function Hero({ onRequest, onTour }) {
       <div className="container">
         <div className="hero-top">
           <span className="eyebrow"><span className="dot"></span> AI Pricing &amp; Procurement Infrastructure · Now in private beta</span>
-          <h1 className="h-display">Ocean freight pricing &amp; procurement,<br /><em>operated by AI.</em></h1>
+          <h1 className="h-display">Get an <em>instant</em> rate — or make<br />your agents <em>compete</em> for it.</h1>
           <p className="lead">Susea is the pricing &amp; quotation operating system for freight forwarders. Get instant spot rates across carriers — or run a live RFQ to your own agents. Quote customers and award tenders in one platform.</p>
           <div className="hero-ctas">
             <button className="btn btn-primary btn-lg" onClick={onRequest}>Join the waitlist <Icon name="arrow-right" size={15} /></button>
@@ -131,7 +131,7 @@ export default function Hero({ onRequest, onTour }) {
         </div>
         <div className="hero-stats">
           <div className="hs"><div className="hsv mono">90<span className="u">%</span></div><div className="hsl">Faster quotations</div></div>
-          <div className="hs"><div className="hsv mono">14<span className="u">+</span></div><div className="hsl">Carriers compared</div></div>
+          <div className="hs"><div className="hsv mono">120<span className="u">+</span></div><div className="hsl">Carriers compared</div></div>
           <div className="hs"><div className="hsv mono"><span className="pre">up to </span>60<span className="u">%</span></div><div className="hsl">Lower freight cost via RFQ</div></div>
           <div className="hs"><div className="hsv mono">1–3<span className="u">d</span></div><div className="hsl">From tender to award</div></div>
         </div>
