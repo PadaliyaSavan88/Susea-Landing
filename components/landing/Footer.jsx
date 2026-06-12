@@ -1,10 +1,26 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import Icon from '@/components/ui/Icon'
 
 const COLS = [
-  ['Platform', ['Pricing intelligence', 'Quotation engine', 'Tariff AI', 'Carrier comparison']],
-  ['Solutions', ['Freight forwarders', 'NVOCCs', 'Customs brokers', 'Enterprise shippers']],
-  ['Company', ['About', 'Careers', 'Contact', 'Security']],
+  ['Platform', [
+    { label: 'Pricing intelligence', href: '#' },
+    { label: 'Quotation engine', href: '#' },
+    { label: 'Tariff AI', href: '#' },
+    { label: 'Carrier comparison', href: '#' },
+  ]],
+  ['Resources', [
+    { label: 'Blog', href: '/blog' },
+    { label: 'Freight surcharges explained', href: '/blog/ocean-freight-surcharges-explained' },
+    { label: 'FCL vs LCL guide', href: '/blog/fcl-vs-lcl' },
+    { label: 'AI in freight pricing', href: '/blog/ai-ocean-freight-pricing' },
+  ]],
+  ['Company', [
+    { label: 'About', href: '#' },
+    { label: 'Contact', href: 'mailto:hello@susea.app' },
+    { label: 'Privacy Policy', href: '/privacy' },
+    { label: 'Terms of Use', href: '/terms' },
+  ]],
 ]
 
 export default function Footer() {
@@ -27,13 +43,21 @@ export default function Footer() {
           {COLS.map(([h, items], i) => (
             <div key={i}>
               <h6>{h}</h6>
-              <ul>{items.map((it, j) => <li key={j}><a href="#">{it}</a></li>)}</ul>
+              <ul>{items.map((it, j) => (
+                <li key={j}>
+                  <Link href={it.href}>{it.label}</Link>
+                </li>
+              ))}</ul>
             </div>
           ))}
         </div>
         <div className="foot-bottom">
-          <div>© 2026 Susea Technologies, Inc. All rights reserved.</div>
-          <div className="mono">v0.7.2 · build 48217</div>
+          <div>© 2026 AlphaBits Solutions. All rights reserved.</div>
+          <div className="foot-legal-links">
+            <Link href="/privacy">Privacy Policy</Link>
+            <span>·</span>
+            <Link href="/terms">Terms of Use</Link>
+          </div>
         </div>
       </div>
     </footer>

@@ -1,0 +1,164 @@
+---
+title: "How to Read a Carrier Rate Sheet — and Why It's Hard"
+description: "Carrier rate sheets arrive as PDFs, Excel files, and WhatsApp forwards. Here is how to parse them correctly before you quote a customer."
+keywords: "carrier rate sheet, ocean freight rate sheet, how to read freight rate sheet, tariff sheet freight, carrier rate card, freight tariff parsing, AI tariff extraction"
+topic: "Freight Education"
+author: "Kiran Patel"
+authorBio: "Freight pricing specialist with 8 years of experience running pricing operations at leading NVOCCs across India and the Gulf."
+date: "2026-05-26"
+dateModified: "2026-05-26"
+wordCount: 2000
+faq:
+  - question: "What is a carrier rate sheet?"
+    answer: "A carrier rate sheet (also called a tariff sheet or rate card) is a document issued by an ocean carrier or NVOCC listing the freight rates, surcharges, and validity periods for specific trade lanes and container types. Rate sheets arrive in PDF, Excel, email, or WhatsApp format and need to be parsed before being used in customer quotes."
+  - question: "What information is on a carrier rate sheet?"
+    answer: "A typical carrier rate sheet lists: origin and destination ports (or port pairs), container type (20', 40', 40'HC), base ocean freight rate, applicable surcharges (BAF, THC, LSS, etc.) and whether they are included or excluded from the rate, validity period (from/to dates), commodity restrictions if any, and free time at origin and destination."
+  - question: "Why do carrier rate sheets have so many versions?"
+    answer: "Carriers update rate sheets monthly (or more frequently during volatile markets). Surcharges like BAF are reviewed monthly, GRIs are announced quarterly, and PSS applies seasonally. A pricing desk can receive 10–30 updated rate sheets per week across multiple carriers and lanes. Without a system to parse and version them, pricing staff quote on stale rates."
+  - question: "How long is a carrier rate sheet valid?"
+    answer: "Typically 30 days, but spot rate sheets (given for a specific cargo enquiry) may be valid for only 7–14 days. Always check the 'Valid Until' field. Rates quoted after the validity date expose the forwarder to cost overruns if the carrier refuses to honor the expired rate."
+  - question: "How does AI help with carrier rate sheet extraction?"
+    answer: "AI tariff extraction tools like Susea can parse PDF, Excel, email, and WhatsApp rate sheets and extract port pairs, rates, surcharges, and validity periods into a structured database automatically. What takes a pricing analyst 10–20 minutes per rate sheet is done in seconds, with version control tracking which rates have changed."
+---
+
+A carrier rate sheet is a document from an ocean carrier or agent listing base freight rates, applicable surcharges, and validity dates for specific trade lanes. Pricing desks receive these in PDF, Excel, email, and WhatsApp — often multiple formats for the same carrier on the same lane. Reading them correctly before you quote is non-negotiable. Quoting from a stale, misread, or incomplete rate sheet is how forwarders lose money on bookings.
+
+This guide walks through how carrier rate sheets are structured, what to check before using any rate, and where the common errors live.
+
+## What a carrier rate sheet contains
+
+A well-structured carrier rate sheet will show:
+
+| Field | What to look for |
+|---|---|
+| Carrier name | Confirm it's the carrier you think it is — not an agent forwarding on behalf of multiple carriers |
+| Trade lane | Origin port (or POL) and destination port (or POD), expressed as port codes (INNSA, AEJEA, NLRTM) |
+| Validity | "Valid from" and "Valid until" dates — the most important field to check first |
+| Container types | 20' Dry, 40' Dry, 40'HC, 45'HC, Reefer — listed separately |
+| Base ocean freight | The OF rate per container — does NOT include surcharges unless explicitly stated |
+| Surcharges — included | Some rate sheets quote "all-in" rates that include BAF, THC, LSS. Check explicitly. |
+| Surcharges — additional | List of surcharges NOT included in the base rate that must be added |
+| Free time | Days allowed at origin/destination terminal before demurrage kicks in |
+| Commodity restrictions | Hazardous cargo, food-grade restrictions, oversized cargo — exclusions listed here |
+
+Not all rate sheets are well-structured. Many arrive as forwarded email attachments, photographed WhatsApp rate cards, or Excel sheets with merged cells, inconsistent column headers, and missing validity dates. That's the real challenge.
+
+## The validity date trap
+
+The single most expensive mistake on a carrier rate sheet: quoting from a rate that's already expired.
+
+Carrier rates change frequently:
+- **BAF**: reviewed and updated monthly by most carriers
+- **Base ocean freight**: updated monthly or quarterly, sometimes weekly during volatile periods
+- **GRI**: announced 30 days in advance, effective on a fixed date
+- **PSS**: typically June–August and October–November with carrier-specific dates
+
+A pricing desk receiving 15 rate sheets per week across 5 carriers and 8 trade lanes is managing 600+ rate sheet updates per year. Without a system to track validity, staff quote on whatever PDF is most recently downloaded — which may already be superseded.
+
+**Rule:** Before using any rate, verify the "Valid Until" date. If it's past, request an updated sheet from the carrier or agent before issuing a customer quote.
+
+> **Related:** [Why freight quotes take 18 minutes](/blog/why-freight-quotes-take-18-minutes) — and how automating rate extraction cuts it to 90 seconds.
+
+## How surcharges appear (and where they're hidden)
+
+Rate sheets handle surcharges inconsistently. You'll encounter three patterns:
+
+**Pattern 1 — Surcharges excluded (most common for spot rates):**
+```
+Route: INNSA → AEJEA
+20' Dry:  $420 (excluding BAF, THC, LSS)
+40' HC:   $780 (excluding BAF, THC, LSS)
+```
+You must add BAF ($120), THC-O ($148), THC-D ($118), LSS ($55), ISPS ($22) to get the all-in cost.
+
+**Pattern 2 — Some surcharges included:**
+```
+Route: INNSA → AEJEA
+40' HC: $980 all-in ex-THC destination
+```
+BAF and LSS are in the $980. You must still add THC at AEJEA ($118) and any documentation fees.
+
+**Pattern 3 — True all-in:**
+```
+Route: INNSA → AEJEA
+40' HC: $1,320 all-in (incl. BAF, O-THC, D-THC, LSS, ISPS)
+```
+This is unusual for carrier-issued sheets but common from NVOCCs quoting customers.
+
+**Always verify which pattern applies.** Misreading a Pattern 1 sheet as Pattern 3 means you absorb $508 worth of surcharges per 40'HC — at volume, this destroys margin.
+
+## How rate sheets handle multiple trade lanes
+
+Many carrier rate sheets cover multiple trade lanes in a single document. This creates lookup errors:
+
+| POL | POD | 20' OF | 40' OF | Valid Until |
+|---|---|---|---|---|
+| INNSA | AEJEA | $420 | $780 | 2026-06-30 |
+| INMUN | AEJEA | $380 | $720 | 2026-06-30 |
+| INNSA | SGSIN | $560 | $1,040 | 2026-06-30 |
+| INMUN | PKKAR | $290 | $550 | 2026-06-30 |
+
+If a pricing analyst is working from a multi-lane PDF and needs the INNSA → AEJEA rate, they need to find the right row. A sheet with 80 trade lanes, multiple container types, and merged cells is where errors happen — especially when working under time pressure.
+
+**The right approach:** Extract all rates into a structured system (spreadsheet or software) where lookup is instant, not manual.
+
+## What changes between versions of the same rate sheet
+
+When a carrier sends an updated rate sheet, the difference from the previous version is rarely highlighted. Pricing staff compare manually — or worse, don't compare at all and just use the new sheet.
+
+What typically changes between monthly versions:
+- BAF (most common — tracks fuel prices)
+- Base OF (less common, usually tied to GRI announcements)
+- Free time (sometimes reduced during peak season)
+- Added or removed port pairs
+
+A version-controlled rate sheet database lets you diff rate sheets automatically: "Carrier X updated INNSA → NLRTM 40'HC rate from $2,100 to $2,280. BAF unchanged. Effective July 1."
+
+## How AI rate extraction changes the process
+
+Manually reading carrier rate sheets is a high-error, high-volume task. An experienced pricing analyst can process 3–5 rate sheets per hour — faster for clean Excel formats, much slower for PDFs or WhatsApp photographs.
+
+AI tariff extraction (as built into Susea) processes any format — PDF, Excel, email text, WhatsApp message — and outputs structured rate data:
+
+- Port pairs correctly identified
+- Container types mapped
+- Surcharges flagged as included or excluded
+- Validity dates extracted
+- Previous version compared and changes highlighted
+
+The output goes directly into the pricing database. A quote request for INNSA → AEJEA in a 40'HC instantly pulls the most current, valid rate — with surcharges correctly applied.
+
+> Susea's AI reads carrier rate sheets from any format — PDF, Excel, email, WhatsApp — and loads them into your pricing database automatically. [Join the waitlist](/blog/how-to-read-carrier-rate-sheet#waitlist) to see it in action.
+
+## Quick checklist before using any rate
+
+- [ ] **Validity date** — is the rate still valid today?
+- [ ] **Port codes** — exact match to origin and destination?
+- [ ] **Container type** — 40' Dry vs 40'HC can differ by $80–$150
+- [ ] **Surcharge inclusion** — what is and isn't in the quoted rate?
+- [ ] **Commodity restrictions** — does the rate apply to your cargo type?
+- [ ] **Free time** — how many free days at destination? (Demurrage exposure)
+- [ ] **Currency** — USD? EUR? Local currency with CAF?
+- [ ] **Version date** — is this the most recent sheet from this carrier?
+
+## Frequently asked questions
+
+### What is a carrier rate sheet?
+
+A carrier rate sheet (also called a tariff sheet or rate card) is a document issued by an ocean carrier or NVOCC listing the freight rates, surcharges, and validity periods for specific trade lanes and container types. Rate sheets arrive in PDF, Excel, email, or WhatsApp format and need to be parsed before being used in customer quotes.
+
+### What information is on a carrier rate sheet?
+
+A typical carrier rate sheet lists: origin and destination ports (port codes), container type (20', 40', 40'HC), base ocean freight rate, applicable surcharges and whether they are included or excluded, validity period, commodity restrictions, and free time at origin and destination.
+
+### Why do carrier rate sheets have so many versions?
+
+Carriers update rate sheets monthly or more frequently during volatile markets. Surcharges like BAF are reviewed monthly, GRIs are announced quarterly, and PSS applies seasonally. A pricing desk can receive 10–30 updated rate sheets per week across multiple carriers and lanes.
+
+### How long is a carrier rate sheet valid?
+
+Typically 30 days, but spot rate sheets may be valid for only 7–14 days. Always check the 'Valid Until' field. Rates quoted after the validity date expose the forwarder to cost overruns if the carrier refuses to honor the expired rate.
+
+### How does AI help with carrier rate sheet extraction?
+
+AI tariff extraction tools like Susea can parse PDF, Excel, email, and WhatsApp rate sheets and extract port pairs, rates, surcharges, and validity periods into a structured database automatically. What takes a pricing analyst 10–20 minutes per rate sheet is done in seconds, with version control tracking which rates have changed.

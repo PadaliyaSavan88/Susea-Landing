@@ -1,0 +1,157 @@
+---
+title: "How to Automate Freight Surcharge Calculations Without Excel"
+description: "Freight surcharge calculations are still done manually in Excel at most forwarders. Here is a step-by-step approach to automating them correctly."
+keywords: "automate freight surcharges, freight surcharge calculation, BAF calculation automation, freight pricing Excel alternative, surcharge automation freight, ocean freight surcharge engine, freight desk automation"
+topic: "Pricing & Quotation"
+author: "Kiran Patel"
+authorBio: "Freight pricing specialist with 8 years of experience running pricing operations at leading NVOCCs across India and the Gulf."
+date: "2026-07-10"
+dateModified: "2026-07-10"
+wordCount: 1800
+faq:
+  - question: "What surcharges need to be calculated for an ocean freight quote?"
+    answer: "A complete ocean freight quote requires calculating: BAF (Bunker Adjustment Factor), LSS (Low Sulphur Surcharge), THC at origin and destination (port-specific), ISPS security levy, ODF or documentation fee, and any active trade-lane surcharges such as GRI (General Rate Increase), PSS (Peak Season Surcharge), or WRS (War Risk Surcharge). Each has a different calculation basis and update frequency."
+  - question: "Why is manual surcharge calculation error-prone?"
+    answer: "Manual surcharge calculations fail for three reasons: (1) surcharges come from different source documents — carrier BAF tables, port THC schedules, and carrier circulars — which can be out of sync; (2) some surcharges are included in the base rate and must not be double-counted; (3) update timing varies — BAF updates monthly, GRIs take effect on the 1st, PSS has a specific start date — and a single missed update corrupts all quotes until discovered."
+  - question: "What is a surcharge engine in freight software?"
+    answer: "A surcharge engine is a component of freight pricing software that automatically applies the correct charges for a given carrier, trade lane, container type, and date. It holds structured surcharge tables (BAF by carrier, THC by port, LSS, ISPS), applies the correct row based on query parameters, checks whether each surcharge is already included in the base rate, and outputs a complete, itemised surcharge stack with no manual input."
+  - question: "How do you handle surcharges included in the base freight rate?"
+    answer: "Some carriers quote rates with certain surcharges already bundled — for example, 'all-in ex-THC destination' means BAF and LSS are included in the quoted base. When building a surcharge engine, each rate record must flag which surcharges are included (bundled) vs. additional. The engine then skips bundled surcharges to avoid double-counting. This is the most common source of quoting errors when transitioning from manual to automated surcharge calculation."
+  - question: "Can I automate surcharge calculation without a full TMS?"
+    answer: "Yes — many forwarders start with a structured surcharge database in a spreadsheet before moving to dedicated software. The key is converting surcharge tables to structured data: carrier, effective-from date, effective-to date, container type, amount per TEU. Once in this format, VLOOKUP or INDEX/MATCH can pull the correct value. The limitation of the spreadsheet approach is manual maintenance — the structured database still needs to be updated when new carrier bulletins arrive."
+---
+
+Manual surcharge calculation is the highest-error-rate step in the ocean freight quotation workflow. A pricing analyst who gets the base rate right but misses the current BAF, double-counts a surcharge already included in the rate, or applies the pre-update THC for Jebel Ali is building a quote that will either lose margin or overcharge the customer.
+
+The fix is a surcharge engine — a structured database of surcharge records that applies automatically to every quote. This guide covers what one looks like, how to build it, and how to automate it without a full TMS.
+
+## What a surcharge stack actually contains
+
+For a typical FCL quote on the India–Gulf trade lane, the surcharge stack includes:
+
+| Surcharge | Calculation basis | Update frequency | Source |
+|---|---|---|---|
+| BAF | Per TEU or per container type | Monthly | Carrier BAF circular |
+| LSS (Low Sulphur) | Per TEU | Monthly or quarterly | Carrier sheet |
+| THC origin | Per container, by port | Quarterly or annually | Port tariff |
+| THC destination | Per container, by port | Quarterly or annually | Port tariff |
+| ISPS | Per container | Rarely changes | Carrier circular |
+| ODF | Per B/L | Rarely changes | Carrier sheet |
+| GRI | Per TEU, when active | Event-driven | Carrier GRI bulletin |
+| PSS | Per TEU, seasonal | Seasonal announcement | Carrier circular |
+
+Each surcharge has a different source, a different update cycle, and a different calculation basis. Maintaining all of them manually across 10 carriers and 15 trade lanes is where errors compound.
+
+## The three failure modes of manual surcharge calculation
+
+**Failure 1: Using a stale surcharge value**
+
+BAF is updated monthly. A carrier sends a new BAF bulletin on July 1. The pricing analyst's BAF table — maintained in a shared Excel file — is updated by one person on the team. If that person is on leave, or the email goes to the wrong folder, the July quotes are built with the June BAF. At $80 more per TEU, a 20-container booking absorbs $1,600 of margin loss.
+
+**Failure 2: Double-counting an included surcharge**
+
+MSC sometimes includes BAF in their India–Gulf base rate and sometimes charges it additionally. The distinction is in the "remarks" column of the rate sheet: "ex-BAF" or "incl. BAF". An analyst who doesn't check this and applies BAF on top of an already-inclusive rate quotes $80–$120/container over the actual carrier cost — which shows up as an overcharge if the customer cross-checks the booking invoice.
+
+**Failure 3: Applying the wrong port THC**
+
+THC varies by port and does not vary by carrier — but pricing desks often store THC in a carrier-specific format, which means they have duplicated THC tables that can drift out of sync. INNSA THC for a 40'HC is $148. INMUN (Mundra) THC for the same container is $132. If the analyst's rate sheet shows INMUN rates but the customer is shipping from INNSA, the THC is understated by $16/container.
+
+## How a surcharge engine eliminates these errors
+
+A surcharge engine is a structured data model that answers one question: "For carrier X, trade lane Y (POL Z → POD W), container type T, valid on date D — what are all applicable surcharges, and are any already included in the base rate?"
+
+The data model for a BAF record looks like:
+
+```
+CarrierCode: MSC
+SurchargeType: BAF
+ContainerType: 40HC
+Amount: 115
+Currency: USD
+ValidFrom: 2026-07-01
+ValidTo: 2026-07-31
+IncludedInBase: false
+TradeGroup: INDIA_GULF
+```
+
+A THC record:
+
+```
+Port: INNSA
+Direction: Origin
+ContainerType: 40HC
+Amount: 148
+Currency: USD
+ValidFrom: 2026-04-01
+ValidTo: 2026-09-30
+```
+
+When a quote is assembled for MSC INNSA → AEJEA 40'HC on July 15:
+1. Query BAF: 115 (MSC, 40HC, valid July 15, India-Gulf, not included in base)
+2. Query LSS: 52 (MSC, 40HC, valid July 15, India-Gulf)
+3. Query THC origin: 148 (INNSA, 40HC, origin)
+4. Query THC destination: 118 (AEJEA, 40HC, destination)
+5. Query ISPS: 22 (MSC, standard)
+6. Query ODF: 45 (MSC, per B/L)
+
+Total surcharges: $500. All from structured records. No manual lookup.
+
+> **Related:** [How AI reads carrier rate sheets from any format](/blog/ai-reads-carrier-rate-sheets) — the same AI that extracts base rates also structures surcharge data.
+
+## Building the surcharge database: step by step
+
+**Step 1: Catalogue your surcharge types**
+
+List every surcharge type you apply across all carriers and trade lanes. Most desks use 6–10 types consistently.
+
+**Step 2: Structure each surcharge type**
+
+For each type, define: what varies per carrier vs. per port vs. universal; what the validity period is; where the source data comes from.
+
+**Step 3: Load current values**
+
+Extract current values from your rate sheets and carrier circulars. This is the most labour-intensive step the first time — but it's one-time work, after which you only update on change.
+
+**Step 4: Set up change tracking**
+
+When a new carrier BAF bulletin arrives, it updates a specific row (or adds a new row with new ValidFrom). The old record remains for historical quoting. The system always uses the record valid on the quote date.
+
+**Step 5: Flag inclusion/exclusion status per rate record**
+
+Review your rate sheets and mark which surcharges are included vs. additional for each carrier on each lane. This is the step most manual desks skip — and it's the source of double-counting errors.
+
+## Starting without a full TMS
+
+You don't need a TMS to build a surcharge database. A structured spreadsheet works as a starting point:
+
+| Carrier | Surcharge | Trade group | Container | Amount | ValidFrom | ValidTo | IncludedInBase |
+|---|---|---|---|---|---|---|---|
+| MSC | BAF | INDIA_GULF | 40HC | 115 | 2026-07-01 | 2026-07-31 | FALSE |
+| CMA | BAF | INDIA_GULF | 40HC | 108 | 2026-07-01 | 2026-07-31 | FALSE |
+| INNSA | THC-O | ALL | 40HC | 148 | 2026-04-01 | 2026-09-30 | N/A |
+
+With this structure, VLOOKUP or INDEX/MATCH can retrieve the correct surcharge for any quote. The limitation: updating the table still requires someone to read the bulletin and enter the new row manually.
+
+The full automation — where AI reads the carrier bulletin and updates the database record automatically — is what platforms like Susea provide.
+
+## Frequently asked questions
+
+### What surcharges need to be calculated for an ocean freight quote?
+
+A complete ocean freight quote requires calculating: BAF, LSS, THC at origin and destination, ISPS, ODF, and any active trade-lane surcharges such as GRI, PSS, or WRS. Each has a different calculation basis and update frequency.
+
+### Why is manual surcharge calculation error-prone?
+
+Manual surcharge calculations fail for three reasons: surcharges come from different source documents that can be out of sync; some surcharges are included in the base rate and must not be double-counted; and update timing varies — a single missed update corrupts all quotes until discovered.
+
+### What is a surcharge engine in freight software?
+
+A surcharge engine automatically applies the correct charges for a given carrier, trade lane, container type, and date. It holds structured surcharge tables, applies the correct row based on query parameters, checks whether each surcharge is already included in the base rate, and outputs a complete itemised surcharge stack.
+
+### How do you handle surcharges included in the base freight rate?
+
+Each rate record must flag which surcharges are included (bundled) vs. additional. The engine then skips bundled surcharges to avoid double-counting. This is the most common source of quoting errors when transitioning from manual to automated surcharge calculation.
+
+### Can I automate surcharge calculation without a full TMS?
+
+Yes — a structured surcharge database in a spreadsheet works as a starting point. The key is converting surcharge tables to structured data with carrier, effective dates, and amounts. The limitation is that the spreadsheet still needs manual maintenance when new bulletins arrive.

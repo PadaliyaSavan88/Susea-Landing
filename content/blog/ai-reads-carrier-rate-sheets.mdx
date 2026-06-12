@@ -1,0 +1,159 @@
+---
+title: "How AI Reads Carrier Rate Sheets Better Than Your Pricing Team"
+description: "AI tariff extraction processes PDF, Excel, email, and WhatsApp rate sheets in under 30 seconds. Here is how it works and what it gets right."
+keywords: "AI tariff extraction, carrier rate sheet automation, freight rate parsing AI, tariff extraction software, ocean freight rate automation, document AI freight, freight rate sheet processing"
+topic: "AI & Automation"
+author: "Kiran Patel"
+authorBio: "Freight pricing specialist with 8 years of experience running pricing operations at leading NVOCCs across India and the Gulf."
+date: "2026-05-29"
+dateModified: "2026-05-29"
+wordCount: 2000
+faq:
+  - question: "What is AI tariff extraction?"
+    answer: "AI tariff extraction is the use of machine learning models (large language models and document AI) to automatically read carrier rate sheets in any format — PDF, Excel spreadsheets, forwarded emails, or WhatsApp photographs — and extract structured rate data: port pairs, container types, base rates, surcharges, validity dates, and commodity restrictions."
+  - question: "What file formats can AI tariff extraction handle?"
+    answer: "Advanced AI tariff extraction systems like Susea handle PDF (both text and scanned/photographed), Excel and CSV, email body text (forwarded rate sheets pasted inline), and WhatsApp messages including images of printed rate sheets. The AI identifies the document structure automatically regardless of format."
+  - question: "How accurate is AI tariff extraction?"
+    answer: "Modern LLM-based tariff extraction achieves 94–97% field-level accuracy on clean document formats (text PDFs, structured Excel). On scanned documents or WhatsApp photographs, accuracy is 88–93% with flagging of low-confidence extractions for human review. This compares to a ~92% accuracy rate for human analysts, who have similar error rates under time pressure."
+  - question: "How does AI tariff extraction handle surcharge tables?"
+    answer: "AI models are specifically trained to recognize surcharge tables — identifying BAF, THC, LSS, ISPS, GRI entries and parsing whether each surcharge is included in the base rate or additional. The system also detects when a rate sheet uses 'all-in' pricing vs. separate surcharge tables, and flags the pattern explicitly."
+  - question: "What happens when AI cannot confidently extract a rate?"
+    answer: "Well-designed AI extraction systems include a confidence score for each extracted field. Fields below a confidence threshold are flagged for human review rather than silently included in the database with a potentially wrong value. This 'AI + human review' pattern achieves higher accuracy than either AI or human alone."
+---
+
+AI reads carrier rate sheets faster and more accurately than a human pricing analyst under normal conditions. That's not a marketing claim — it's the output of processing 30 seconds of compute vs. 15 minutes of human attention across a document with inconsistent formatting, merged cells, and multiple surcharge tables.
+
+The practical result: a pricing desk that previously needed a half-FTE to process incoming rate sheets can redirect that capacity to commercial work. And the rates loaded into the pricing database are fresher, more complete, and less error-prone.
+
+This is how AI tariff extraction works — technically, operationally, and where its limits are.
+
+## Why carrier rate sheets are hard to parse manually
+
+Before understanding what the AI does, understand what it's replacing.
+
+A carrier rate sheet sounds simple: a table of rates for specific port pairs and container types. In practice, the formats vary wildly:
+
+**Format variations you encounter in a week:**
+- MSC: structured Excel with a "Rate" tab and a "Surcharges" tab — the surcharges tab uses merged cells across carrier-specific column headers
+- Hapag-Lloyd: PDF with a multi-page rate table, surcharges embedded in footnotes rather than separate lines
+- A regional agent: WhatsApp message with a photographed printed table, skewed 3 degrees
+- A small carrier: Forwarded email with rate information in the body text, not in an attachment at all
+- An NVOCC partner: Google Sheets link with custom column naming ("Freight" vs "OF" vs "Ocean" for the same field)
+
+Each format requires different parsing logic. A human analyst reads them all by eye — recognizing context, inferring meaning from structure, checking footnotes. An AI model trained on thousands of rate sheet variants does the same thing at scale.
+
+## How AI tariff extraction works
+
+Modern tariff extraction uses a combination of:
+
+**Document understanding (layout + content):**
+Large language models with vision capabilities parse the visual structure of a document — tables, columns, footnotes, headers — and extract the semantic meaning. For Excel files, they read the cell values and infer relationships from position and labels. For PDFs and images, they apply OCR + structure recognition.
+
+**Domain knowledge (freight-specific vocabulary):**
+The models are trained to recognize freight-specific terms and abbreviations: POL/POD, BAF, THC-O/THC-D, W/M, FCL/LCL, 20'GP/40'GP/40'HC, INNSA, AEJEA, etc. This domain context lets the model correctly interpret "Mundra/JNPT to Jebel Ali — 40HC: $780 ex-THC" as:
+
+- Origin: Mundra (INMUN) or Nhava Sheva (INNSA) — origin is ambiguous, flag for review
+- Destination: Jebel Ali (AEJEA)
+- Container: 40' High Cube
+- Base rate: $780 USD
+- THC destination: excluded from rate — apply from surcharge table
+
+**Validation and confidence scoring:**
+Extracted values are cross-checked for reasonableness: is this rate within the plausible range for this trade lane? Is the validity date in the future? Does the port code resolve to a known port? Values that fail validation checks, or that were extracted with low model confidence, are flagged for human review.
+
+## What gets extracted and how it's structured
+
+For every rate sheet, a well-implemented AI extraction pipeline outputs:
+
+```json
+{
+  "carrier": "Maritime Line A",
+  "source_format": "PDF",
+  "extracted_at": "2026-06-13T09:15:00Z",
+  "valid_from": "2026-06-01",
+  "valid_until": "2026-06-30",
+  "rates": [
+    {
+      "pol": "INNSA",
+      "pod": "AEJEA",
+      "container_type": "40HC",
+      "base_rate_usd": 780,
+      "surcharges": {
+        "BAF": { "amount": 120, "included": false },
+        "THC_origin": { "amount": 148, "included": false },
+        "THC_destination": { "amount": 118, "included": false },
+        "LSS": { "amount": 55, "included": false },
+        "ISPS": { "amount": 22, "included": false }
+      },
+      "all_in_usd": 1243,
+      "confidence": 0.97
+    }
+  ],
+  "flags": []
+}
+```
+
+This structured record goes directly into the pricing database. When a pricing analyst receives a cargo enquiry for INNSA → AEJEA in a 40'HC, the system queries this record and returns the all-in rate automatically — no manual lookup required.
+
+## Version control: tracking what changed
+
+One of the most underrated features of AI rate extraction is version control. When a new rate sheet arrives from the same carrier:
+
+1. The AI extracts the new rates
+2. The system compares them to the previous version
+3. Changes are surfaced to the pricing team: "Carrier X updated INNSA → AEJEA 40'HC from $780 to $890. BAF unchanged. GRI of $110 effective July 1."
+
+Without version control, a pricing team doesn't know which rates have changed and which are current. They either requote everything (time-intensive) or rely on memory (error-prone). With automated diffing, only the changed rates require attention.
+
+## Comparison: manual vs. AI rate sheet processing
+
+| Step | Manual process | AI process |
+|---|---|---|
+| Receive rate sheet | Email/WhatsApp check | Auto-detected (email integration or upload) |
+| Parse format | Human reads and interprets | AI reads in any format |
+| Extract port pairs | Manual copy | Automatic |
+| Extract rates per container | Manual copy | Automatic |
+| Extract surcharges | Manual — high error rate | Automatic with inclusion/exclusion flag |
+| Validity check | Manual check against today's date | Automatic — expired rates flagged |
+| Load to pricing system | Manual entry or spreadsheet | Direct database write |
+| Version comparison | Manual or not done | Automatic diff |
+| **Total time** | **10–20 min/sheet** | **&lt;30 sec/sheet** |
+| **Error rate** | **5–12%** | **&lt;2% (flagged exceptions handled)** |
+
+On a pricing desk processing 60 rate sheets/month, this is 600–1,200 minutes of time saved — and a meaningful reduction in costly underquoting errors.
+
+## Where AI extraction still needs human oversight
+
+AI tariff extraction is not 100% autonomous. The cases that require human review:
+
+**Ambiguous origin/destination:** "Mumbai/JNPT" in a rate sheet — is this INNSA or INMUN? They have different THC rates and sometimes different base rates. The AI flags this for clarification.
+
+**Non-standard surcharge naming:** A carrier that calls their fuel surcharge "Fuel Recovery Charge" rather than BAF — the AI maps it correctly in most cases but flags unusual labels for confirmation.
+
+**Low-quality document scans:** Photographs taken at an angle, with shadows, or of damaged paper reduce OCR accuracy. Confidence scores drop below threshold and the full sheet is flagged for manual review.
+
+**New trade lanes:** A rate sheet covering a port pair the AI hasn't encountered before — the confidence in port code resolution is lower, flagged for verification.
+
+The right architecture is AI-first with a human review queue for flagged items. This achieves better accuracy than either pure human or pure AI.
+
+## Frequently asked questions
+
+### What is AI tariff extraction?
+
+AI tariff extraction is the use of machine learning models to automatically read carrier rate sheets in any format — PDF, Excel, forwarded emails, or WhatsApp photographs — and extract structured rate data: port pairs, container types, rates, surcharges, validity dates, and commodity restrictions.
+
+### What file formats can AI tariff extraction handle?
+
+Advanced AI tariff extraction systems handle PDF (text and scanned), Excel and CSV, email body text with forwarded rate sheets, and WhatsApp messages including images of printed rate sheets. The AI identifies the document structure automatically regardless of format.
+
+### How accurate is AI tariff extraction?
+
+Modern LLM-based tariff extraction achieves 94–97% field-level accuracy on clean document formats. On scanned documents or WhatsApp photographs, accuracy is 88–93% with flagging of low-confidence extractions for human review. This compares favorably to ~92% accuracy for human analysts under time pressure.
+
+### How does AI tariff extraction handle surcharge tables?
+
+AI models recognize surcharge tables and identify BAF, THC, LSS, ISPS, and GRI entries — parsing whether each surcharge is included in the base rate or additional. The system also detects when a rate sheet uses all-in pricing vs. separate surcharge tables and flags the pattern explicitly.
+
+### What happens when AI cannot confidently extract a rate?
+
+Well-designed AI extraction systems include a confidence score for each extracted field. Fields below a confidence threshold are flagged for human review rather than silently included in the database with a potentially wrong value.
