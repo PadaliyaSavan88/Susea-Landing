@@ -1,0 +1,165 @@
+---
+title: "The Ocean Freight Quotation Workflow: Enquiry to Customer Quote"
+description: "From the moment a cargo enquiry arrives to the moment a customer quote goes out — the exact steps, the time each takes, and where the workflow breaks."
+keywords: "ocean freight quotation process, freight quote workflow, FCL quotation steps, how to quote ocean freight, freight forwarding quotation, cargo enquiry to quote, freight pricing workflow"
+topic: "Pricing & Quotation"
+author: "Kiran Patel"
+authorBio: "Freight pricing specialist with 8 years of experience running pricing operations at leading NVOCCs across India and the Gulf."
+date: "2026-07-03"
+dateModified: "2026-07-03"
+wordCount: 2200
+faq:
+  - question: "What is the ocean freight quotation process?"
+    answer: "The ocean freight quotation process starts when a shipper or forwarder submits a cargo enquiry (origin, destination, container type, cargo details, incoterms). The pricing desk retrieves applicable carrier rates, applies surcharges (BAF, THC, LSS, ISPS), adds a margin, assembles a quote document, and sends it to the customer. The process typically takes 15–25 minutes manually and under 90 seconds with automated systems."
+  - question: "What information is needed to quote ocean freight?"
+    answer: "To accurately quote ocean freight, you need: origin port (POL) and destination port (POD), container type (20', 40', 40'HC), cargo type and commodity, cargo weight (for weight limits), incoterms (who pays for what), required shipment date (to confirm rate validity), and any special requirements (DG cargo, temperature control, OOG dimensions)."
+  - question: "What is a freight quote validity period?"
+    answer: "A freight quote validity period is the number of days a quoted rate remains firm. Standard validity is 7–14 days for spot rates, though some forwarders offer 30-day validity. Carrier rate sheets that underpin the quote typically have 30-day validity, but BAF and surcharges can change monthly. Shortening quote validity protects forwarders from absorbing GRI or BAF increases on open quotes."
+  - question: "What surcharges should be included in a freight quote?"
+    answer: "A complete freight quote should include: base ocean freight (OF), BAF (Bunker Adjustment Factor), THC at origin and destination (Terminal Handling Charges), LSS (Low Sulphur Surcharge), ISPS security levy, ODF/documentation fee, and any applicable surcharges for the specific trade lane (GRI if active, PSS if peak season, WRS if war risk zone). Quotes missing any of these expose the forwarder to absorbing the difference."
+  - question: "How long does it take to generate a freight quote?"
+    answer: "Manual freight quotation takes 15–25 minutes for an experienced pricing analyst: 3–5 minutes finding the correct rate sheet, 5–8 minutes calculating surcharges, 5–8 minutes building the quote document. With AI-assisted quote assembly on a platform like Susea, the same process takes 60–90 seconds from enquiry to branded customer quote."
+---
+
+The ocean freight quotation workflow has six steps: receive the cargo enquiry, validate it, retrieve carrier rates, apply surcharges and margin, build the quote document, and send it. On a well-run pricing desk with current rates and clean processes, this takes 15–20 minutes per quote. On most pricing desks, it takes 25–45 minutes. The difference is process discipline, rate data quality, and tooling.
+
+This guide maps the exact workflow — what happens at each step, where time is lost, and what a correctly assembled quote looks like.
+
+## Step 1: Receive and validate the cargo enquiry
+
+A cargo enquiry arrives from a customer or shipper. It may come via email, WhatsApp, phone call, or a web form. Before pricing starts, the following information must be confirmed:
+
+| Required information | Why it matters |
+|---|---|
+| Origin port (POL) | Determines which carrier rates apply |
+| Destination port (POD) | Determines the trade lane, transit time, and destination surcharges |
+| Container type | 20' / 40' / 40'HC — different rates and weight limits |
+| Cargo weight | Must check against container weight limit |
+| Commodity | DG, food-grade, high-value — all affect carrier availability and surcharges |
+| Incoterms | EXW, FOB, CIF, DAP — determines which charges fall to the forwarder vs. shipper |
+| Shipment date | Validates rate applicability and quote validity period |
+| Special requirements | OOG, reefer, hazmat — need special equipment and rates |
+
+**Where time is lost:** Incomplete enquiries. A customer who sends "need a rate to Rotterdam for 40ft container" forces the pricing desk to chase them for POL, commodity, weight, incoterms, and date before a rate can be retrieved. Best practice: a structured enquiry form that requires all fields before submission.
+
+## Step 2: Retrieve the correct carrier rate
+
+With a complete enquiry in hand, the pricing analyst retrieves the applicable carrier rate. This requires:
+
+1. Identifying which carriers operate on the specific trade lane
+2. Finding the most recent valid rate sheet for each carrier
+3. Looking up the correct rate for the container type
+
+**The rate retrieval challenge:** A pricing desk managing 10 carriers across 15 trade lanes holds 150+ rate records. Without a centralized rate database, this means searching through email folders, shared drives, or personal spreadsheets for the right rate sheet — then verifying it's still valid (not expired).
+
+A rate sheet is typically valid 30 days. BAF and other surcharges may be updated monthly. Using an expired rate sheet is one of the most common sources of margin loss in freight forwarding.
+
+> **Related:** [How to read a carrier rate sheet — and why it's hard](/blog/how-to-read-carrier-rate-sheet)
+
+For a route like INNSA → AEJEA, a well-stocked rate database might show:
+
+| Carrier | 40'HC base rate | Valid until | All-in (with surcharges) |
+|---|---|---|---|
+| MSC | $780 | 2026-07-31 | $1,243 |
+| Hapag-Lloyd | $820 | 2026-07-31 | $1,295 |
+| CMA CGM | $760 | 2026-07-31 | $1,218 |
+| Evergreen | $800 | 2026-07-31 | $1,268 |
+
+The pricing analyst selects the best option based on price, transit time, free-time offered, and customer preference.
+
+## Step 3: Apply surcharges correctly
+
+With the base rate selected, every applicable surcharge must be added. For INNSA → AEJEA on a 40'HC:
+
+| Surcharge | Amount | Notes |
+|---|---|---|
+| Base ocean freight | $760 | CMA CGM example |
+| BAF | $115 | Q3 2026 — verify from current BAF table |
+| LSS | $52 | Current rate — verify from carrier sheet |
+| THC origin (INNSA) | $148 | Port-specific — does not vary by carrier |
+| THC destination (AEJEA) | $118 | Port-specific |
+| ISPS | $22 | Fixed |
+| ODF (documentation) | $45 | Per bill of lading |
+| **Total all-in** | **$1,260** | |
+
+**Critical check:** Is any surcharge already included in the base rate? Some carriers quote "all-in ex-THC destination" — meaning BAF and LSS are baked in. Applying them again as additional charges means double-counting and overquoting the customer.
+
+> **Related:** [Ocean freight surcharges explained: BAF, CAF, THC and more](/blog/ocean-freight-surcharges-explained)
+
+## Step 4: Apply margin
+
+The all-in carrier cost is $1,260. The forwarder now adds their margin:
+
+**Fixed margin method:** Add a fixed dollar amount per container (e.g., $180/container). Final quote: $1,440.
+
+**Percentage margin method:** Add a percentage of the all-in cost (e.g., 12%). Final quote: $1,411.20.
+
+**Customer-specific margin:** The customer has a negotiated rate agreement at 10%. Final quote: $1,386.
+
+Which method applies depends on the forwarder's pricing policy and the customer relationship. The key rule: the margin decision must be documented — not made silently by whoever is building the quote.
+
+## Step 5: Build the quote document
+
+The quote document sent to a customer should include:
+
+- Customer name and reference number
+- Forwarder's branding, address, contact person
+- Origin and destination (with port codes)
+- Container type and number of containers
+- Line-by-line cost breakdown (OF, BAF, THC-O, THC-D, LSS, ISPS, ODF)
+- Total all-in cost
+- Validity period (typically 7–14 days from quote date)
+- Transit time
+- Free-time at destination (important for the customer's planning)
+- Any special conditions or exclusions
+
+A quote that shows only the total without line-item breakdown looks unprofessional and makes it harder for customers to compare and trust. Line-item transparency is standard practice.
+
+**Manual vs. automated:** Building this document manually — copying a Word or PDF template, changing the numbers, re-checking everything — takes 5–10 minutes even for an experienced analyst. Automated quote assembly generates the same output in seconds from the rate database.
+
+## Step 6: Send and track
+
+The quote is sent via email or WhatsApp. Traditionally, this is where the paper trail ends — the forwarder sends the quote and waits for a response.
+
+**What good tracking looks like:**
+- Record which quotes were sent, to which customers, for which lanes
+- Track which quotes were accepted (booked), which were declined, and which expired without response
+- For declined quotes, capture the reason (lost to competitor on price, timeline, lost contact)
+
+Win/loss tracking data answers the most valuable question for a pricing desk: are we losing on price, on speed, or on service? Without it, pricing decisions are made blind.
+
+## Where the workflow breaks down at most forwarders
+
+The quotation workflow fails at the same four points repeatedly:
+
+**Incomplete enquiries:** Pricing starts before all required information is gathered. The analyst makes assumptions (wrong container size, wrong incoterms) and quotes incorrectly.
+
+**Stale rate sheets:** The rate retrieved is from a version that's been superseded. The forwarder quotes at a lower rate, then must absorb the difference when the carrier charges the current rate.
+
+**Missing surcharges:** The quote is assembled without checking whether BAF, LSS, or ISPS are included in the base rate or additional. One missed line item on 50 containers/month compounds into significant margin leakage.
+
+**No margin documentation:** The margin applied is inconsistent across analysts, not tracked by customer or lane, and impossible to analyze for pricing strategy improvement.
+
+Susea addresses all four: structured enquiry intake, a rate database with version control and validity tracking, automated surcharge application, and per-quote margin recording.
+
+## Frequently asked questions
+
+### What is the ocean freight quotation process?
+
+The ocean freight quotation process starts when a shipper or forwarder submits a cargo enquiry. The pricing desk retrieves applicable carrier rates, applies surcharges (BAF, THC, LSS, ISPS), adds a margin, assembles a quote document, and sends it to the customer. The process typically takes 15–25 minutes manually and under 90 seconds with automated systems.
+
+### What information is needed to quote ocean freight?
+
+To accurately quote ocean freight, you need: origin port (POL) and destination port (POD), container type, cargo type and commodity, cargo weight, incoterms, required shipment date, and any special requirements (DG cargo, temperature control, OOG dimensions).
+
+### What is a freight quote validity period?
+
+A freight quote validity period is the number of days a quoted rate remains firm. Standard validity is 7–14 days for spot rates. Shortening quote validity protects forwarders from absorbing GRI or BAF increases on open quotes.
+
+### What surcharges should be included in a freight quote?
+
+A complete freight quote should include: base ocean freight, BAF, THC at origin and destination, LSS, ISPS, ODF/documentation fee, and any applicable trade-lane surcharges (GRI if active, PSS if peak season, WRS if war risk zone).
+
+### How long does it take to generate a freight quote?
+
+Manual freight quotation takes 15–25 minutes for an experienced pricing analyst. With AI-assisted quote assembly on a platform like Susea, the same process takes 60–90 seconds from enquiry to branded customer quote.

@@ -1,0 +1,158 @@
+---
+title: "The India EXIM Freight Forwarder's Pricing Stack: Tools, Workflow and Best Practices"
+description: "The tools, workflow, and best practices for a modern India EXIM freight forwarder's pricing desk — from rate ingestion to customer quote delivery."
+keywords: "India freight forwarding software, EXIM freight pricing tools, freight forwarder pricing stack, India NVOCC software, freight pricing platform India, ocean freight tools India, freight desk technology"
+topic: "Trade Lane Intelligence"
+author: "Kiran Patel"
+authorBio: "Freight pricing specialist with 8 years of experience running pricing operations at leading NVOCCs across India and the Gulf."
+date: "2026-06-30"
+dateModified: "2026-06-30"
+wordCount: 2500
+faq:
+  - question: "What software do freight forwarders in India use for pricing?"
+    answer: "Most small and mid-size freight forwarders in India use a combination of email, WhatsApp, and Excel for pricing. Microsoft Excel is the dominant tool for rate management and quote calculation. Some use TMS (Transportation Management Systems) like Softlink, CargoWise, or Freightify for broader operations, but TMS pricing modules often don't handle the informal rate formats (WhatsApp, PDFs) common on Indian trade lanes. Purpose-built pricing platforms like Susea are purpose-designed for the India EXIM pricing workflow."
+  - question: "What is ICEGATE and how does it affect freight pricing?"
+    answer: "ICEGATE is India's customs electronic data interchange gateway — the platform through which all Indian exporters and importers file customs declarations (shipping bills for export, bills of entry for import). ICEGATE does not directly affect freight pricing, but the shipping bill data filed through ICEGATE determines which EXIM incentives (RoDTEP, duty drawback) the shipper can claim. A correctly declared HS code and FOB value in the shipping bill is required to claim these benefits, which affect the shipper's effective landed cost calculations."
+  - question: "What are the main pricing challenges for India EXIM freight forwarders?"
+    answer: "The main pricing challenges for India EXIM freight forwarders are: (1) rate data scattered across email, WhatsApp, and carrier portals in inconsistent formats; (2) managing BAF updates across 8–15 carriers monthly; (3) quoting both FCL and LCL correctly with different surcharge structures; (4) co-loading pricing (consolidating LCL cargo via an MTO); (5) managing seasonal PSS and GRI cycles without margin exposure; and (6) responding to customer enquiries faster than competing forwarders."
+  - question: "How is LCL pricing different from FCL pricing for India exporters?"
+    answer: "LCL (Less than Container Load) pricing is calculated per CBM (cubic meter) or per ton (whichever is higher, on a revenue ton basis). The freight rate is quoted per W/M (weight or measurement ton). LCL cargo also incurs CFS (Container Freight Station) handling charges at origin and destination, plus a stuffing fee. LCL surcharges (BAF, LSS) are also calculated per W/M rather than per container. The LCL quote must be based on the cargo's volume and weight, making it more complex to calculate than FCL."
+  - question: "What is RoDTEP and how does it interact with freight costs?"
+    answer: "RoDTEP (Remission of Duties and Taxes on Exported Products) is an Indian government scheme that provides exporters with a scrip (credit) representing taxes embedded in the exported product that cannot be refunded via other mechanisms. RoDTEP rates range from 0.5% to 4.3% of the FOB value depending on HS code. For a freight forwarder, understanding RoDTEP helps customers calculate their effective export profitability — the freight cost as a percentage of FOB value must be considered against the RoDTEP scrip to determine real margin."
+---
+
+India's freight forwarding ecosystem has a distinctive operational pattern: rates arrive on WhatsApp, enquiries come via email and phone calls, quotes are built in Excel, and the customer receives a PDF. This pattern works — until it doesn't. It breaks under volume, under rate volatility, and when a key pricing analyst leaves and takes their rate sheet folder with them.
+
+The modern pricing stack for an India EXIM freight forwarder replaces the informal chain with structured tools at each stage — while respecting the reality that WhatsApp, email, and PDF won't disappear. The goal is not to eliminate these channels but to connect them to a structured backend that makes pricing accurate, fast, and auditable.
+
+## Understanding the India EXIM freight context
+
+India EXIM freight forwarding has specific characteristics that shape the pricing stack:
+
+**Port complexity:** India has multiple major ports — JNPT/Nhava Sheva (INNSA), Mundra (INMUN), Pipavav (INPAV), Chennai (INMAA), Cochin (INCOK), Vishakhapatnam (INVTZ). Each has different THC schedules, carrier coverage, and congestion patterns. A pricing desk serving shippers across India must manage port-specific data for each.
+
+**Carrier landscape:** 12–20 carriers are commercially active on Indian export lanes. No single carrier dominates. Pricing desks typically maintain active rate relationships with 8–15 carriers simultaneously.
+
+**Rate delivery channels:** Carrier rates arrive via email (formal rate sheet PDFs), WhatsApp (spot rates and updates), carrier portals (some carriers have self-serve rate request tools), and phone calls (spot rates for immediate bookings). Each channel requires different handling.
+
+**Regulatory context:** All Indian exports flow through ICEGATE (customs). RoDTEP and duty drawback rates affect the shipper's effective export economics. A pricing desk that understands these programmes can provide more valuable advice to customers beyond the freight quote.
+
+**LCL and FCL mix:** India has a significant LCL export market (textiles, handicrafts, pharmaceuticals in small quantities). Many India EXIM forwarders handle both. LCL pricing has different mechanics from FCL.
+
+## The pricing stack: five layers
+
+### Layer 1: Rate ingestion
+
+The first challenge is getting carrier rates into a structured database from their informal sources.
+
+**Email ingestion:** A carrier sends a PDF rate sheet to the forwarder's email. The AI reads the attachment, extracts structured rate records (carrier, POL, POD, container type, base rate, validity, included surcharges), and loads them into the rate database. The analyst receives a confirmation and can review the extracted records before they go live.
+
+**WhatsApp ingestion:** A carrier agent sends a spot rate via WhatsApp: "INMUN AEJEA 40HC $760 ex-THC vldt 31 Jul." The AI parses the message into a structured record. Ambiguous fields are flagged for human review.
+
+**Portal ingestion:** Some carriers (MSC, Maersk, Hapag-Lloyd) have rate request APIs or self-serve portals. These can be queried directly for specific trade lanes.
+
+**Manual entry:** For carriers that don't use any of the above (smaller NVOs, co-loading partners), manual entry into a structured form remains the input method. The form enforces the correct data structure.
+
+> **Related:** [How AI reads carrier rate sheets from any format](/blog/ai-reads-carrier-rate-sheets)
+
+### Layer 2: Rate database
+
+The structured database holds:
+
+- Base rates: carrier + POL + POD + container type + base rate + validity from/to
+- Surcharge records: type + carrier or port + amount + validity + included-in-base flag
+- Historical versions: every past rate record is retained for audit and dispute resolution
+- Rate coverage map: which trade lanes have active valid rates (vs. requiring a carrier call)
+
+A well-maintained rate database should cover 80%+ of incoming enquiries without requiring a new carrier quote. The 20% requiring real-time carrier quotes (unusual lanes, DG, project, reefer) are the exception.
+
+### Layer 3: Quote engine
+
+The quote engine takes an enquiry and produces a complete all-in quote in seconds:
+
+1. Match the enquiry (POL, POD, container, date) to the rate database
+2. Select the best carrier based on rate, transit, and customer preference
+3. Apply all surcharges (BAF, THC-O, THC-D, LSS, ISPS, ODF) from the surcharge database
+4. Check for double-counting (is BAF already in the base rate?)
+5. Apply the customer's margin profile
+6. Generate the quote document (branded PDF)
+
+Output: a complete, line-itemized quote ready for review and delivery.
+
+> **Related:** [The ocean freight quotation workflow: from enquiry to customer quote](/blog/ocean-freight-quotation-workflow)
+
+### Layer 4: Quote delivery
+
+The quote is sent to the customer. In the India EXIM context, this means:
+
+**WhatsApp delivery:** The majority of India SME freight customers prefer WhatsApp. The quote is sent as a PDF attachment with a brief text summary of the key figures. Read receipts confirm delivery and viewing.
+
+**Email delivery:** Corporate customers and larger shippers prefer formal email with branded PDF attachments.
+
+**Portal link:** Some platforms allow quoting via a customer-accessible link where the customer can view and accept the quote digitally — useful for higher-volume customers.
+
+Delivery tracking tells the pricing desk which quotes have been viewed (and not responded to — triggering a follow-up) vs. which quotes the customer hasn't opened.
+
+### Layer 5: Analytics and margin tracking
+
+Every quote, booking, and outcome is recorded. The analytics layer produces:
+
+- **Win rate by carrier:** Which carrier quotes win the most business? This signals where your rates are most competitive.
+- **Win rate by trade lane:** Are you winning on India–Gulf but losing on India–Europe? Rate coverage and competitiveness analysis by lane.
+- **Margin by customer:** Which customers are you serving at below-floor margins? Which are your most profitable?
+- **Time-to-quote trend:** Is the desk getting faster or slower as volume grows?
+- **Open quote aging:** Which quotes are still live but approaching expiry? Which need follow-up?
+
+## LCL pricing mechanics for India exporters
+
+LCL (Less than Container Load) freight is calculated differently from FCL:
+
+**Basis:** Per revenue ton (W/M) — the higher of weight (1 MT = 1 revenue ton) or volume (1 CBM = 1 revenue ton). A shipment of 500 kg occupying 2 CBM is quoted on 2 W/M.
+
+**Surcharges:** BAF and LSS are charged per W/M (not per container). THC at CFS is per W/M or per shipment depending on the CFS operator.
+
+**CFS charges:** Container Freight Station charges apply at origin (stuffing, CFS handling) and destination (de-stuffing). These are typically quoted separately from the ocean freight.
+
+**Co-loading:** Many India LCL exporters ship via NVOCCs who co-load (consolidate) cargo from multiple shippers into a single FCL. The NVOCC prices the LCL cargo at a per-W/M rate and books the FCL at a per-container rate — the margin lives in between.
+
+## The India-specific compliance layer
+
+**ICEGATE:** All India exports require a Shipping Bill filed via ICEGATE. The shipping bill captures the HS code, FOB value, exporter details, and drawback/RoDTEP eligibility. The freight forwarder typically assists or manages the shipping bill filing.
+
+**RoDTEP:** India's export incentive scheme. The RoDTEP scrip value (0.5%–4.3% of FOB) reduces the effective cost of exporting. For a freight forwarder building a complete export cost picture for a customer, including RoDTEP in the landed cost analysis demonstrates value beyond the freight quote.
+
+**Duty Drawback:** On specific HS codes, India allows customs duty paid on imported inputs to be refunded when the finished product is exported. The drawback rate and the FOB value on the shipping bill determine the drawback amount.
+
+## Tools comparison: current state
+
+| Need | Level 0 (current state) | Level 1 (structured) | Level 2 (automated) |
+|---|---|---|---|
+| Rate management | Email folders + Excel | Shared Airtable/Sheets | AI ingestion + rate DB |
+| Surcharge management | Manual lookup | Reference spreadsheet tab | Surcharge engine |
+| Quote assembly | Word/PDF template | Semi-structured template | Auto-generated quote |
+| Quote delivery | Email / WhatsApp | Email + WhatsApp | Platform delivery + tracking |
+| Analytics | None | Quarterly manual review | Live margin dashboard |
+
+Most India EXIM forwarders are at Level 0. Level 1 is achievable in 2–3 weeks of process restructuring without any new software. Level 2 is what Susea provides — purpose-built for the India EXIM pricing workflow with WhatsApp integration, AI rate ingestion, and an automated quote engine.
+
+## Frequently asked questions
+
+### What software do freight forwarders in India use for pricing?
+
+Most small and mid-size freight forwarders in India use email, WhatsApp, and Excel. Some use TMS platforms like Softlink or CargoWise for broader operations, but TMS pricing modules often don't handle informal rate formats common on Indian trade lanes.
+
+### What is ICEGATE and how does it affect freight pricing?
+
+ICEGATE is India's customs electronic data interchange gateway for filing shipping bills and bills of entry. It does not directly affect freight pricing, but the shipping bill data determines which EXIM incentives (RoDTEP, duty drawback) the shipper can claim.
+
+### What are the main pricing challenges for India EXIM freight forwarders?
+
+Rate data scattered across email, WhatsApp, and carrier portals; managing BAF updates across 8–15 carriers monthly; quoting both FCL and LCL correctly; co-loading pricing; managing seasonal PSS and GRI cycles without margin exposure; and responding faster than competing forwarders.
+
+### How is LCL pricing different from FCL pricing for India exporters?
+
+LCL pricing is calculated per revenue ton (W/M — weight or measurement, whichever is higher). The freight rate is quoted per W/M. LCL cargo also incurs CFS handling charges at origin and destination. Surcharges (BAF, LSS) are also calculated per W/M rather than per container.
+
+### What is RoDTEP and how does it interact with freight costs?
+
+RoDTEP is an Indian export incentive scheme providing a scrip credit representing embedded taxes on exported products. RoDTEP rates range from 0.5% to 4.3% of the FOB value depending on HS code. Understanding RoDTEP helps freight forwarders provide customers with a complete picture of export economics beyond the freight quote.

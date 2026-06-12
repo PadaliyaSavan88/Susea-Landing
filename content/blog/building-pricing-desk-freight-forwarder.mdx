@@ -1,0 +1,157 @@
+---
+title: "Building a Pricing Desk from Scratch: The Modern Freight Forwarder's Guide"
+description: "How to build a freight pricing desk that scales — roles, tooling, rate management, margin controls, and the playbook from 0 to 500 TEU per month."
+keywords: "freight pricing desk, freight forwarder pricing operations, how to build pricing desk, freight desk setup, ocean freight pricing team, NVOCC pricing desk, freight pricing management"
+topic: "Pricing & Quotation"
+author: "Kiran Patel"
+authorBio: "Freight pricing specialist with 8 years of experience running pricing operations at leading NVOCCs across India and the Gulf."
+date: "2026-07-14"
+dateModified: "2026-07-14"
+wordCount: 2500
+faq:
+  - question: "What is a freight pricing desk?"
+    answer: "A freight pricing desk is the team and process responsible for retrieving carrier rates, calculating surcharges, applying margins, building customer quotes, and tracking quote outcomes. In small freight forwarders, pricing may be done by 1–2 people handling all trade lanes. In larger NVOCCs, the pricing desk is a dedicated function with specialization by trade lane, carrier type, and cargo category. The pricing desk's output — accurate, fast, profitable quotes — directly determines the forwarder's revenue and margin."
+  - question: "How many people do you need for a freight pricing desk?"
+    answer: "A pricing desk managing 100–200 quotes per month can operate with 1 experienced pricing analyst. At 300–600 quotes per month, a team of 2–3 analysts is typical. Above 600 quotes per month, specialization by trade lane or carrier group becomes important. A pricing desk lead or manager is needed at any size to own carrier relationships, margin policies, and rate strategy. AI-assisted quote assembly can roughly double the quote throughput of each analyst."
+  - question: "What does a freight pricing desk need to function?"
+    answer: "A freight pricing desk needs: (1) a current, organized rate database — carrier rates by trade lane, container type, and validity date; (2) a surcharge management system — BAF, THC, LSS, ISPS updated regularly; (3) a quoting tool — to assemble, format, and send quotes; (4) customer and margin records — to apply the right margin for each customer; and (5) win/loss tracking — to measure quote outcomes and refine pricing strategy. These can start in spreadsheets but benefit enormously from dedicated pricing software."
+  - question: "How should a pricing desk manage carrier rate sheets?"
+    answer: "Carrier rate sheets should be stored centrally (not in individual email folders), versioned by receive date and validity period, and organized by carrier + trade lane + container type. When a new rate sheet arrives, it replaces the previous one for that carrier/lane but the old version is retained for historical reference. Critically: surcharge tables (BAF, THC, LSS) should be maintained separately from base rates, since they update on different cycles."
+  - question: "What metrics should a freight pricing desk track?"
+    answer: "A freight pricing desk should track: quotes sent per day/week/month; quote-to-booking conversion rate (win rate); average margin per quote, per lane, and per customer; time-to-quote (from enquiry to quote sent); surcharge error rate (quotes requiring correction after issue); and rate coverage (what percentage of incoming enquiries can be quoted without going back to a carrier). These metrics tell you whether the desk is profitable, fast, and well-stocked with rates."
+---
+
+A freight pricing desk is the revenue engine of a freight forwarder. Every booking starts with a quote. Every quote comes from the pricing desk. Yet most forwarders build their pricing operation reactively — one analyst, one email folder, one spreadsheet — and scale it only when the cracks become crises.
+
+This guide is the playbook for building a pricing desk correctly from the start: roles, rate management, margin controls, tooling, and the metrics that tell you whether it's working.
+
+## What a pricing desk actually does
+
+Before building one, be clear about the scope. A pricing desk is responsible for:
+
+1. **Rate procurement** — maintaining active rate sheets from carrier partners (ocean, feeder, co-loading NVOs)
+2. **Enquiry handling** — receiving, validating, and prioritizing customer quote requests
+3. **Quote assembly** — calculating all-in cost (base rate + surcharges + margin) and producing the customer-facing quote
+4. **Quote delivery** — sending quotes via the customer's preferred channel (email, WhatsApp, portal)
+5. **Outcome tracking** — recording whether each quote was accepted, declined, or expired
+6. **Rate analysis** — identifying which lanes need better carrier rates to improve win rates
+
+Everything else in freight operations (documentation, booking, shipment tracking) is downstream of the quote. If the pricing desk is slow, inaccurate, or understocked on rates, every other department feels it.
+
+## Phase 1: The solo desk (0–150 quotes/month)
+
+At founding or early scale, one person handles pricing. This works if the processes are right.
+
+**What one analyst needs:**
+
+A centralized rate file — not a folder of PDFs, a searchable structured table. At minimum, a spreadsheet with columns: Carrier | POL | POD | Container | Base Rate | Validity From | Validity To | BAF | THC-O | THC-D | LSS | Included surcharges.
+
+A surcharge reference table — BAF by carrier (updated monthly), THC by port (updated quarterly), ISPS and LSS by carrier (updated as announced).
+
+A quote template — branded, with line-item breakdowns pre-built, so assembly is copy-paste rather than design-from-scratch.
+
+A log of quotes sent — simple: customer, lane, container, date sent, outcome (accepted/declined/no response), margin applied.
+
+**The critical discipline:** No rate is used without checking its validity date. Expired rates are the single fastest way to lose money on bookings.
+
+## Phase 2: Growing the team (150–500 quotes/month)
+
+At this volume, one analyst becomes a bottleneck. The scaling failure mode: hire a second analyst, give them access to the same email folder, and watch the same rate-management problems persist — now compounded by two people maintaining conflicting versions.
+
+**What changes at 2+ analysts:**
+
+The rate database must be shared and owned by one person. Multiple people reading from the same spreadsheet is fine. Multiple people updating it is not — conflicting writes, version conflicts, and inconsistent surcharge data are guaranteed.
+
+One person should own rate ingestion: when a carrier rate sheet arrives, they process it into the database. Other analysts query the database.
+
+Margin authority must be defined. Who can approve a below-floor margin? What is the floor? A 2-person desk with no margin policy will have inconsistent margins per customer, per lane, and per analyst — impossible to analyze or defend to management.
+
+**Roles at this stage:**
+
+| Role | Responsibility |
+|---|---|
+| Pricing Analyst | Quote assembly, enquiry handling, customer quote delivery |
+| Pricing Lead | Rate ingestion, carrier relationships, margin policy, performance tracking |
+
+The Pricing Lead may also handle complex or high-value quotes. They do not handle routine enquiries — the analysts do.
+
+## Phase 3: The specialized desk (500+ quotes/month)
+
+At scale, specialization beats generalism. A pricing desk handling 15 trade lanes across 10 carriers should not have every analyst responsible for everything.
+
+**Specialization options:**
+
+*By trade lane:* One analyst owns India–Gulf (INNSA/INMUN → AEJEA/AEDXB). Another owns India–Europe. Another owns India–ASEAN. They build deep knowledge of carrier relationships, rate cycles, and customer preferences on their lanes.
+
+*By carrier group:* One analyst manages MSC and Hapag-Lloyd relationships. Another manages CMA CGM and Evergreen. They receive rate sheets, maintain the database, and handle escalations for their carrier group.
+
+*By cargo type:* One analyst specializes in DG and OOG cargo (which needs carrier-specific approval and non-standard rates). Another handles general cargo.
+
+**Rate coverage targets:**
+
+A well-functioning pricing desk can quote from its own rate database — without going back to a carrier for a spot rate — on 80% of enquiries. The 20% that require real-time carrier quotes (unusual lanes, DG, project cargo) are the exception, not the rule. If your desk is going back to carriers on 50%+ of enquiries, your rate coverage is insufficient.
+
+## The tooling stack
+
+**Level 0 (founding):** Structured Excel files. Works to ~150 quotes/month before breaking.
+
+**Level 1 (growing):** Shared Google Sheets or Airtable for rate management. Better version control, shared access, real-time updates. Works to ~300 quotes/month.
+
+**Level 2 (scaling):** Dedicated pricing platform (Susea or equivalent). AI-assisted rate ingestion, automatic surcharge calculation, quote engine, WhatsApp/email delivery, win/loss tracking, margin analytics. Required above 300 quotes/month to maintain accuracy and speed.
+
+| Tool category | Level 0 | Level 1 | Level 2 |
+|---|---|---|---|
+| Rate database | Excel | Shared Sheets/Airtable | Pricing platform |
+| Surcharge management | Manual lookup | Structured reference tab | Automated engine |
+| Quote assembly | Word template | Semi-structured template | Auto-generated |
+| Quote delivery | Email | Email + WhatsApp | Platform delivery |
+| Win/loss tracking | Manual log | Manual log | Automated |
+| Margin analytics | None | Ad-hoc | Dashboard |
+
+## Margin controls: the policies every desk needs
+
+Without documented margin policy, each analyst prices by feel. This produces inconsistent customer experience and untraceable margin erosion.
+
+**Minimum margin floor:** The minimum acceptable margin per booking, below which a manager must approve. Express this as a percentage and a dollar floor per container (whichever is higher).
+
+**Customer-tier pricing:** High-volume customers get lower margins. What are the tiers? At what volume does a customer qualify for Tier 2 vs Tier 3? Document it — don't leave it to analyst discretion.
+
+**New business pricing:** First-time customers may be quoted an aggressive margin to win the relationship. What is the threshold? Who approves it?
+
+**Lane-specific pricing:** Some lanes are more competitive. India–Gulf is highly competitive — margins are thinner. India–ASEAN is less competitive — margins can be higher. Lane-specific margin targets give analysts the context to price correctly.
+
+## The metrics that tell you it's working
+
+Track these four weekly:
+
+**Win rate:** Quotes accepted / total quotes sent. Industry baseline: 20–30% for a well-run desk. Below 15% = pricing too high or quoting too slow. Above 40% = possibly pricing too low (you're winning too much, which means undercharging).
+
+**Time-to-quote:** Average time from enquiry to quote sent. Target: under 10 minutes with tooling. Under 2 minutes with automation.
+
+**Margin variance:** Difference between target margin and actual margin applied. High variance = margin policy not being followed.
+
+**Rate coverage:** Percentage of enquiries quoted from the rate database (vs requiring a carrier call). Target: 80%+.
+
+> **Related:** [Why your freight quotes take 18 minutes — and how to fix it](/blog/why-freight-quotes-take-18-minutes)
+
+## Frequently asked questions
+
+### What is a freight pricing desk?
+
+A freight pricing desk is the team and process responsible for retrieving carrier rates, calculating surcharges, applying margins, building customer quotes, and tracking quote outcomes. The pricing desk's output — accurate, fast, profitable quotes — directly determines the forwarder's revenue and margin.
+
+### How many people do you need for a freight pricing desk?
+
+A desk managing 100–200 quotes/month needs 1 analyst. At 300–600 quotes/month, 2–3 analysts is typical. Above 600 quotes/month, specialization by trade lane or carrier group becomes important. AI-assisted quote assembly can roughly double the quote throughput of each analyst.
+
+### What does a freight pricing desk need to function?
+
+A freight pricing desk needs: a current rate database, a surcharge management system (BAF, THC, LSS updated regularly), a quoting tool, customer and margin records, and win/loss tracking.
+
+### How should a pricing desk manage carrier rate sheets?
+
+Carrier rate sheets should be stored centrally, versioned by receive date and validity period, and organized by carrier + trade lane + container type. Surcharge tables (BAF, THC, LSS) should be maintained separately from base rates since they update on different cycles.
+
+### What metrics should a freight pricing desk track?
+
+Track: quotes sent per period, quote-to-booking conversion rate (win rate), average margin per quote and per lane, time-to-quote, surcharge error rate, and rate coverage (percentage of enquiries quoted without a carrier call).

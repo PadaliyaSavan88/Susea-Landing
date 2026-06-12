@@ -1,0 +1,16 @@
+# Susea
+
+> Susea is the AI pricing and procurement operating system for ocean freight forwarders. Instant spot rates across 120+ carriers, live RFQ auctions, and branded customer quotes in under 90 seconds.
+
+## Blog
+
+- [AI in Ocean Freight Pricing: What's Real and What Actually Works](https://susea.ai/blog/ai-ocean-freight-pricing): AI promises to transform freight pricing. Here is what is actually working for freight forwarders in 2026 — and what is still hype.
+- [How AI Reads Carrier Rate Sheets Better Than Your Pricing Team](https://susea.ai/blog/ai-reads-carrier-rate-sheets): AI tariff extraction processes PDF, Excel, email, and WhatsApp rate sheets in under 30 seconds. Here is how it works and what it gets right.
+- [FCL vs LCL: How to Choose, Quote and Price the Right Mode](https://susea.ai/blog/fcl-vs-lcl): FCL or LCL? The decision affects transit time, cost, and quoting complexity. Here is how to evaluate and price both correctly.
+- [Generative AI for Freight Forwarders: 5 Use Cases in 2026](https://susea.ai/blog/generative-ai-freight-forwarders): Generative AI is useful in exactly five places for a freight forwarder's pricing desk. Here is what works, with specific examples.
+- [GRI, PSS, EBS: How Surcharge Announcements Affect Your Margins](https://susea.ai/blog/gri-pss-ebs-surcharge-announcements): GRI, PSS, and EBS announcements move freight costs by $100–$500/TEU overnight. Here is how to track them and protect your pricing desk's margins.
+- [How to Read a Carrier Rate Sheet — and Why It's Hard](https://susea.ai/blog/how-to-read-carrier-rate-sheet): Carrier rate sheets arrive as PDFs, Excel files, and WhatsApp forwards. Here is how to parse them correctly before you quote a customer.
+- [Why Ocean Freight Pricing Still Lives in Email (And the Fix)](https://susea.ai/blog/ocean-freight-pricing-email): Freight pricing runs on email threads, Excel attachments, and WhatsApp groups. Here is why the problem persists and what a modern stack looks like.
+- [Ocean Freight Surcharges Explained: BAF, CAF, THC and More](https://susea.ai/blog/ocean-freight-surcharges-explained): BAF, CAF, THC, LSS, ISPS — what every surcharge means, how it is calculated, and why most freight quotes get them wrong.
+- [What is a NVOCC? How They Differ from Freight Forwarders](https://susea.ai/blog/what-is-nvocc): NVOCC vs freight forwarder — the legal distinction, how each prices freight, and why it matters for your margins and compliance.
+- [From WhatsApp to Customer Quote: AI Freight Rate Extraction](https://susea.ai/blog/whatsapp-to-customer-quote): Carrier rates arrive on WhatsApp. AI reads them, applies surcharges, and generates a branded customer quote in 90 seconds. Here is the exact workflow.

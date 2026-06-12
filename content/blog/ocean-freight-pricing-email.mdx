@@ -1,0 +1,132 @@
+---
+title: "Why Ocean Freight Pricing Still Lives in Email (And the Fix)"
+description: "Freight pricing runs on email threads, Excel attachments, and WhatsApp groups. Here is why the problem persists and what a modern stack looks like."
+keywords: "freight pricing automation, ocean freight pricing software, freight forwarding email workflow, freight quote Excel, freight pricing desk tools, freight pricing problems, digital freight forwarding"
+topic: "AI & Automation"
+author: "Kiran Patel"
+authorBio: "Freight pricing specialist with 8 years of experience running pricing operations at leading NVOCCs across India and the Gulf."
+date: "2026-06-12"
+dateModified: "2026-06-12"
+wordCount: 1800
+faq:
+  - question: "Why do freight forwarders still use email and Excel for pricing?"
+    answer: "The primary reasons are inertia, carrier behaviour, and inadequate software. Carriers send rate sheets as email attachments. Customer enquiries arrive as emails. The tools that most TMS vendors offer for pricing are rigid and don't handle the informal formats (WhatsApp, forwarded PDFs) that carry most rate data in emerging markets. Excel fills the gap because it is flexible — but at the cost of errors, version control failures, and slow quote turnaround."
+  - question: "What problems does email-based freight pricing cause?"
+    answer: "Email-based freight pricing causes: slow quote turnaround (15–30 minutes per quote), surcharge errors from stale or misread rate sheets, no version control on carrier rates, inability to track quote win/loss, no audit trail on margin decisions, and knowledge silos when pricing staff leave. Each of these has a direct impact on revenue and margin."
+  - question: "What is a modern freight pricing stack?"
+    answer: "A modern freight pricing stack has four layers: (1) rate ingestion — automatically reading carrier rate sheets from any format into a structured database; (2) quote engine — assembling all-in quotes from rates, surcharges, and margin rules; (3) customer delivery — sending branded quotes via WhatsApp or email with acceptance tracking; and (4) analytics — per-quote, per-lane, per-customer margin visibility."
+  - question: "How long does it take to implement a freight pricing software?"
+    answer: "Implementation time depends heavily on the number of carriers and trade lanes. A pricing desk with 5–10 carriers and 10–15 lanes can typically be onboarded in 2–4 weeks: loading carrier rate sheets, configuring surcharge rules, setting customer margin profiles, and training staff. The main time investment is the initial rate sheet loading, which AI extraction significantly accelerates."
+  - question: "What is the ROI of replacing email-based pricing with software?"
+    answer: "The measurable ROI comes from four sources: faster quotes (win rate improvement from speed-to-respond), fewer underquoting errors (surcharge automation), more quotes per analyst per day (throughput), and margin visibility (knowing per-lane and per-customer profitability). Forwarders who've moved from email/Excel to a pricing platform typically report 15–25% improvement in quote-to-booking conversion within 90 days."
+---
+
+Ocean freight pricing at most small and mid-size freight forwarders runs on email, WhatsApp, and Excel. Carrier rates arrive in the inbox. Pricing analysts copy them into spreadsheets. Quotes are built by copying last week's template and changing the numbers. Customer responses arrive in email threads with no tracking on which quotes converted.
+
+This workflow exists not because freight forwarders are technologically backward — it's because the software alternatives for most of the 2010s were worse than Excel for the actual tasks involved. The typical freight TMS (Transportation Management System) was built for operations, not pricing. Its rate management module handled structured carrier tariffs loaded by file upload. It didn't handle a WhatsApp message, a forwarded PDF, or a rate sheet scanned from a printed carrier sheet.
+
+In 2026, that gap has closed. Here's what the email/Excel problem actually costs, and what a modern pricing stack looks like.
+
+## The five problems with email-based freight pricing
+
+### 1. Slow quote turnaround
+
+A cargo enquiry arrives at 11 AM. The pricing analyst needs to:
+- Find the relevant carrier rate sheet (which email folder? which version?)
+- Look up the correct port pair and container type
+- Apply the correct surcharges (from a separate document)
+- Check rate validity
+- Calculate margin
+- Build the quote document (copying a template, changing values)
+- Format and send
+
+Average time: 15–25 minutes for an experienced analyst. 30–45 minutes for junior staff. The customer who enquired at 11 AM may have a quote from a competitor by 11:10 AM.
+
+### 2. Surcharge errors from stale or misread rate sheets
+
+Email delivers rate sheets but provides no version control. A pricing analyst working from the most recently downloaded rate sheet may not realise that the carrier updated their BAF on the 1st of the month — and the "most recent" download in their Downloads folder is from the 28th.
+
+A $120/TEU BAF error on a 10-container booking is $1,200 in absorbed cost. A missed LSS on 50 containers/month at $55 is $2,750/month in untracked margin leakage. These aren't hypothetical — they happen at every pricing desk running on email.
+
+### 3. No audit trail on pricing decisions
+
+When a CFO asks "why did we accept this booking at a 6% margin when our target is 12%?", the answer lives in someone's head (or a deleted email thread). Email-based pricing has no structured record of margin decisions, customer-specific pricing, or rate exceptions.
+
+This also creates problems when pricing staff change. When an analyst who manages five key accounts leaves, their pricing logic — the carrier rate exceptions, the customer margin agreements, the informal understandings — walks out with them.
+
+### 4. No win/loss tracking
+
+Which quotes converted to bookings? Which were lost, and to whom? Email provides no systematic answer. The only way to know is for someone to manually track it — which nobody does at volume.
+
+Without win/loss data, a pricing desk can't improve. It can't identify whether it loses on price (quote too high), speed (responded too slowly), or product (wrong carrier or transit time).
+
+### 5. Knowledge fragmentation across individuals
+
+Each pricing analyst manages their own rate sheets, their own carrier contacts, their own quote templates. Rate information exists in N different personal folders across N different laptops. A new hire starts from scratch. A sick day means the backup doesn't have access to the rates.
+
+## What a modern freight pricing stack looks like
+
+The four layers of a modern pricing stack:
+
+**Layer 1: Rate ingestion**
+
+Carrier rate sheets — from email, WhatsApp, PDF, Excel — are fed into a central rate database automatically. AI extraction handles the format variation. Every rate has a carrier, port pair, container type, validity date, and structured surcharge breakdown. Version control tracks changes over time.
+
+**Layer 2: Quote engine**
+
+A customer enquiry triggers the quote engine: it retrieves the best applicable rates, applies surcharges, applies the customer's margin profile (or a default desk margin), and generates an all-in quote in under 90 seconds. No spreadsheet, no manual calculation.
+
+**Layer 3: Customer delivery**
+
+Branded quotes are sent via WhatsApp or email directly from the platform. Read receipts and acceptance tracking show whether the customer has seen the quote and whether they've accepted. Reminders are sent automatically if the quote hasn't been acknowledged within 24 hours.
+
+**Layer 4: Analytics**
+
+Every quote, every booking, every margin is recorded. The pricing manager can see per-lane margin, per-customer margin, quote-to-booking conversion rate by carrier and by pricing analyst, and win/loss trends by month.
+
+## How the transition from email to a pricing platform actually works
+
+The biggest objection from pricing desk leads: "We can't disrupt the workflow while we migrate." This is a valid concern — you can't freeze a live pricing desk for 2 weeks while you load 500 carrier rate sheets.
+
+The practical migration path:
+
+| Week | Action |
+|---|---|
+| 1–2 | Load the top 5 carrier rate sheets covering 80% of your quote volume. Start using the platform for these lanes. |
+| 3–4 | Load remaining carriers. Run email and platform in parallel for verification. |
+| 5–6 | Platform becomes primary. Email becomes the delivery mechanism for inbound rate sheets only. |
+| 7+ | Retire the rate sheet Excel files. Enforce the platform as the single source of truth. |
+
+The AI extraction layer accelerates loading: a carrier rate sheet that would take 20 minutes to manually enter takes 30 seconds with AI extraction. 50 rate sheets = 25 minutes of AI loading vs. 16 hours of manual entry.
+
+## The competitive cost of staying on email
+
+The forwarder who responds to a cargo enquiry in 2 minutes vs. 20 minutes wins the booking more often — not always, but significantly more often. The customer who gets a wrong surcharge calculation in a quote may not notice — but when they do, they switch forwarders.
+
+These aren't abstract risks. They compound quarterly. A 15% improvement in quote-to-booking conversion, a 3% reduction in underquoting errors, and a 4× increase in quotes-per-analyst-per-day translate directly to margin.
+
+The email + Excel stack worked when quote volumes were lower, when carrier rates were more stable, and when customers had fewer alternatives. In 2026, with 120+ carriers offering spot rates electronically and customers comparing quotes across 3–5 forwarders simultaneously, the operational advantage of a modern pricing stack is material.
+
+> Susea is the pricing OS built specifically for freight forwarders moving off email + Excel. [Join the waitlist](https://susea.ai/#waitlist) to see the full platform.
+
+## Frequently asked questions
+
+### Why do freight forwarders still use email and Excel for pricing?
+
+The primary reasons are inertia, carrier behaviour, and inadequate software. Carriers send rate sheets as email attachments. Customer enquiries arrive as emails. The tools that most TMS vendors offer for pricing are rigid and don't handle informal formats (WhatsApp, forwarded PDFs) that carry most rate data in emerging markets. Excel fills the gap because it is flexible — but at the cost of errors, version control failures, and slow quote turnaround.
+
+### What problems does email-based freight pricing cause?
+
+Email-based freight pricing causes: slow quote turnaround (15–30 minutes per quote), surcharge errors from stale or misread rate sheets, no version control on carrier rates, inability to track quote win/loss, no audit trail on margin decisions, and knowledge silos when pricing staff leave.
+
+### What is a modern freight pricing stack?
+
+A modern freight pricing stack has four layers: (1) rate ingestion — automatically reading carrier rate sheets from any format; (2) quote engine — assembling all-in quotes from rates, surcharges, and margin rules; (3) customer delivery — sending branded quotes via WhatsApp or email with acceptance tracking; and (4) analytics — per-quote, per-lane, per-customer margin visibility.
+
+### How long does it take to implement freight pricing software?
+
+A pricing desk with 5–10 carriers and 10–15 lanes can typically be onboarded in 2–4 weeks: loading carrier rate sheets, configuring surcharge rules, setting customer margin profiles, and training staff. AI extraction significantly accelerates the initial rate sheet loading.
+
+### What is the ROI of replacing email-based pricing with software?
+
+The measurable ROI comes from faster quotes (win rate improvement), fewer underquoting errors (surcharge automation), more quotes per analyst per day (throughput), and margin visibility (knowing per-lane and per-customer profitability). Forwarders who move from email/Excel to a pricing platform typically report 15–25% improvement in quote-to-booking conversion within 90 days.

@@ -1,0 +1,163 @@
+---
+title: "Why Your Freight Quotes Take 18 Minutes — and How to Fix It"
+description: "18 minutes is the industry average for a manually assembled freight quote. Here is exactly where the time goes and how to cut it to 90 seconds."
+keywords: "freight quote automation, faster freight quotes, freight quotation time, automate freight quoting, ocean freight quote speed, freight pricing efficiency, quote turnaround time"
+topic: "Pricing & Quotation"
+author: "Kiran Patel"
+authorBio: "Freight pricing specialist with 8 years of experience running pricing operations at leading NVOCCs across India and the Gulf."
+date: "2026-07-07"
+dateModified: "2026-07-07"
+wordCount: 2000
+faq:
+  - question: "How long does it take to create a freight quote manually?"
+    answer: "Industry average for a manually assembled FCL ocean freight quote is 15–25 minutes for an experienced pricing analyst. This includes finding the correct carrier rate (3–5 min), applying surcharges (5–8 min), applying margin (1–2 min), and building and formatting the quote document (5–8 min). Junior staff take 30–45 minutes per quote."
+  - question: "What makes freight quotes take so long?"
+    answer: "Freight quotes take long for four reasons: (1) rate retrieval from scattered email/spreadsheet sources, (2) manual surcharge calculation from separate surcharge tables, (3) margin application that may require manager approval, and (4) manual document assembly in Word/Excel/PDF templates. Each step involves context switching between tools."
+  - question: "How does automation reduce freight quote time?"
+    answer: "Freight quote automation eliminates all four manual steps: a centralized rate database makes retrieval instant, a surcharge engine applies all charges automatically, margin rules are pre-configured per customer, and the quote document is generated and formatted automatically. End-to-end time drops from 18 minutes to 60–90 seconds."
+  - question: "Does faster quoting actually improve win rate?"
+    answer: "Yes — significantly. Analysis of forwarder booking data shows quote conversion rates of 68–74% when responding in under 5 minutes, dropping to 28–38% at 30–120 minutes and 12–18% for same-day responses. Most customers send the same enquiry to 3–5 forwarders. The first to respond with a complete quote wins the majority of the time."
+  - question: "What is the cost of slow quoting at scale?"
+    answer: "A pricing desk processing 400 quotes/month with a 25% win rate books 100 shipments. If faster quoting improves win rate by 15 percentage points (to 40%), that's 60 additional bookings per month. At an average gross margin of $180/booking, that is $10,800/month in additional gross margin — without any additional headcount or rate negotiations."
+---
+
+The average freight forwarder takes 18 minutes to respond to a cargo enquiry with a complete, correctly priced quote. During those 18 minutes, your competitors are also working the same enquiry. The forwarder who responds first with a professional quote wins the booking around 70% of the time, regardless of whether their rate is marginally higher.
+
+This is not just a speed problem — it's a revenue problem. Slow quotes convert at half the rate of fast quotes. At 400 quotes per month, a 15-point improvement in win rate through faster quoting is worth $10,000+ in monthly gross margin without touching headcount or carrier negotiations.
+
+Here is exactly where the 18 minutes go, and how to eliminate each one.
+
+## Breaking down the 18 minutes
+
+A time-and-motion study of manual freight quotation across a typical India-based FCL pricing desk breaks down as follows:
+
+| Step | Time (experienced analyst) | Time (junior analyst) |
+|---|---|---|
+| Finding the correct rate sheet | 3–5 min | 6–10 min |
+| Locating and applying surcharges | 5–8 min | 8–14 min |
+| Margin calculation | 1–2 min | 2–4 min |
+| Building the quote document | 4–6 min | 7–12 min |
+| Review and send | 1–2 min | 2–3 min |
+| **Total** | **14–23 min** | **25–43 min** |
+
+Each step has its own failure modes.
+
+## Step 1: Finding the correct rate sheet (3–5 minutes)
+
+The rate sheet problem: rates live in email, shared drives, WhatsApp, personal folders, or outdated spreadsheets. A pricing analyst handling 12 carrier relationships across 8 trade lanes manages 96+ rate records — and receives 30–40 updates monthly.
+
+**How time is lost:**
+- Searching email for the most recent rate from Carrier X on lane Y
+- Checking whether the found rate sheet is still valid (expired vs. current)
+- Cross-referencing a WhatsApp rate with an email confirmation to confirm it's accurate
+- Realizing the file in the shared drive is from last month and asking a colleague for the current one
+
+**The fix:** A centralized rate database with automatic ingestion. Every rate sheet — email, PDF, WhatsApp — is loaded and versioned. Querying "CMA CGM, INNSA → AEJEA, 40'HC, valid today" returns in under a second.
+
+> **Related:** [How AI reads carrier rate sheets from any format](/blog/ai-reads-carrier-rate-sheets)
+
+## Step 2: Applying surcharges correctly (5–8 minutes)
+
+Surcharge calculation is where most pricing errors originate. The analyst must:
+
+1. Determine which surcharges are included in the base rate vs. additional
+2. Look up BAF from the carrier's BAF table (usually a separate document)
+3. Apply THC for origin and destination ports (port-specific, not carrier-specific)
+4. Apply LSS, ISPS, and any trade-lane-specific surcharges
+5. Verify no double-counting (surcharge already included in base)
+
+A typical surcharge stack for INNSA → AEJEA in mid-2026:
+
+| Surcharge | Amount | Source |
+|---|---|---|
+| BAF | $115/TEU | Carrier BAF schedule |
+| LSS | $52/TEU | Carrier sheet |
+| THC origin | $148 | INNSA port schedule |
+| THC destination | $118 | AEJEA port schedule |
+| ISPS | $22 | Standard |
+| ODF | $45 | Carrier sheet |
+| **Total surcharges** | **$500** | |
+
+Each of these comes from a different source document. The analyst must hold all of them in mind simultaneously and apply them correctly — while working under time pressure. Error rate at this step is 5–12% across pricing desks.
+
+**The fix:** A surcharge engine that automatically applies the correct surcharges for the carrier, trade lane, and container type. BAF tables are updated monthly when new carrier schedules arrive. THC is stored per port. The calculation is instantaneous and consistent.
+
+## Step 3: Margin calculation (1–2 minutes)
+
+Margin calculation looks simple but isn't:
+
+- Does this customer have a negotiated rate agreement at a specific margin?
+- Is the shipment above a volume threshold that triggers a lower margin?
+- Is this a first-time customer where a more aggressive rate might win the business?
+- Does the margin require manager approval (many forwarders have a policy for margins below X%)?
+
+An analyst who has to check a CRM for the customer margin profile, then message a manager for approval on a below-threshold quote, adds 5–10 minutes to this step alone.
+
+**The fix:** Customer margin profiles configured in the pricing system. Default and floor margins set per customer tier. Approval workflows triggered automatically when margin falls below threshold — with one-click approve/reject for the manager.
+
+## Step 4: Building the quote document (4–6 minutes)
+
+The quote document is usually a branded Word template or PDF form. The analyst:
+
+1. Opens the template
+2. Changes the customer name, date, reference number
+3. Enters the origin/destination
+4. Enters each line item (OF, BAF, THC-O, THC-D, LSS, ISPS, ODF)
+5. Calculates the total
+6. Verifies the validity period
+7. Saves as PDF
+8. Attaches to email and sends (or copies into WhatsApp)
+
+This takes 4–6 minutes even for a fast typist who has the template memorized. The output is a static document with no tracking — the forwarder doesn't know if the customer has read it.
+
+**The fix:** Auto-generated branded PDF from the rate database. All line items pulled automatically. Validity period set from a default or customer preference. Sent directly via WhatsApp or email from the platform with read receipt tracking.
+
+## What 90-second quoting looks like in practice
+
+On Susea, the same 18-minute workflow looks like this:
+
+1. **Customer enquiry arrives** (via WhatsApp, email, or web form)
+2. **AI parses the enquiry** — extracts POL, POD, container type, commodity, date, incoterms
+3. **Rate query** — system retrieves the best current rate for the lane from the rate database
+4. **Surcharge engine** — applies the correct BAF, THC, LSS, ISPS, ODF automatically
+5. **Margin engine** — applies the customer's margin profile (or prompts for approval if below floor)
+6. **Quote generated** — branded PDF with line-item breakdown, validity, transit time
+7. **Sent via WhatsApp or email** — with read receipt
+
+Total elapsed time: 60–90 seconds.
+
+## The compounding math of quote speed
+
+A pricing desk that quotes in 90 seconds instead of 18 minutes:
+
+| Metric | 18-minute quotes | 90-second quotes |
+|---|---|---|
+| Quotes per analyst per day | 20–25 | 90–120 |
+| Win rate (speed advantage) | Baseline | +12–18% |
+| Quotes per analyst per month | ~440 | ~2,000 |
+| Additional bookings won | Baseline | +53–100/month |
+| Incremental margin (at $180/booking) | Baseline | +$9,500–$18,000/month |
+
+The throughput improvement alone (handling more enquiries with the same staff) compounds with the win-rate improvement from responding faster. Both effects are real and measurable.
+
+## Frequently asked questions
+
+### How long does it take to create a freight quote manually?
+
+Industry average for a manually assembled FCL ocean freight quote is 15–25 minutes for an experienced pricing analyst. This includes finding the correct carrier rate (3–5 min), applying surcharges (5–8 min), applying margin (1–2 min), and building and formatting the quote document (5–8 min).
+
+### What makes freight quotes take so long?
+
+Freight quotes take long for four reasons: (1) rate retrieval from scattered email/spreadsheet sources, (2) manual surcharge calculation from separate surcharge tables, (3) margin application that may require manager approval, and (4) manual document assembly in Word/Excel/PDF templates.
+
+### How does automation reduce freight quote time?
+
+Freight quote automation eliminates all four manual steps: a centralized rate database makes retrieval instant, a surcharge engine applies all charges automatically, margin rules are pre-configured per customer, and the quote document is generated and formatted automatically. End-to-end time drops from 18 minutes to 60–90 seconds.
+
+### Does faster quoting actually improve win rate?
+
+Yes — significantly. Quote conversion rates of 68–74% when responding in under 5 minutes, dropping to 28–38% at 30–120 minutes. Most customers send the same enquiry to 3–5 forwarders. The first to respond with a complete quote wins the majority of the time.
+
+### What is the cost of slow quoting at scale?
+
+A pricing desk processing 400 quotes/month with a 25% win rate books 100 shipments. If faster quoting improves win rate by 15 percentage points, that's 60 additional bookings per month. At an average gross margin of $180/booking, that is $10,800/month in additional gross margin.
