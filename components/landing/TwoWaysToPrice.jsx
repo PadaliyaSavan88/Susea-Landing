@@ -1,17 +1,25 @@
 'use client'
+import { useEffect, useRef, useState } from 'react'
 import Icon from '@/components/ui/Icon'
 
 export default function TwoWaysToPrice({ onSpot, onRfq }) {
+  const ref = useRef(null)
+  const [inView, setInView] = useState(false)
+  useEffect(() => {
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setInView(true); io.disconnect() } }, { threshold: .2 })
+    if (ref.current) io.observe(ref.current)
+    return () => io.disconnect()
+  }, [])
   return (
     <section className="sec" id="two-ways">
       <div className="container">
         <div className="sec-head">
           <span className="eyebrow"><span className="dot"></span> One platform · two ways to price</span>
-          <h2 className="h-section">Get an instant rate — or make<br />your agents compete for it.</h2>
+          <h2 className="h-section">Get an instant rate — or make <br />your agents compete for it.</h2>
           <p className="lead">Susea is the only ocean-freight OS that does both. Grab a live spot rate when you need a price now, or run a structured RFQ to your own agent network when the volume is worth a negotiation.</p>
         </div>
 
-        <div className="two-ways">
+        <div className={'two-ways' + (inView ? ' in' : '')} ref={ref}>
           <div className="way spot">
             <div className="way-ico"><Icon name="zap" size={22} /></div>
             <span className="kicker">Spot pricing</span>

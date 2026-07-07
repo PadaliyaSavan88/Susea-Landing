@@ -34,7 +34,7 @@ export default function WhySusea() {
       <div className="container">
         <div className="sec-head">
           <span className="eyebrow"><span className="dot"></span> Why Susea</span>
-          <h2 className="h-section">Faster quotes. Tighter margins.<br />Smarter awards.</h2>
+          <h2 className="h-section">Faster quotes. Tighter margins. <br />Smarter awards.</h2>
           <p className="lead">One operating system replaces the spreadsheets, the WhatsApp threads and the month-long tenders — for both instant pricing and competitive procurement.</p>
         </div>
 

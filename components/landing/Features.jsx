@@ -21,7 +21,7 @@ export default function Features() {
       <div className="container">
         <div className="sec-head">
           <span className="eyebrow"><span className="dot"></span> Features</span>
-          <h2 className="h-section">A complete pricing &amp; procurement<br />stack for freight forwarders.</h2>
+          <h2 className="h-section">A complete pricing &amp; procurement <br />stack for freight forwarders.</h2>
           <p className="lead">Everything a modern pricing desk needs — quotation, comparison, extraction, surcharge automation, competitive RFQs and visibility — in one operating system.</p>
         </div>
         <div className="features-grid">

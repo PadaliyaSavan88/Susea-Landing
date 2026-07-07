@@ -97,7 +97,7 @@ export default function RFQAuction({ tickMs = 1150 }) {
       <div className="container">
         <div className="sec-head left">
           <span className="eyebrow orange"><span className="dot"></span> Live reverse auction</span>
-          <h2 className="h-section">Make your agents <em>compete</em><br />for every shipment.</h2>
+          <h2 className="h-section">Make your agents <em>compete</em> <br />for every shipment.</h2>
           <p className="lead">Invite your own forwarder and agent network to one live auction. Choose how much they see — sealed, rank-only, best-price or fully open. They bid down to win, and most of the negotiation is over before you step in.</p>
         </div>
 

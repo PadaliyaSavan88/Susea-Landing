@@ -31,7 +31,7 @@ export default function RFQSteps() {
       <div className="container">
         <div className="sec-head">
           <span className="eyebrow"><span className="dot"></span> How an RFQ works</span>
-          <h2 className="h-section">Launch → bid → compare → award,<br />in days — not a month.</h2>
+          <h2 className="h-section">Launch → bid → compare → award, <br />in days — not a month.</h2>
         </div>
         <div className="rfq-embla" ref={emblaRef}>
           <div className="rfq-flow">
