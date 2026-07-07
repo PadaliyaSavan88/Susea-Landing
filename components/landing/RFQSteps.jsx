@@ -1,3 +1,6 @@
+'use client'
+import { useCallback, useEffect, useState } from 'react'
+import useEmblaCarousel from 'embla-carousel-react'
 import Icon from '@/components/ui/Icon'
 
 const STEPS = [
@@ -9,6 +12,20 @@ const STEPS = [
 ]
 
 export default function RFQSteps() {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, align: 'center', dragFree: false })
+  const [activeIndex, setActiveIndex] = useState(0)
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return
+    setActiveIndex(emblaApi.selectedScrollSnap())
+  }, [emblaApi])
+
+  useEffect(() => {
+    if (!emblaApi) return
+    emblaApi.on('select', onSelect)
+    return () => { emblaApi.off('select', onSelect) }
+  }, [emblaApi, onSelect])
+
   return (
     <section className="sec" id="rfq-how">
       <div className="container">
@@ -16,15 +33,22 @@ export default function RFQSteps() {
           <span className="eyebrow"><span className="dot"></span> How an RFQ works</span>
           <h2 className="h-section">Launch → bid → compare → award,<br />in days — not a month.</h2>
         </div>
-        <div className="rfq-flow">
-          {STEPS.map(([n, icon, t, d], i) => (
-            <div className="rstep" key={i}>
-              <div className="rn">{n}</div>
-              <h4>{t}</h4>
-              <p>{d}</p>
-              <div className="ri"><Icon name={icon} size={22} /></div>
-              {i < STEPS.length - 1 && <div className="conn"><Icon name="chevron-right" size={16} /></div>}
-            </div>
+        <div className="rfq-embla" ref={emblaRef}>
+          <div className="rfq-flow">
+            {STEPS.map(([n, icon, t, d], i) => (
+              <div className="rstep" key={i}>
+                <div className="rn">{n}</div>
+                <h4>{t}</h4>
+                <p>{d}</p>
+                <div className="ri"><Icon name={icon} size={22} /></div>
+                {i < STEPS.length - 1 && <div className="conn"><Icon name="chevron-right" size={16} /></div>}
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="rfq-dots">
+          {STEPS.map((_, i) => (
+            <span key={i} className={i === activeIndex ? 'active' : ''} onClick={() => emblaApi?.scrollTo(i)} />
           ))}
         </div>
       </div>
