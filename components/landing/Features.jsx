@@ -1,3 +1,6 @@
+'use client'
+import { useCallback, useEffect, useState } from 'react'
+import useEmblaCarousel from 'embla-carousel-react'
 import Icon from '@/components/ui/Icon'
 
 const FEATURES = [
@@ -16,14 +19,35 @@ const FEATURES = [
 ]
 
 export default function Features() {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, align: 'center' })
+  const [activeIndex, setActiveIndex] = useState(0)
+  const [canPrev, setCanPrev] = useState(false)
+  const [canNext, setCanNext] = useState(true)
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return
+    setActiveIndex(emblaApi.selectedScrollSnap())
+    setCanPrev(emblaApi.canScrollPrev())
+    setCanNext(emblaApi.canScrollNext())
+  }, [emblaApi])
+
+  useEffect(() => {
+    if (!emblaApi) return
+    onSelect()
+    emblaApi.on('select', onSelect)
+    return () => { emblaApi.off('select', onSelect) }
+  }, [emblaApi, onSelect])
+
   return (
     <section className="sec band" id="features">
       <div className="container">
         <div className="sec-head">
           <span className="eyebrow"><span className="dot"></span> Features</span>
-          <h2 className="h-section">A complete pricing &amp; procurement <br />stack for freight forwarders.</h2>
+          <h2 className="h-section">A complete pricing &amp; procurement<br />stack for freight forwarders.</h2>
           <p className="lead">Everything a modern pricing desk needs — quotation, comparison, extraction, surcharge automation, competitive RFQs and visibility — in one operating system.</p>
         </div>
+
+        {/* Desktop grid */}
         <div className="features-grid">
           {FEATURES.map(([icon, t, d], i) => (
             <div className="feat" key={i}>
@@ -32,6 +56,30 @@ export default function Features() {
               <p>{d}</p>
             </div>
           ))}
+        </div>
+
+        {/* Mobile: single slider + arrow + icon navigation */}
+        <div className="features-mobile">
+          <div className="feat-embla" ref={emblaRef}>
+            <div className="feat-track">
+              {FEATURES.map(([icon, t, d], i) => (
+                <div className="feat feat-slide" key={i}>
+                  <div className="fico"><Icon name={icon} size={19} /></div>
+                  <h4>{t}</h4>
+                  <p>{d}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="feat-nav">
+            <button className="feat-nav-btn" onClick={() => emblaApi?.scrollPrev()} disabled={!canPrev} aria-label="Previous">
+              <Icon name="chevron-left" size={18} />
+            </button>
+            <span className="feat-nav-count">{activeIndex + 1} / {FEATURES.length}</span>
+            <button className="feat-nav-btn" onClick={() => emblaApi?.scrollNext()} disabled={!canNext} aria-label="Next">
+              <Icon name="chevron-right" size={18} />
+            </button>
+          </div>
         </div>
       </div>
     </section>

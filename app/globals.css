@@ -1322,6 +1322,47 @@ section {
   line-height: 1.5;
 }
 
+.features-mobile {
+  display: none;
+  flex-direction: column;
+  gap: 16px;
+}
+.feat-embla { overflow: visible }
+.feat-track { display: flex; gap: 12px }
+.feat-slide { flex: 0 0 auto; min-width: 0 }
+.feat-nav { display: flex; align-items: center; justify-content: center; gap: 12px }
+.feat-nav-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color .15s, color .15s, background .15s;
+}
+.feat-nav-btn:disabled { opacity: .35; cursor: default }
+.feat-nav-btn:not(:disabled):hover { border-color: var(--orange-400); color: var(--orange-600); background: var(--orange-50) }
+.feat-nav-count { font-size: 13px; color: var(--ink-2); font-variant-numeric: tabular-nums; min-width: 44px; text-align: center }
+.feat-nav-icons { display: flex; align-items: center; gap: 6px }
+.feat-nav-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--ink-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .15s;
+  opacity: .4;
+}
+.feat-nav-icon.active { border-color: var(--orange-400); background: var(--orange-50); color: var(--orange-600); opacity: 1 }
+
 /* ===== HOW IT WORKS ===== */
 .steps {
   position: relative;
@@ -2596,9 +2637,10 @@ footer {
   .hero-grid {
     grid-template-columns: 1fr;
   }
-  .features-grid {
-    grid-template-columns: 1fr;
-  }
+  .features-grid { display: none }
+  .features-mobile { display: flex }
+  .feat-embla { overflow: hidden; margin: 0 -20px }
+  .feat-slide { flex: 0 0 78vw }
   .steps {
     grid-template-columns: 1fr;
   }
