@@ -2704,12 +2704,38 @@ footer {
   .wl-card h2 {
     font-size: 34px;
   }
+  /* before/after: keep columns side by side, compact everything */
   .ba {
-    grid-template-columns: 1fr;
+    border-radius: 14px;
   }
-  .ba .col + .col {
-    border-left: 0;
-    border-top: 1px solid var(--line);
+  .ba .col {
+    padding: 14px 12px;
+  }
+  .ba .col h4 {
+    font-size: 9px;
+    letter-spacing: 0.06em;
+    margin-bottom: 4px;
+  }
+  .ba .col h3 {
+    font-size: 13px;
+    letter-spacing: -0.01em;
+    margin-bottom: 12px;
+  }
+  .ba ul {
+    gap: 8px;
+  }
+  .ba li {
+    font-size: 10px;
+    line-height: 1.45;
+    gap: 6px;
+  }
+  .ba li .b-ico,
+  .ba li .a-ico {
+    width: 14px;
+    height: 14px;
+    font-size: 9px;
+    border-radius: 4px;
+    margin-top: 0;
   }
   .foot-grid {
     grid-template-columns: 1fr 1fr;
