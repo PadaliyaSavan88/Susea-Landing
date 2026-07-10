@@ -30,7 +30,7 @@ export default function Carriers() {
     <section className="carriers">
       <div className="container">
         <div className="head">
-          <h3>Pricing from 120+ shipping lines, worldwide</h3>
+          <h3>Pricing from 200+ shipping lines, worldwide</h3>
           <p>Live rates, schedules and freight intelligence fetched from <span className="carrier-count mono">200+</span> ocean carriers across the globe.</p>
         </div>
       </div>

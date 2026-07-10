@@ -1,6 +1,6 @@
 # Susea
 
-> Susea is the AI pricing and procurement operating system for ocean freight forwarders. Instant spot rates across 120+ carriers, live RFQ auctions, and branded customer quotes in under 90 seconds.
+> Susea is the AI pricing and procurement operating system for ocean freight forwarders. Instant spot rates across 200+ carriers, live RFQ auctions, and branded customer quotes in under 90 seconds.
 
 ## Blog
 

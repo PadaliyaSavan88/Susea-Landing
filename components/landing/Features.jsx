@@ -5,7 +5,7 @@ import Icon from '@/components/ui/Icon'
 
 const FEATURES = [
   ['zap', 'AI quotation engine', 'Generate branded, customer-ready quotes in under 90 seconds — per lane, per container, per customer.'],
-  ['layout-grid', 'Multi-carrier pricing', 'Live rates from 120+ shipping lines, normalized into one comparable surface.'],
+  ['layout-grid', 'Multi-carrier pricing', 'Live rates from 200+ shipping lines, normalized into one comparable surface.'],
   ['git-compare-arrows', 'Spot rate comparison', 'Side-by-side spot vs. contract pricing with transit, free-time and validity deltas.'],
   ['file-scan', 'Tariff AI extraction', 'Drop any PDF, XLS or forwarded WhatsApp rate — Susea reads it like a pricing analyst.'],
   ['badge-dollar-sign', 'Surcharge automation', 'BAF · CAF · THC · LSS · ISPS — modeled, applied and enforced on every booking.'],
