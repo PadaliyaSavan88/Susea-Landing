@@ -2671,6 +2671,15 @@ footer {
   .hero-grid {
     grid-template-columns: 1fr;
   }
+  .hero-grid .panel:first-child {
+    order: 1;
+  }
+  .hero-grid .panel.center {
+    order: 2;
+  }
+  .hero-grid .panel:last-child {
+    order: 3;
+  }
   .features-grid {
     display: none;
   }
