@@ -1,4 +1,5 @@
 import './globals.css'
+import Script from 'next/script'
 
 export const metadata = {
   metadataBase: new URL('https://susea.ai'),
@@ -20,7 +21,17 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        {children}
+        <Script
+          type="text/javascript"
+          id="hs-script-loader"
+          async
+          defer
+          src="https://js.hs-scripts.com/246430647.js"
+          strategy="afterInteractive"
+        />
+      </body>
     </html>
   )
 }
