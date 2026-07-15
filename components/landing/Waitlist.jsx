@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Icon from "@/components/ui/Icon";
 
 export default function Waitlist() {
@@ -13,6 +13,14 @@ export default function Waitlist() {
     companySize: "1–10",
     teuVolume: "< 50 TEU",
   });
+
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://js-na2.hsforms.net/forms/embed/246430647.js";
+    script.defer = true;
+    document.body.appendChild(script);
+    return () => document.body.removeChild(script);
+  }, []);
 
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
 
@@ -131,12 +139,8 @@ export default function Waitlist() {
             )}
             {error && <div className="error-msg">{error}</div>}
           </form> */}
-          <script
-            src="https://js-na2.hsforms.net/forms/embed/246430647.js"
-            defer
-          ></script>
           <div
-            class="hs-form-frame"
+            className="hs-form-frame"
             data-region="na2"
             data-form-id="e8384cae-33eb-484b-8cae-63985955f33d"
             data-portal-id="246430647"
