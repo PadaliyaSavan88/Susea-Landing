@@ -1,34 +1,38 @@
-'use client'
-import { useState } from 'react'
-import Icon from '@/components/ui/Icon'
+"use client";
+import { useState } from "react";
+import Icon from "@/components/ui/Icon";
 
 export default function Waitlist() {
-  const [done, setDone] = useState(false)
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
+  const [done, setDone] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
-    email: '', company: '', businessType: 'Freight forwarder', companySize: '1–10', teuVolume: '< 50 TEU'
-  })
+    email: "",
+    company: "",
+    businessType: "Freight forwarder",
+    companySize: "1–10",
+    teuVolume: "< 50 TEU",
+  });
 
-  const set = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }))
+  const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
 
   async function handleSubmit(e) {
-    e.preventDefault()
-    setLoading(true)
-    setError('')
+    e.preventDefault();
+    setLoading(true);
+    setError("");
     try {
-      const res = await fetch('/api/waitlist', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
-      })
-      const data = await res.json()
-      if (!res.ok) throw new Error(data.error || 'Something went wrong')
-      setDone(true)
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Something went wrong");
+      setDone(true);
     } catch (err) {
-      setError(err.message)
+      setError(err.message);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   }
 
@@ -37,23 +41,42 @@ export default function Waitlist() {
       <div className="container">
         <div className="wl-card">
           <div>
-            <span className="eyebrow"><span className="dot"></span> Early access · Cohort 02</span>
-            <h2 style={{ marginTop: 18 }}>Join the future of freight pricing.</h2>
-            <p>Get early access to Susea and modernize your freight quotation workflows with AI-powered pricing intelligence. Limited spots — onboarding forwarders and logistics companies this quarter.</p>
+            <span className="eyebrow">
+              <span className="dot"></span> Early access · Cohort 02
+            </span>
+            <h2 style={{ marginTop: 18 }}>
+              Join the future of freight pricing.
+            </h2>
+            <p>
+              Get early access to Susea and modernize your freight quotation
+              workflows with AI-powered pricing intelligence. Limited spots —
+              onboarding forwarders and logistics companies this quarter.
+            </p>
             <div className="wl-tags">
-              <span className="pill live"><i></i> 142 forwarders on the waitlist</span>
+              <span className="pill live">
+                <i></i> 142 forwarders on the waitlist
+              </span>
               <span className="pill blue">White-glove onboarding</span>
               <span className="pill orange">Lifetime founder pricing</span>
             </div>
             <div className="wl-stats">
-              <div><div className="num">2.4M+</div><div className="cap">Quotes modeled</div></div>
+              <div>
+                <div className="num">2.4M+</div>
+                <div className="cap">Quotes modeled</div>
+              </div>
               <div className="vr"></div>
-              <div><div className="num">200+</div><div className="cap">Shipping lines</div></div>
+              <div>
+                <div className="num">200+</div>
+                <div className="cap">Shipping lines</div>
+              </div>
               <div className="vr"></div>
-              <div><div className="num">38</div><div className="cap">Trade lanes</div></div>
+              <div>
+                <div className="num">38</div>
+                <div className="cap">Trade lanes</div>
+              </div>
             </div>
           </div>
-          <form className="wl-form" onSubmit={handleSubmit}>
+          {/* <form className="wl-form" onSubmit={handleSubmit}>
             <div className="row">
               <div className="field">
                 <label>Work email</label>
@@ -107,9 +130,19 @@ export default function Waitlist() {
               </div>
             )}
             {error && <div className="error-msg">{error}</div>}
-          </form>
+          </form> */}
+          <script
+            src="https://js-na2.hsforms.net/forms/embed/246430647.js"
+            defer
+          ></script>
+          <div
+            class="hs-form-frame"
+            data-region="na2"
+            data-form-id="e8384cae-33eb-484b-8cae-63985955f33d"
+            data-portal-id="246430647"
+          ></div>
         </div>
       </div>
     </section>
-  )
+  );
 }
