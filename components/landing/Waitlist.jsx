@@ -1,8 +1,10 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Icon from "@/components/ui/Icon";
 
 export default function Waitlist() {
+  const router = useRouter();
   const [done, setDone] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -21,6 +23,43 @@ export default function Waitlist() {
     document.body.appendChild(script);
     return () => document.body.removeChild(script);
   }, []);
+
+  useEffect(() => {
+    const target = document.querySelector(".hs-form-frame");
+    if (!target) return;
+
+    let peakHeight = 0;
+    let settled = false;
+    let settleTimer = null;
+
+    const obs = new MutationObserver((mutations) => {
+      for (const m of mutations) {
+        if (m.type !== "attributes" || m.attributeName !== "style") continue;
+        const style = m.target.getAttribute("style") || "";
+        const match = style.match(/height:\s*([\d.]+)px/);
+        if (!match) continue;
+        const h = parseFloat(match[1]);
+
+        if (h > peakHeight) {
+          peakHeight = h;
+          clearTimeout(settleTimer);
+          // Mark as settled 2s after the last upward resize
+          settleTimer = setTimeout(() => {
+            settled = true;
+          }, 2000);
+        } else if (settled && h < peakHeight - 50) {
+          // Height dropped significantly after form was stable = submission success
+          router.push("/thank-you");
+        }
+      }
+    });
+
+    obs.observe(target, { subtree: true, attributes: true, attributeFilter: ["style"] });
+    return () => {
+      obs.disconnect();
+      clearTimeout(settleTimer);
+    };
+  }, [router]);
 
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
 
