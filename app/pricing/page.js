@@ -8,6 +8,13 @@ export const metadata = {
     title: 'Susea Pricing',
     description: 'Simple, transparent pricing for modern freight forwarders. Start free, upgrade as you grow.',
     url: 'https://susea.ai/pricing',
+    images: [
+      {
+        url: '/api/og?title=Susea%20Pricing&topic=Susea',
+        width: 1200,
+        height: 630,
+      },
+    ],
   },
 }
 

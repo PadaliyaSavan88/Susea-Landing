@@ -15,6 +15,19 @@ export const metadata = {
     description: 'The pricing & quotation OS for freight forwarders.',
     url: 'https://susea.ai',
     siteName: 'Susea',
+    images: [
+      {
+        url: '/api/og?title=AI%20Operating%20System%20for%20Ocean%20Freight&topic=Susea',
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Susea — AI Operating System for Ocean Freight',
+    description: 'The pricing & quotation OS for freight forwarders.',
+    images: ['/api/og?title=AI%20Operating%20System%20for%20Ocean%20Freight&topic=Susea'],
   },
 }
 

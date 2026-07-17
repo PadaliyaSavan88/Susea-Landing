@@ -11,6 +11,13 @@ export const metadata = {
     title: 'Susea Blog — Freight Intelligence',
     description: 'Pricing, procurement, and AI guides for freight forwarders.',
     url: 'https://susea.ai/blog',
+    images: [
+      {
+        url: '/api/og?title=Susea%20Blog&topic=Freight%20Intelligence',
+        width: 1200,
+        height: 630,
+      },
+    ],
   },
 }
 
