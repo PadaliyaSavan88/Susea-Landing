@@ -6,6 +6,7 @@ export default function Nav({ onRequest }) {
   const pathname = usePathname()
   const isHome = pathname === '/'
   const h = (id) => isHome ? `#${id}` : `/#${id}`
+  const request = onRequest ?? (() => { window.location.href = h('waitlist') })
 
   return (
     <nav className="nav">
@@ -16,14 +17,14 @@ export default function Nav({ onRequest }) {
         </a>
         <div className="nav-links">
           <a href={h('two-ways')}>Overview</a>
-          <a href={h('pricing-intel')}>Spot pricing</a>
+          <a href="/pricing">Pricing</a>
           <a href={h('rfq')}>RFQ auction</a>
           <a href={h('features')}>Features</a>
           <a href={h('why')}>Why Susea</a>
         </div>
         <div className="nav-cta">
           <a className="btn btn-ghost" href="/signin">Sign in</a>
-          <button className="btn btn-primary" onClick={onRequest}>Request access</button>
+          <button className="btn btn-primary" onClick={request}>Request access</button>
         </div>
       </div>
     </nav>
