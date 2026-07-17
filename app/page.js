@@ -6,6 +6,7 @@ import ProblemSolution from "@/components/landing/ProblemSolution";
 // import Solution from '@/components/landing/Solution'
 import TwoWaysToPrice from "@/components/landing/TwoWaysToPrice";
 // import PricingTerminal from '@/components/landing/PricingTerminal'
+import TestimonialsSlider from "@/components/landing/TestimonialsSlider";
 import RFQSteps from "@/components/landing/RFQSteps";
 import RFQAuction from "@/components/landing/RFQAuction";
 import Features from "@/components/landing/Features";
@@ -37,6 +38,7 @@ export default function Home() {
         onRfq={() => jumpTo("rfq")}
       />
       {/* <PricingTerminal /> */}
+      <TestimonialsSlider />
       <RFQSteps />
       <RFQAuction />
       <Features />
