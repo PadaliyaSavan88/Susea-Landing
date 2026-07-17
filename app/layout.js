@@ -2,34 +2,35 @@ import './globals.css'
 import Script from 'next/script'
 
 export const metadata = {
-  metadataBase: new URL('https://susea.ai'),
-  title: 'Susea — AI Operating System for Ocean Freight',
-  description: 'The pricing & quotation OS for freight forwarders. Get instant spot rates, run live RFQ auctions, and quote customers in under 90 seconds.',
+  metadataBase: new URL("https://susea.ai"),
+  title: "Susea — AI Operating System for Ocean Freight",
+  description:
+    "The pricing & quotation OS for freight forwarders. Get instant spot rates, run live RFQ auctions, and quote customers in under 90 seconds.",
   icons: {
-    icon: '/favicon.png',
-    shortcut: '/favicon.png',
-    apple: '/favicon.png',
+    icon: "/favicon.png",
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
   },
   openGraph: {
-    title: 'Susea — AI Operating System for Ocean Freight',
-    description: 'The pricing & quotation OS for freight forwarders.',
-    url: 'https://susea.ai',
-    siteName: 'Susea',
+    title: "Susea — AI Operating System for Ocean Freight",
+    description: "The pricing & quotation OS for freight forwarders.",
+    url: "https://susea.ai",
+    siteName: "Susea",
     images: [
       {
-        url: '/api/og?title=AI%20Operating%20System%20for%20Ocean%20Freight&topic=Susea',
+        url: "/favicon.png",
         width: 1200,
         height: 630,
       },
     ],
   },
   twitter: {
-    card: 'summary_large_image',
-    title: 'Susea — AI Operating System for Ocean Freight',
-    description: 'The pricing & quotation OS for freight forwarders.',
-    images: ['/api/og?title=AI%20Operating%20System%20for%20Ocean%20Freight&topic=Susea'],
+    card: "summary_large_image",
+    title: "Susea — AI Operating System for Ocean Freight",
+    description: "The pricing & quotation OS for freight forwarders.",
+    images: ["/og-image.png"],
   },
-}
+};
 
 export default function RootLayout({ children }) {
   return (

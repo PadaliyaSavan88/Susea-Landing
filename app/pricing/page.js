@@ -10,7 +10,7 @@ export const metadata = {
     url: 'https://susea.ai/pricing',
     images: [
       {
-        url: '/api/og?title=Susea%20Pricing&topic=Susea',
+        url: '/favicon.png',
         width: 1200,
         height: 630,
       },

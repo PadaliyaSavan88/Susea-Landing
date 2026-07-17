@@ -4,22 +4,23 @@ import Nav from '@/components/landing/Nav'
 import Footer from '@/components/landing/Footer'
 
 export const metadata = {
-  title: 'Blog — Freight Forwarding Intelligence | Susea',
-  description: 'Pricing, procurement, and AI intelligence for freight forwarders. Guides on surcharges, RFQ, ocean rates, and building a modern pricing desk.',
-  alternates: { canonical: 'https://susea.ai/blog' },
+  title: "Blog — Freight Forwarding Intelligence | Susea",
+  description:
+    "Pricing, procurement, and AI intelligence for freight forwarders. Guides on surcharges, RFQ, ocean rates, and building a modern pricing desk.",
+  alternates: { canonical: "https://susea.ai/blog" },
   openGraph: {
-    title: 'Susea Blog — Freight Intelligence',
-    description: 'Pricing, procurement, and AI guides for freight forwarders.',
-    url: 'https://susea.ai/blog',
+    title: "Susea Blog — Freight Intelligence",
+    description: "Pricing, procurement, and AI guides for freight forwarders.",
+    url: "https://susea.ai/blog",
     images: [
       {
-        url: '/api/og?title=Susea%20Blog&topic=Freight%20Intelligence',
+        url: "/favicon.png",
         width: 1200,
         height: 630,
       },
     ],
   },
-}
+};
 
 const TOPIC_COLORS = {
   'Freight Education': 'blue',
