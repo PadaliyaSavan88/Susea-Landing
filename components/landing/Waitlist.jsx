@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Icon from "@/components/ui/Icon";
 
+const HS_FORM_ID = "e8384cae-33eb-484b-8cae-63985955f33d";
+
 export default function Waitlist() {
   const router = useRouter();
   const [done, setDone] = useState(false);
@@ -25,40 +27,17 @@ export default function Waitlist() {
   }, []);
 
   useEffect(() => {
-    const target = document.querySelector(".hs-form-frame");
-    if (!target) return;
-
-    let peakHeight = 0;
-    let settled = false;
-    let settleTimer = null;
-
-    const obs = new MutationObserver((mutations) => {
-      for (const m of mutations) {
-        if (m.type !== "attributes" || m.attributeName !== "style") continue;
-        const style = m.target.getAttribute("style") || "";
-        const match = style.match(/height:\s*([\d.]+)px/);
-        if (!match) continue;
-        const h = parseFloat(match[1]);
-
-        if (h > peakHeight) {
-          peakHeight = h;
-          clearTimeout(settleTimer);
-          // Mark as settled 2s after the last upward resize
-          settleTimer = setTimeout(() => {
-            settled = true;
-          }, 2000);
-        } else if (settled && h < peakHeight - 50) {
-          // Height dropped significantly after form was stable = submission success
-          router.push("/thank-you");
-        }
+    const onSubmitted = (event) => {
+      if (event.detail?.formId === HS_FORM_ID) {
+        router.push("/thank-you");
       }
-    });
-
-    obs.observe(target, { subtree: true, attributes: true, attributeFilter: ["style"] });
-    return () => {
-      obs.disconnect();
-      clearTimeout(settleTimer);
     };
+    window.addEventListener("hs-form-event:on-submission:success", onSubmitted);
+    return () =>
+      window.removeEventListener(
+        "hs-form-event:on-submission:success",
+        onSubmitted
+      );
   }, [router]);
 
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
@@ -181,7 +160,7 @@ export default function Waitlist() {
           <div
             className="hs-form-frame"
             data-region="na2"
-            data-form-id="e8384cae-33eb-484b-8cae-63985955f33d"
+            data-form-id={HS_FORM_ID}
             data-portal-id="246430647"
           ></div>
         </div>
