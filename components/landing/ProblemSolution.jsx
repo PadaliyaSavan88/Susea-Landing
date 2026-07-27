@@ -9,10 +9,10 @@ export default function ProblemSolution() {
     ['scan_005.jpg', 'span2 t tilt'], ['Customer chasing quote · 4h', 'span3 y'], ['manual margin calc', 'span3 t tilt2'],
   ]
   const problems = [
-    'Rates scattered across Excel sheets', 'Manual quotation workflows',
-    'WhatsApp & email tariff dependency', 'Slow customer response times',
+    'Rates scattered across Excel sheets', 'Quotes expiring silently, unnoticed',
+    'WhatsApp & email tariff dependency', 'Agents chased one at a time, by phone',
     'Complex surcharge calculations', 'Carrier pricing fragmentation',
-    'Multiple disconnected portals', 'Rate validity tracking issues',
+    'Slow customer response times', 'Requests re-typed by hand into the system',
   ]
   return (
     <section className="sec" id="problem">

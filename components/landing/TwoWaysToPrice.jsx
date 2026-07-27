@@ -50,6 +50,9 @@ export default function TwoWaysToPrice({ onSpot, onRfq }) {
         </div>
 
         <div className="ways-bridge"><span className="ln"></span><span>Same tariffs, same carriers, same quote engine — <b>one source of truth</b></span><span className="ln"></span></div>
+        <div style={{ textAlign: 'center', marginTop: 10, fontSize: 13, color: 'var(--ink-3)' }}>
+          Either way you price, the same automation layer runs underneath it — <b style={{ color: 'var(--ink)' }}>following up, chasing, drafting</b>.
+        </div>
       </div>
     </section>
   )

@@ -1,32 +1,47 @@
-'use client'
-import Image from 'next/image'
-import { usePathname } from 'next/navigation'
+"use client";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 export default function Nav({ onRequest }) {
-  const pathname = usePathname()
-  const isHome = pathname === '/'
-  const h = (id) => isHome ? `#${id}` : `/#${id}`
-  const request = onRequest ?? (() => { window.location.href = h('waitlist') })
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+  const h = (id) => (isHome ? `#${id}` : `/#${id}`);
+  const request =
+    onRequest ??
+    (() => {
+      window.location.href = h("waitlist");
+    });
 
   return (
     <nav className="nav">
       <div className="container nav-inner">
-        <a className="logo" href={isHome ? '#top' : '/'}>
-          <Image src="/assets/susea-mark-black.png" alt="Susea" width={26} height={26} />
+        <a className="logo" href={isHome ? "#top" : "/"}>
+          <Image
+            src="/assets/susea-mark-black.png"
+            alt="Susea"
+            width={26}
+            height={26}
+          />
           <span>Susea</span>
         </a>
         <div className="nav-links">
-          <a href={h('two-ways')}>Overview</a>
+          <a href={h("two-ways")}>Overview</a>
+          <a href="/instant-rates">Instant rates</a>
+          <a href="/rfq">RFQ</a>
+          <a href="/automations">Automations</a>
+          <a href={h("features")}>Features</a>
           <a href="/pricing">Pricing</a>
-          <a href={h('rfq')}>RFQ auction</a>
-          <a href={h('features')}>Features</a>
-          <a href={h('why')}>Why Susea</a>
+          <a href={h("why")}>Why Susea</a>
         </div>
         <div className="nav-cta">
-          <a className="btn btn-ghost" href="/signin">Sign in</a>
-          <button className="btn btn-primary" onClick={request}>Request access</button>
+          <a className="btn btn-ghost" href="/signin">
+            Sign in
+          </a>
+          <button className="btn btn-primary" onClick={onRequest}>
+            Request access
+          </button>
         </div>
       </div>
     </nav>
-  )
+  );
 }

@@ -79,14 +79,14 @@ const TESTIMONIALS = [
     company: 'Trident Global Forwarding',
     name: 'Daniel Osei',
     title: 'Operations Manager',
-    quote: 'We ran our first RFQ auction in under 10 minutes. Invited 12 agents, had competitive bids within the hour, awarded the lane the same day. That used to take us three weeks of back-and-forth emails. The audit trail alone has made our compliance team very happy.',
+    quote: 'We used to have someone calling eight agents one by one asking if they\'d bid yet. Now Susea nudges them automatically — time left, their rank, a reason to move. Our last RFQ closed with all eight bids in without a single manual chase. That\'s a job nobody misses.',
   },
   {
     logo: LOGOS.apex,
     company: 'Apex Trade Partners',
     name: 'Sarah Lindqvist',
     title: 'CEO',
-    quote: 'As a smaller forwarder, we couldn\'t afford to lose margin on every quote. Susea\'s margin analytics showed us exactly where we were leaking, per lane, per customer. We tightened our pricing model within the first two weeks and it showed immediately on the bottom line.',
+    quote: 'A customer\'s WhatsApp message used to sit in an inbox until someone had time to retype it into a quote. Now it shows up already priced, ready for me to approve. I still say yes or no — I just never have to be the one who starts it.',
   },
   {
     logo: LOGOS.harbor,
@@ -100,7 +100,7 @@ const TESTIMONIALS = [
     company: 'Continental Cargo Group',
     name: 'Elena Vasquez',
     title: 'Head of Procurement',
-    quote: 'We were the ones pushing hardest for the RFQ feature and the Susea team actually built what we asked for. Sealed bid mode, approval matrix, digital contracts. It covers the full procurement workflow. Nothing else in this space comes close to what they\'ve shipped in beta.',
+    quote: 'We had a $40,000 quote expire because nobody caught it in time. Now Susea flags anything about to lapse, re-prices it against today\'s tariff, and has the re-send ready before the customer even notices. We haven\'t lost one since.',
   },
 ]
 

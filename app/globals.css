@@ -3007,6 +3007,16 @@ footer {
     gap: 8px;
     margin-top: 14px;
   }
+  .auto-clusters,
+  .auto-stats {
+    grid-template-columns: 1fr !important;
+  }
+  .steps-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  .feat-highlights {
+    grid-template-columns: 1fr 1fr !important;
+  }
 }
 @media (max-width: 640px) {
   .waitlist {
@@ -4390,6 +4400,76 @@ footer {
   .pricing-cta-btns .btn {
     width: 100%;
   }
+}
+
+/* Automations workflow diagram */
+@keyframes nodeIn {
+  from { opacity: 0; transform: translateX(-10px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes drawLine {
+  from { stroke-dashoffset: 1; }
+  to   { stroke-dashoffset: 0; }
+}
+.wf-grid {
+  display: grid;
+  grid-template-columns: 30% 1fr;
+  gap: 22px;
+  align-items: stretch;
+}
+.wf-left {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+@media (max-width: 860px) {
+  .wf-grid { grid-template-columns: 1fr !important; }
+  .wf-left { flex-direction: row !important; overflow-x: auto !important; }
+  .auto-page-ba { grid-template-columns: 1fr !important; }
+}
+
+/* RFQ page steps */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+}
+.step-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  padding: 24px 20px;
+}
+.step-num {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--ink-4);
+  margin-bottom: 12px;
+}
+.step-num.orange { color: var(--orange-500); }
+.step-ico {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-md);
+  background: var(--orange-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--orange-500);
+}
+@media (max-width: 960px) {
+  .steps-grid { grid-template-columns: repeat(3, 1fr) !important; }
+}
+@media (max-width: 768px) {
+  .rfq-visibility-grid { grid-template-columns: 1fr 1fr !important; }
+}
+@media (max-width: 640px) {
+  .steps-grid { grid-template-columns: 1fr 1fr !important; }
+  .rfq-visibility-grid { grid-template-columns: 1fr !important; }
+  .rfq-stats { flex-direction: column !important; padding: 20px !important; }
+  .rfq-stats > div { border-left: none !important; border-bottom: 1px solid var(--line) !important; padding: 16px 0 !important; }
+  .rfq-stats > div:last-child { border-bottom: none !important; }
 }
 
 /* Pricing reduced motion */

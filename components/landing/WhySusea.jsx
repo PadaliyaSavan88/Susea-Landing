@@ -30,6 +30,7 @@ export default function WhySusea() {
     "Tenders take 4–6 weeks to award",
     "Customers wait hours for a price",
     "Selection & savings impossible to audit",
+    "Quotes and follow-ups forgotten until a customer chases you",
   ];
   const after = [
     "Live rates from 200+ carriers on one surface",
@@ -44,6 +45,7 @@ export default function WhySusea() {
     </>,
     "Quote and award from one operating system",
     "Every price, bid and award fully logged",
+    "Quotes and follow-ups happen without anyone remembering to start them",
   ];
 
   return (
