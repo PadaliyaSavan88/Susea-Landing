@@ -1,0 +1,160 @@
+/* Spot-rate landing page — scoped resets, keyframes and responsive rules
+   (ported from the Meta Ads "Spot rate" design export). Brand tokens come
+   from app/globals.css. */
+
+.spot-rate-page {
+  font-family: var(--font-sans);
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+  overflow-x: hidden; /* never allow horizontal cut/scroll */
+}
+.spot-rate-page * { box-sizing: border-box; }
+/* let both hero columns shrink instead of overflowing (grid min-width:auto fix) */
+.spot-rate-page [data-su-hero-grid] > div { min-width: 0; }
+.spot-rate-page a { color: var(--blue-700); text-decoration: none; }
+.spot-rate-page a:hover { color: var(--blue-600); }
+.spot-rate-page button { font-family: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
+.spot-rate-page input,
+.spot-rate-page select,
+.spot-rate-page textarea { font-family: inherit; }
+.spot-rate-page svg { stroke-width: 1.85; }
+
+@media (prefers-reduced-motion: reduce) {
+  .spot-rate-page .su-testi-track { animation: none !important; }
+}
+
+@keyframes suPulse { 50% { opacity: .4; } }
+@keyframes suSlide { to { transform: translateX(-50%); } }
+@keyframes suBob { 50% { transform: translateY(-6px); } }
+@keyframes suFadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes suCount { from { opacity: .4; } to { opacity: 1; } }
+@keyframes suTick { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.35); } }
+
+/* ============================================================
+   RESPONSIVE — 3 tiers (side-by-side kept, not stacked):
+   Tablet (≤1024px): grids → 2-up, paired 2-col blocks STAY 2-col,
+                     fonts nudged down a step.
+   Phone  (≤600px):  paired 2-col blocks stay side-by-side (compact),
+                     grids → 2-up, hero stacks, nav → hamburger,
+                     testimonials → swipe carousel.
+   Tiny   (≤360px):  hard-stack floor only for the tightest blocks
+                     ([data-su-pair-tight]) to prevent clipping.
+   ============================================================ */
+
+/* ---------------------------- Tablet ---------------------------- */
+@media (max-width: 1024px) {
+  .spot-rate-page [data-su-cols="4"] { grid-template-columns: repeat(2, 1fr) !important; }
+  .spot-rate-page [data-su-cols="3"] { grid-template-columns: repeat(2, 1fr) !important; }
+  /* 2-col paired blocks (hero, before/after, roi) now STAY side-by-side */
+  .spot-rate-page [data-su-hide-md] { display: none !important; }
+  .spot-rate-page [data-su-testimonial-scroll] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  /* smaller hero headline + copy on tablet so the product visual gets more room */
+  .spot-rate-page [data-su-h1] { font-size: clamp(28px, 4.4vw, 40px) !important; }
+  .spot-rate-page [data-su-h2] { font-size: clamp(28px, 5vw, 40px) !important; }
+  .spot-rate-page [data-su-hero-grid] { grid-template-columns: 0.8fr 1fr !important; gap: 28px !important; }
+  .spot-rate-page [data-su-hero-grid] p { font-size: 15px !important; line-height: 1.5 !important; }
+  /* trust chips: single row, compact on tablet (tight on space) */
+  .spot-rate-page [data-su-hero-trust] { flex-wrap: nowrap !important; gap: 10px !important; font-size: 11px !important; white-space: nowrap; }
+}
+
+/* --- Hero stacks below ~880px: the product visual gets the full width
+       (side-by-side would leave it too narrow and clip) --- */
+@media (max-width: 880px) {
+  .spot-rate-page [data-su-hero-grid] { grid-template-columns: 1fr !important; gap: 32px !important; }
+  .spot-rate-page [data-su-hero-grid] p { font-size: 16px !important; }
+  /* book-a-demo pitch + form stack (matches the hero) — side-by-side
+     squeezes the pitch column below usable width on portrait tablets */
+  .spot-rate-page [data-su-demo-grid] { grid-template-columns: 1fr !important; }
+}
+
+/* ---------------------------- Phone ----------------------------- */
+@media (max-width: 600px) {
+  /* multi-column grids: 2-up (not 1-up) so cards stay dense */
+  .spot-rate-page [data-su-cols="4"],
+  .spot-rate-page [data-su-cols="3"],
+  .spot-rate-page [data-su-cols="2"] { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; }
+
+  /* paired 2-col blocks stay side-by-side, compacted */
+  .spot-rate-page [data-su-ba],
+  .spot-rate-page [data-su-roi] { grid-template-columns: 1fr 1fr !important; }
+  .spot-rate-page [data-su-rfq-flow] { grid-template-columns: repeat(2, 1fr) !important; gap: 8px !important; }
+
+  /* hero stacks so the headline + primary CTA stay large and tappable */
+  .spot-rate-page [data-su-hero-grid] { grid-template-columns: 1fr !important; }
+  /* trust chips: single row, but larger on phones (hero is full-width here,
+     so there's space) — fluid so it grows on wider phones, shrinks on tiny */
+  .spot-rate-page [data-su-hero-trust] { flex-wrap: nowrap !important; gap: 10px !important; font-size: clamp(10px, 3.1vw, 13.5px) !important; }
+  .spot-rate-page [data-su-hero-trust] > span { gap: 5px !important; }
+  .spot-rate-page [data-su-hero-trust] svg { width: 14px !important; height: 14px !important; }
+  /* hero search: size each chip to its content (so the wider Origin chip gets the
+     room it needs instead of spilling), and wrap only if the row can't fit */
+  .spot-rate-page [data-su-hero-search] { flex-wrap: wrap !important; }
+  .spot-rate-page [data-su-hero-search] > div { flex: 0 1 auto !important; min-width: 0 !important; }
+  .spot-rate-page [data-su-hero-stats] { grid-template-columns: repeat(2, 1fr) !important; }
+  /* hero CTAs stay side-by-side on mobile (override the shared flex-col-sm stack) */
+  .spot-rate-page [data-su-hero-ctas][data-su-flex-col-sm] { flex-direction: row !important; flex-wrap: nowrap !important; gap: 8px !important; align-items: stretch !important; width: 100%; }
+  .spot-rate-page [data-su-hero-ctas][data-su-flex-col-sm] > * { flex: 1 1 0 !important; width: auto !important; min-width: 0 !important; height: auto !important; min-height: 46px !important; padding: 8px 12px !important; font-size: 12.5px !important; line-height: 1.15 !important; text-align: center; }
+  /* origin / destination / cargo values: smaller on mobile so they never break the row */
+  .spot-rate-page [data-su-hero-search] > div > div:last-child { font-size: 10px !important; }
+
+  /* compact typography inside paired blocks */
+  .spot-rate-page [data-su-ba] h3,
+  .spot-rate-page [data-su-roi] h3 { font-size: 16px !important; line-height: 1.2 !important; margin: 0 0 12px !important; }
+  .spot-rate-page [data-su-ba] li { font-size: 12.5px !important; line-height: 1.4 !important; }
+  .spot-rate-page [data-su-ba] p { font-size: 13px !important; }
+
+  /* footer bottom row wraps instead of cramming the long copyright line */
+  .spot-rate-page .foot-bottom { flex-wrap: wrap; gap: 12px; }
+
+  /* forms & button rows stack for tap comfort (UX exception) */
+  .spot-rate-page [data-su-form-row] { grid-template-columns: 1fr !important; }
+  .spot-rate-page [data-su-flex-col-sm] { flex-direction: column !important; align-items: stretch !important; }
+  .spot-rate-page [data-su-flex-col-sm] > * { width: 100% !important; }
+
+  /* spacing + section headings */
+  .spot-rate-page [data-su-container] { padding: 0 20px !important; }
+  .spot-rate-page [data-su-section] { padding: 44px 0 !important; }
+  .spot-rate-page [data-su-h1] { font-size: 32px !important; line-height: 1.08 !important; letter-spacing: -.02em !important; }
+  .spot-rate-page [data-su-h2] { font-size: 25px !important; line-height: 1.14 !important; letter-spacing: -.02em !important; }
+  .spot-rate-page [data-su-mobile-pad] { padding: 18px !important; }
+  .spot-rate-page [data-su-mobile-pad-lg] { padding: 22px !important; }
+
+  /* nav → hamburger */
+  .spot-rate-page [data-su-nav-links] { display: none !important; }
+  .spot-rate-page [data-su-hide-sm] { display: none !important; }
+  .spot-rate-page [data-su-hamburger] { display: inline-flex !important; }
+
+  /* testimonials → swipe carousel */
+  .spot-rate-page [data-su-testimonial-scroll] { display: flex !important; grid-template-columns: none !important; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; margin: 0 -20px; padding: 4px 20px 20px; gap: 14px !important; scrollbar-width: none; }
+  .spot-rate-page [data-su-testimonial-scroll]::-webkit-scrollbar { display: none; }
+  .spot-rate-page [data-su-testimonial-scroll] > * { flex: 0 0 85%; scroll-snap-align: start; }
+
+  /* sticky bottom CTA */
+  .spot-rate-page [data-su-sticky-cta] { display: flex !important; }
+  .spot-rate-page { padding-bottom: 88px; }
+}
+
+/* ------------------------- Small phone -------------------------- */
+@media (max-width: 480px) {
+  .spot-rate-page [data-su-container] { padding: 0 16px !important; }
+  .spot-rate-page [data-su-section] { padding: 36px 0 !important; }
+  .spot-rate-page [data-su-h1] { font-size: 29px !important; }
+  .spot-rate-page [data-su-h2] { font-size: 23px !important; }
+  .spot-rate-page [data-su-mobile-pad] { padding: 14px !important; }
+  .spot-rate-page [data-su-mobile-pad-lg] { padding: 18px !important; }
+  .spot-rate-page [data-su-testimonial-scroll] > * { flex: 0 0 88%; }
+  .spot-rate-page [data-su-hero-stats] { gap: 8px !important; }
+  .spot-rate-page [data-su-ba] h3,
+  .spot-rate-page [data-su-roi] h3 { font-size: 15px !important; }
+}
+
+/* ------- Tiny: hard-stack floor for the tightest blocks --------- */
+@media (max-width: 360px) {
+  .spot-rate-page [data-su-pair-tight] { grid-template-columns: 1fr !important; }
+  .spot-rate-page [data-su-cols="4"],
+  .spot-rate-page [data-su-cols="3"],
+  .spot-rate-page [data-su-cols="2"] { grid-template-columns: 1fr !important; }
+}

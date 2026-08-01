@@ -2621,6 +2621,10 @@ footer {
   }
 }
 @media (max-width: 1024px) {
+  /* hide the browser mockup traffic-light dots on tablet & below (site-wide) */
+  .dots {
+    display: none;
+  }
   .hero-grid {
     grid-template-columns: 1fr 1fr;
   }

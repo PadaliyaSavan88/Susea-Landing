@@ -11,10 +11,10 @@ import Features from "@/components/landing/Features";
 import WhySusea from "@/components/landing/WhySusea";
 import Waitlist from "@/components/landing/Waitlist";
 import Footer from "@/components/landing/Footer";
+import { smoothScrollToId } from "@/lib/scroll";
 
 function jumpTo(id) {
-  const el = document.getElementById(id);
-  if (el) window.scrollTo({ top: el.offsetTop - 40, behavior: "smooth" });
+  smoothScrollToId(id);
 }
 
 function CtaBridge({ onRequest }) {
