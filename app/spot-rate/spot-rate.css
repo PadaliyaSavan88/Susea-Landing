@@ -9,7 +9,8 @@
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   scroll-behavior: smooth;
-  overflow-x: hidden; /* never allow horizontal cut/scroll */
+  overflow-x: clip; /* clip (not hidden): contains horizontal overflow without
+                       creating a scroll container that would break the sticky nav */
 }
 .spot-rate-page * { box-sizing: border-box; }
 /* let both hero columns shrink instead of overflowing (grid min-width:auto fix) */
@@ -21,6 +22,40 @@
 .spot-rate-page select,
 .spot-rate-page textarea { font-family: inherit; }
 .spot-rate-page svg { stroke-width: 1.85; }
+
+/* --- Mobile hamburger menu rows: tactile, app-style hover/active feedback.
+   Colour is set !important because the resting colour is an inline style. --- */
+.spot-rate-page [data-su-menu-link] {
+  transition: background .16s ease, color .16s ease, box-shadow .16s ease, transform .1s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.spot-rate-page [data-su-menu-link] svg {
+  color: var(--ink-4);
+  opacity: .5;
+  transition: transform .16s ease, color .16s ease, opacity .16s ease;
+}
+.spot-rate-page [data-su-menu-link]:hover,
+.spot-rate-page [data-su-menu-link]:focus-visible {
+  background: var(--blue-50);
+  color: var(--blue-700) !important;
+  box-shadow: inset 3px 0 0 var(--blue-600);
+}
+.spot-rate-page [data-su-menu-link]:hover svg,
+.spot-rate-page [data-su-menu-link]:focus-visible svg {
+  color: var(--blue-600);
+  opacity: 1;
+  transform: translateX(3px);
+}
+.spot-rate-page [data-su-menu-link]:active {
+  background: var(--blue-100);
+  color: var(--blue-700) !important;
+  transform: scale(.98);
+}
+.spot-rate-page [data-su-menu-link]:active svg {
+  color: var(--blue-600);
+  opacity: 1;
+  transform: translateX(5px);
+}
 
 @media (prefers-reduced-motion: reduce) {
   .spot-rate-page .su-testi-track { animation: none !important; }
@@ -43,6 +78,22 @@
    Tiny   (≤360px):  hard-stack floor only for the tightest blocks
                      ([data-su-pair-tight]) to prevent clipping.
    ============================================================ */
+
+/* Procurement features: swap the card grid for the mobile Embla slider at
+   ≤768px, matching the main page. The slider itself uses the shared global
+   .features-mobile / .feat-* classes (globals.css), which reveal at ≤768px. */
+@media (max-width: 768px) {
+  .spot-rate-page [data-su-proc-grid] { display: none !important; }
+}
+
+/* The page's own `.spot-rate-page button` reset (border:0; background:none)
+   out-specifies the global `.feat-nav-btn`, stripping the arrow buttons'
+   ring. Restore the circular button so the nav matches the home page. */
+.spot-rate-page .feat-nav-btn {
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink-2);
+}
 
 /* ---------------------------- Tablet ---------------------------- */
 @media (max-width: 1024px) {
@@ -78,8 +129,22 @@
   .spot-rate-page [data-su-cols="2"] { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; }
 
   /* paired 2-col blocks stay side-by-side, compacted */
-  .spot-rate-page [data-su-ba],
-  .spot-rate-page [data-su-roi] { grid-template-columns: 1fr 1fr !important; }
+  .spot-rate-page [data-su-ba] { grid-template-columns: 1fr 1fr !important; }
+
+  /* ROI calculator stacks (sliders over results) — side-by-side is too cramped
+     on phones; the sliders panel's right divider becomes a bottom divider */
+  .spot-rate-page [data-su-roi] { grid-template-columns: 1fr !important; }
+  .spot-rate-page [data-su-roi] > div:first-child { border-right: none !important; border-bottom: 1px solid var(--line) !important; }
+  .spot-rate-page [data-su-roi-total] { font-size: 44px !important; }
+  .spot-rate-page [data-su-roi-slider-val] { font-size: 17px !important; }
+  .spot-rate-page [data-su-roi-stat] { font-size: 22px !important; }
+
+  /* FAQ ("straight answers"): intro + question list stack on phones (side-by-side
+     is too cramped), with tighter question/answer type */
+  .spot-rate-page [data-su-faq] { grid-template-columns: 1fr !important; gap: 24px !important; }
+  .spot-rate-page [data-su-faq] p { font-size: 14px !important; }
+  .spot-rate-page [data-su-faq-q] { font-size: 14px !important; padding: 15px 16px !important; }
+  .spot-rate-page [data-su-faq-a] { font-size: 13px !important; padding: 0 16px 16px !important; }
   .spot-rate-page [data-su-rfq-flow] { grid-template-columns: repeat(2, 1fr) !important; gap: 8px !important; }
 
   /* hero stacks so the headline + primary CTA stay large and tappable */
@@ -135,6 +200,14 @@
   /* sticky bottom CTA */
   .spot-rate-page [data-su-sticky-cta] { display: flex !important; }
   .spot-rate-page { padding-bottom: 88px; }
+
+  /* operational-impact metric cards: shrink the oversized 52px numbers so the
+     2-up grid reads cleanly on phones (values live in inline styles → !important) */
+  .spot-rate-page [data-su-impact] [data-su-cols="4"] { gap: 10px !important; }
+  .spot-rate-page [data-su-impact] [data-su-metric] { padding: 18px !important; border-radius: 12px !important; }
+  .spot-rate-page [data-su-impact] [data-su-metric-value] { font-size: 32px !important; }
+  .spot-rate-page [data-su-impact] [data-su-metric-unit] { font-size: 15px !important; }
+  .spot-rate-page [data-su-impact] [data-su-metric-label] { font-size: 12.5px !important; margin-top: 8px !important; }
 }
 
 /* ------------------------- Small phone -------------------------- */
@@ -149,6 +222,12 @@
   .spot-rate-page [data-su-hero-stats] { gap: 8px !important; }
   .spot-rate-page [data-su-ba] h3,
   .spot-rate-page [data-su-roi] h3 { font-size: 15px !important; }
+
+  /* operational-impact metric cards: tighten further on small phones */
+  .spot-rate-page [data-su-impact] [data-su-cols="4"] { gap: 9px !important; }
+  .spot-rate-page [data-su-impact] [data-su-metric] { padding: 14px !important; }
+  .spot-rate-page [data-su-impact] [data-su-metric-value] { font-size: 28px !important; }
+  .spot-rate-page [data-su-impact] [data-su-metric-unit] { font-size: 13px !important; }
 }
 
 /* ------- Tiny: hard-stack floor for the tightest blocks --------- */
@@ -157,4 +236,233 @@
   .spot-rate-page [data-su-cols="4"],
   .spot-rate-page [data-su-cols="3"],
   .spot-rate-page [data-su-cols="2"] { grid-template-columns: 1fr !important; }
+}
+
+/* ============================================================
+   MOBILE POLISH — targeted mobile-only refinements (desktop
+   rendering is untouched by everything below):
+     1. Hero CTAs   → shrink so "Book your 20-min demo" holds one line
+     2. Hero stats  → smaller numbers (400+, 2.4M, 38K, 62)
+     3. Workflow (before/after) → two separate cards, STACKED vertically
+   ============================================================ */
+@media (max-width: 600px) {
+  /* 1. Hero CTAs: single-line labels (font a step down + no wrap) */
+  .spot-rate-page [data-su-hero-ctas][data-su-flex-col-sm] > * {
+    font-size: 11px !important;
+    padding: 8px 10px !important;
+    gap: 6px !important;
+    white-space: nowrap;
+  }
+  .spot-rate-page [data-su-hero-ctas][data-su-flex-col-sm] svg {
+    width: 13px !important;
+    height: 13px !important;
+  }
+
+  /* 2. Hero stats: smaller headline numbers + suffix */
+  .spot-rate-page [data-su-hero-stats] > div > div:first-child {
+    font-size: 26px !important;
+  }
+  .spot-rate-page [data-su-hero-stats] > div > div:first-child > span {
+    font-size: 15px !important;
+  }
+
+  /* 2b. Problem cards: smaller padding + type so the cards read compact */
+  .spot-rate-page [data-su-pcards] > div { padding: 16px !important; }
+  .spot-rate-page [data-su-pcards] > div > div:first-child {
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 9px !important;
+    margin-bottom: 10px !important;
+  }
+  .spot-rate-page [data-su-pcards] > div > div:first-child svg {
+    width: 16px !important;
+    height: 16px !important;
+  }
+  .spot-rate-page [data-su-pcards] > div > h4 { font-size: 13.5px !important; }
+  .spot-rate-page [data-su-pcards] > div > p {
+    font-size: 12px !important;
+    line-height: 1.45 !important;
+  }
+
+  /* 2d. Product view tabs: keep all three on a single line (no wrap) */
+  .spot-rate-page [data-su-tabs] {
+    flex-wrap: nowrap !important;
+    gap: 4px !important;
+    max-width: 100%;
+  }
+  .spot-rate-page [data-su-tabs] button {
+    padding: 9px 12px !important;
+    font-size: 13px !important;
+    gap: 6px !important;
+    white-space: nowrap;
+  }
+  .spot-rate-page [data-su-tabs] button svg {
+    width: 13px !important;
+    height: 13px !important;
+  }
+
+  /* 2f. Instant-rates URL bar: shrink so it stays on one line */
+  .spot-rate-page [data-su-url] { font-size: 9px !important; }
+
+  /* 2g. Instant-rates table: smaller type + tighter cells on mobile */
+  .spot-rate-page [data-su-rates-table] > div {
+    padding: 9px 10px !important;
+    gap: 6px !important;
+    font-size: 11px !important;
+  }
+  .spot-rate-page [data-su-rates-table] > div:first-child {
+    font-size: 8.5px !important;
+    padding: 9px 10px !important;
+  }
+  .spot-rate-page [data-su-rates-table] span { font-size: 9.5px !important; }
+
+  /* 2e. Instant-rates search: Origin / Destination / Cargo on ONE row,
+        arrow hidden, "Search rates" becomes a full-width button below */
+  .spot-rate-page [data-su-rates-search] {
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+  }
+  .spot-rate-page [data-su-rates-search] > svg { display: none !important; }
+  .spot-rate-page [data-su-rates-search] > div {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    padding: 7px 9px !important;
+  }
+  .spot-rate-page [data-su-rates-search] > div > div:last-child {
+    font-size: 11px !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .spot-rate-page [data-su-rates-search] > div:last-child {
+    flex: 1 1 100% !important;
+    margin-left: 0 !important;
+    text-align: center;
+    white-space: normal !important;
+  }
+
+  /* 2c. How it works: stack the two pillar cards + smaller type */
+  .spot-rate-page [data-su-how] {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+  .spot-rate-page [data-su-how] > div { padding: 20px !important; }
+  .spot-rate-page [data-su-how] h3 { font-size: 18px !important; }
+  .spot-rate-page [data-su-how] p { font-size: 13px !important; }
+  .spot-rate-page [data-su-how] li { font-size: 13px !important; }
+
+  /* 3. Workflow: two separate cards STACKED on top of each other
+        (no side-by-side), each a self-contained rounded card */
+  .spot-rate-page [data-su-ba] {
+    grid-template-columns: 1fr !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    overflow: visible !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    gap: 14px !important;
+  }
+  .spot-rate-page [data-su-ba] > [data-su-mobile-pad] {
+    border: 1px solid var(--line) !important;
+    border-radius: 16px !important;
+    background: #fff !important;
+    box-shadow: var(--shadow-md) !important;
+  }
+  /* full width now, so type can go back up a touch for readability */
+  .spot-rate-page [data-su-ba] h3 { font-size: 18px !important; }
+  .spot-rate-page [data-su-ba] li { font-size: 13.5px !important; }
+  .spot-rate-page [data-su-ba] p { font-size: 14px !important; }
+}
+
+@media (max-width: 480px) {
+  /* Hero CTAs: one more step down for the smallest phones */
+  .spot-rate-page [data-su-hero-ctas][data-su-flex-col-sm] > * {
+    font-size: 10px !important;
+    padding: 7px 8px !important;
+  }
+  /* Hero stats: nudge numbers down again so 2-up never crowds */
+  .spot-rate-page [data-su-hero-stats] > div > div:first-child {
+    font-size: 23px !important;
+  }
+  /* Product view tabs: keep readable but still one line */
+  .spot-rate-page [data-su-tabs] button {
+    padding: 8px 9px !important;
+    font-size: 12px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  /* Tiny phones: keep CTA labels on one line at all costs */
+  .spot-rate-page [data-su-hero-ctas][data-su-flex-col-sm] > * {
+    font-size: 9.5px !important;
+  }
+}
+
+/* ============================================================
+   RFQ WORKSPACE + DASHBOARD — mobile refinements
+     • Bidder visibility: stack label / chips / note so the row
+       stops crushing on narrow screens; chips become a tidy 2×2.
+     • RFQ bid table + dashboard shipments table: smaller type and
+       tighter cells so five columns still read cleanly on a phone.
+   ============================================================ */
+@media (max-width: 600px) {
+  /* Bidder visibility: vertical stack — label, chip grid, then note */
+  .spot-rate-page [data-su-rfq-vis] {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+  }
+  .spot-rate-page [data-su-rfq-vis-chips] {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+    width: 100% !important;
+  }
+  .spot-rate-page [data-su-rfq-vis-chips] > span {
+    width: 100% !important;
+    font-size: 11px !important;
+    padding: 7px 8px !important;
+  }
+  /* the "· recommended" tag is redundant on mobile — the orange
+     highlight already marks the recommended mode; drop it so all
+     four chips stay one uniform size */
+  .spot-rate-page [data-su-rfq-vis-chips] > span > b { display: none !important; }
+  .spot-rate-page [data-su-rfq-vis-note] { margin-left: 0 !important; }
+
+  /* RFQ bid table: smaller type + tighter cells */
+  .spot-rate-page [data-su-rfq-head] {
+    font-size: 8.5px !important;
+    gap: 6px !important;
+    padding: 10px 4px !important;
+  }
+  .spot-rate-page [data-su-rfq-table] > div {
+    padding: 9px 9px !important;
+    gap: 6px !important;
+  }
+  .spot-rate-page [data-su-rfq-table] > div > :first-child {
+    width: 22px !important;
+    height: 22px !important;
+    font-size: 10px !important;
+  }
+  .spot-rate-page [data-su-rfq-table] > div > :nth-child(2) {
+    font-size: 11px !important;
+    gap: 6px !important;
+  }
+  .spot-rate-page [data-su-rfq-table] > div > :nth-child(2) > span {
+    width: 22px !important;
+    height: 22px !important;
+    font-size: 9px !important;
+  }
+  .spot-rate-page [data-su-rfq-table] > div > :nth-child(3) { font-size: 11.5px !important; }
+  .spot-rate-page [data-su-rfq-table] > div > :nth-child(4) { font-size: 10px !important; }
+  .spot-rate-page [data-su-rfq-table] > div > :nth-child(5) { font-size: 10px !important; }
+
+  /* Dashboard shipments table: smaller type + tighter cells */
+  .spot-rate-page [data-su-dash-table] > div {
+    padding: 8px 9px !important;
+    gap: 7px !important;
+    font-size: 10.5px !important;
+  }
+  .spot-rate-page [data-su-dash-table] > div > div { font-size: 10.5px !important; }
+  .spot-rate-page [data-su-dash-table] > div > div:first-child { font-size: 9.5px !important; }
 }

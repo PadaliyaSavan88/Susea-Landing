@@ -1,5 +1,6 @@
 "use client";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
+import useEmblaCarousel from "embla-carousel-react";
 import * as Lucide from "lucide-react";
 import { smoothScrollToId, smoothScrollToTop } from "@/lib/scroll";
 import "./spot-rate.css";
@@ -71,11 +72,94 @@ const TESTIMONIALS = [
     quote: "We had a $40,000 quote expire because nobody caught it in time. Now Susea flags anything about to lapse, re-prices it against today's tariff, and has the re-send ready before the customer even notices. We haven't lost one since." },
 ];
 
+const PROCUREMENT_FEATURES = [
+  { icon:"search", iconBg:"var(--blue-50)", iconColor:"var(--blue-600)", title:"Live rates on any lane", body:"40+ carriers, updated continuously. FCL, LCL, air. Every major trade lane." },
+  { icon:"scale", iconBg:"var(--blue-50)", iconColor:"var(--blue-600)", title:"Side-by-side comparison", body:"All-in price, transit time, free time, validity — apples to apples." },
+  { icon:"send", iconBg:"var(--blue-50)", iconColor:"var(--blue-600)", title:"Multi-provider RFQ", body:"One structured brief → every forwarder responds in the same format." },
+  { icon:"sparkles", iconBg:"linear-gradient(135deg,var(--amber-500),var(--orange-500))", iconColor:"#fff", title:"AI recommendations", body:"“Best rate”, “fastest transit”, “best free time” — surfaced automatically." },
+  { icon:"file-text", iconBg:"var(--blue-50)", iconColor:"var(--blue-600)", title:"Branded quotations", body:"Customer-ready PDF quotes with your logo, generated in seconds." },
+  { icon:"calculator", iconBg:"var(--blue-50)", iconColor:"var(--blue-600)", title:"Surcharges built-in", body:"BAF, THC, ISPS, LSS — calculated and audited. No margin leaks." },
+  { icon:"history", iconBg:"var(--blue-50)", iconColor:"var(--blue-600)", title:"Rate & RFQ history", body:"Every quote, every award — searchable. Real leverage on your next lane." },
+  { icon:"users", iconBg:"var(--blue-50)", iconColor:"var(--blue-600)", title:"Team collaboration", body:"Buyers, ops, finance — everyone on the same shipment, same page." },
+];
+
+function renderProcCard(f, key) {
+  const gradient = f.iconBg.startsWith("linear-gradient");
+  return React.createElement("div", { key, style:{ position:"relative", border:"1px solid var(--line)", background:"#fff", borderRadius:"16px", padding:"22px", minHeight:"190px", boxShadow:"var(--shadow-xs)" }},
+    React.createElement("div", { style:{ width:"40px", height:"40px", borderRadius:"11px", border: gradient ? "1px solid transparent" : "1px solid var(--line)", display:"flex", alignItems:"center", justifyContent:"center", background:f.iconBg, color:f.iconColor, marginBottom:"14px" }},
+      React.createElement(I, { n:f.icon, style:{ width:"20px", height:"20px" }})
+    ),
+    React.createElement("h4", { style:{ margin:"0 0 6px", fontSize:"15px", fontWeight:600, color:"var(--ink)" }}, f.title),
+    React.createElement("p", { style:{ margin:"0", fontSize:"13px", color:"var(--ink-2)", lineHeight:1.5 }}, f.body)
+  );
+}
+
+// Isolated so Embla's select/drag state updates re-render ONLY the slider,
+// not the whole (very large) SpotRatePage tree — this is what keeps the
+// animation as smooth as the main page's Features slider.
+function ProcMobileSlider() {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, align: "center" });
+  const [index, setIndex] = useState(0);
+  const [canPrev, setCanPrev] = useState(false);
+  const [canNext, setCanNext] = useState(true);
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setIndex(emblaApi.selectedScrollSnap());
+    setCanPrev(emblaApi.canScrollPrev());
+    setCanNext(emblaApi.canScrollNext());
+  }, [emblaApi]);
+  useEffect(() => {
+    if (!emblaApi) return;
+    onSelect();
+    emblaApi.on("select", onSelect);
+    emblaApi.on("reInit", onSelect);
+    return () => {
+      emblaApi.off("select", onSelect);
+      emblaApi.off("reInit", onSelect);
+    };
+  }, [emblaApi, onSelect]);
+
+  return (
+    <div className="features-mobile">
+      <div className="feat-embla" ref={emblaRef}>
+        <div className="feat-track">
+          {PROCUREMENT_FEATURES.map((f, i) => (
+            <div className="feat-slide" key={i}>
+              {renderProcCard(f, i)}
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="feat-nav">
+        <button
+          className="feat-nav-btn"
+          onClick={() => emblaApi?.scrollPrev()}
+          disabled={!canPrev}
+          aria-label="Previous feature"
+        >
+          <I n="chevron-left" style={{ width: "18px", height: "18px" }} />
+        </button>
+        <span className="feat-nav-count">
+          {index + 1} / {PROCUREMENT_FEATURES.length}
+        </span>
+        <button
+          className="feat-nav-btn"
+          onClick={() => emblaApi?.scrollNext()}
+          disabled={!canNext}
+          aria-label="Next feature"
+        >
+          <I n="chevron-right" style={{ width: "18px", height: "18px" }} />
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function renderRatesPanel() {
     return React.createElement("div", { style:{ position:"relative", border:"1px solid var(--line)", borderRadius:"18px", background:"#fff", padding:"14px", boxShadow:"var(--shadow-xl)", animation:"suFadeUp .35s ease" }, key:"rates" },
       React.createElement("div", { style:{ position:"absolute", left:"18px", right:"18px", top:"-1px", height:"2px", borderRadius:"2px", background:"linear-gradient(90deg,transparent,var(--blue-500),var(--orange-500),var(--amber-500),transparent)" }}),
       React.createElement("div", { style:{ display:"flex", alignItems:"center", gap:"10px", padding:"6px 8px 12px" }},
-        React.createElement("div", { style:{ flex:1, height:"28px", borderRadius:"8px", background:"var(--paper-2)", border:"1px solid var(--line-soft)", display:"flex", alignItems:"center", padding:"0 10px", color:"var(--ink-3)", fontSize:"12px", fontFamily:"var(--font-mono)" }}, "app.susea.ai/instant-rates/INNSA-AEJEA"),
+        React.createElement("div", { "data-su-url":true, style:{ flex:1, height:"28px", borderRadius:"8px", background:"var(--paper-2)", border:"1px solid var(--line-soft)", display:"flex", alignItems:"center", padding:"0 10px", color:"var(--ink-3)", fontSize:"12px", fontFamily:"var(--font-mono)", whiteSpace:"nowrap", overflow:"hidden" }}, "app.susea.ai/instant-rates/INNSA-AEJEA"),
         React.createElement("span", { style:{ display:"inline-flex", alignItems:"center", gap:"6px", padding:"4px 10px", borderRadius:"999px", fontSize:"11px", fontWeight:600, color:"var(--good-600)", background:"var(--good-50)", border:"1px solid #C2E7D6" }},
           React.createElement("i", { style:{ width:"6px", height:"6px", borderRadius:"999px", background:"var(--good-500)", boxShadow:"0 0 0 3px rgba(31,157,107,.18)", animation:"suPulse 1.8s infinite" }}), "LIVE"
         )
@@ -83,7 +167,7 @@ function renderRatesPanel() {
       // large screenshot-like content
       React.createElement("div", { style:{ padding:"8px", display:"grid", gridTemplateColumns:"1fr", gap:"12px" }},
         React.createElement("div", { style:{ padding:"18px", borderRadius:"12px", background:"var(--paper-2)", border:"1px solid var(--line-soft)" }},
-          React.createElement("div", { style:{ display:"flex", gap:"12px", flexWrap:"wrap", alignItems:"center" }},
+          React.createElement("div", { "data-su-rates-search":true, style:{ display:"flex", gap:"12px", flexWrap:"wrap", alignItems:"center" }},
             React.createElement("div", { style:{ padding:"8px 14px", background:"#fff", border:"1px solid var(--line)", borderRadius:"10px" }},
               React.createElement("div", { style:{ fontSize:"10px", color:"var(--ink-4)", letterSpacing:".06em", textTransform:"uppercase", fontWeight:700 }}, "Origin"),
               React.createElement("div", { style:{ fontSize:"13px", fontWeight:600, color:"var(--ink)", marginTop:"2px" }}, "Nhava Sheva · INNSA")
@@ -114,7 +198,7 @@ function renderRatesTable() {
       { c:"ONE", mg:"ON", price:"$1,580", transit:"21d", ft:"14 days", tag:"" },
       { c:"COSCO", mg:"CO", price:"$1,610", transit:"22d", ft:"10 days", tag:"" }
     ];
-    return React.createElement("div", { style:{ borderRadius:"12px", overflow:"hidden", border:"1px solid var(--line)", background:"#fff" }},
+    return React.createElement("div", { "data-su-rates-table":true, style:{ borderRadius:"12px", overflow:"hidden", border:"1px solid var(--line)", background:"#fff" }},
       React.createElement("div", { style:{ display:"grid", gridTemplateColumns:"1.6fr .9fr .55fr .7fr .6fr", padding:"11px 14px", gap:"10px", background:"var(--paper-3)", color:"var(--ink-3)", fontSize:"10.5px", letterSpacing:".07em", textTransform:"uppercase", fontWeight:700, borderBottom:"1px solid var(--line)" }},
         React.createElement("div", null, "Carrier"),
         React.createElement("div", null, "All-in / TEU"),
@@ -161,19 +245,21 @@ function renderRfqPanel() {
           React.createElement("div", { style:{ fontSize:"11.5px", color:"var(--ink-3)", lineHeight:1.4 }}, s.body)
         ))
       ),
-      React.createElement("div", { style:{ marginTop:"12px", padding:"12px 14px", border:"1px solid var(--line)", borderRadius:"12px", background:"#fff", display:"flex", gap:"10px", alignItems:"center", flexWrap:"wrap" }},
+      React.createElement("div", { "data-su-rfq-vis":true, style:{ marginTop:"12px", padding:"12px 14px", border:"1px solid var(--line)", borderRadius:"12px", background:"#fff", display:"flex", gap:"10px 12px", alignItems:"center", flexWrap:"wrap" }},
         React.createElement("div", { style:{ fontSize:"11px", fontWeight:700, letterSpacing:".06em", textTransform:"uppercase", color:"var(--ink-3)" }}, "Bidder visibility"),
-        [
-          ["eye-off","Sealed bid"],
-          ["list-ordered","Rank-only",true],
-          ["trending-down","Best price"],
-          ["eye","Open auction"]
-        ].map(([ic, lbl, on], i) => React.createElement("span", { key:i, style:{ display:"inline-flex", alignItems:"center", gap:"6px", padding:"5px 10px", borderRadius:"999px", fontSize:"11.5px", fontWeight:600, color: on ? "var(--orange-700)" : "var(--ink-2)", background: on ? "var(--orange-50)" : "var(--paper-2)", border: on ? "1px solid var(--orange-100)" : "1px solid var(--line)" }},
-          React.createElement(I, { n:ic, style:{ width:"12px", height:"12px" }}),
-          lbl,
-          on ? React.createElement("b", { style:{ marginLeft:"4px", fontSize:"10px", color:"var(--orange-700)" }}, "· recommended") : null
-        )),
-        React.createElement("span", { style:{ marginLeft:"auto", fontSize:"11.5px", color:"var(--ink-3)" }}, "Switch per auction — not a one-time setup.")
+        React.createElement("div", { "data-su-rfq-vis-chips":true, style:{ display:"flex", gap:"8px", flexWrap:"wrap" }},
+          [
+            ["eye-off","Sealed bid"],
+            ["list-ordered","Rank-only",true],
+            ["trending-down","Best price"],
+            ["eye","Open auction"]
+          ].map(([ic, lbl, on], i) => React.createElement("span", { key:i, style:{ display:"inline-flex", alignItems:"center", justifyContent:"center", gap:"6px", padding:"5px 10px", borderRadius:"999px", fontSize:"11.5px", fontWeight:600, whiteSpace:"nowrap", color: on ? "var(--orange-700)" : "var(--ink-2)", background: on ? "var(--orange-50)" : "var(--paper-2)", border: on ? "1px solid var(--orange-100)" : "1px solid var(--line)" }},
+            React.createElement(I, { n:ic, style:{ width:"12px", height:"12px", flex:"none" }}),
+            lbl,
+            on ? React.createElement("b", { style:{ marginLeft:"4px", fontSize:"10px", color:"var(--orange-700)" }}, "· recommended") : null
+          ))
+        ),
+        React.createElement("span", { "data-su-rfq-vis-note":true, style:{ marginLeft:"auto", fontSize:"11.5px", color:"var(--ink-3)" }}, "Switch per auction — not a one-time setup.")
       )
     );
     return React.createElement("div", { key:"rfq", style:{ position:"relative", border:"1px solid var(--line)", borderRadius:"18px", background:"#fff", padding:"20px", boxShadow:"var(--shadow-xl)", animation:"suFadeUp .35s ease" }},
@@ -189,29 +275,29 @@ function renderRfqPanel() {
           "closes in 04:12:36"
         )
       ),
-      React.createElement("div", { style:{ display:"grid", gridTemplateColumns:"36px 1.8fr 1fr .9fr 1fr", padding:"12px 4px", gap:"10px", color:"var(--ink-3)", fontSize:"10.5px", letterSpacing:".07em", textTransform:"uppercase", fontWeight:700, borderBottom:"1px solid var(--line-soft)" }},
+      React.createElement("div", { "data-su-rfq-head":true, style:{ display:"grid", gridTemplateColumns:"36px 1.8fr 1fr .9fr 1fr", padding:"12px 4px", gap:"10px", color:"var(--ink-3)", fontSize:"10.5px", letterSpacing:".07em", textTransform:"uppercase", fontWeight:700, borderBottom:"1px solid var(--line-soft)" }},
         React.createElement("div", null, "#"),
         React.createElement("div", null, "Provider"),
         React.createElement("div", null, "Latest bid"),
         React.createElement("div", null, "Transit"),
         React.createElement("div", { style:{ textAlign:"right" }}, "Move")
       ),
-      React.createElement("div", { style:{ display:"flex", flexDirection:"column", gap:"9px", marginTop:"12px" }},
+      React.createElement("div", { "data-su-rfq-table":true, style:{ display:"flex", flexDirection:"column", gap:"9px", marginTop:"12px" }},
         [
           { r:1, name:"Blue Anchor Logistics", av:"BA", bid:"$1,412", transit:"17d", move:"▼ $28", moveColor:"var(--good-600)", lead:true },
           { r:2, name:"Meridian Forwarders", av:"MF", bid:"$1,425", transit:"18d", move:"▼ $15", moveColor:"var(--good-600)", lead:false },
           { r:3, name:"CargoStream Global", av:"CS", bid:"$1,438", transit:"18d", move:"hold", moveColor:"var(--ink-4)", lead:false },
           { r:4, name:"Ocean-Lane Freight", av:"OL", bid:"$1,455", transit:"19d", move:"▼ $10", moveColor:"var(--good-600)", lead:false },
           { r:5, name:"Trident Shipping", av:"TS", bid:"$1,470", transit:"20d", move:"hold", moveColor:"var(--ink-4)", lead:false }
-        ].map((r) => React.createElement("div", { key:r.r, style:{ display:"grid", gridTemplateColumns:"36px 1.8fr 1fr .9fr 1fr", gap:"10px", alignItems:"center", padding:"11px 12px", border:`1px solid ${r.lead ? "#F6C9A6" : "var(--line)"}`, borderRadius:"12px", background: r.lead ? "linear-gradient(90deg,var(--orange-50),#fff)" : "#fff", boxShadow: r.lead ? "var(--shadow-sm)" : "none" }},
-          React.createElement("span", { style:{ width:"28px", height:"28px", borderRadius:"8px", display:"flex", alignItems:"center", justifyContent:"center", fontFamily:"var(--font-mono)", fontWeight:700, fontSize:"13px", background: r.lead ? "var(--orange-500)" : "var(--paper-3)", color: r.lead ? "#fff" : "var(--ink-3)" }}, r.r),
-          React.createElement("div", { style:{ display:"flex", alignItems:"center", gap:"10px", fontWeight:600, color:"var(--ink)", fontSize:"14px" }},
-            React.createElement("span", { style:{ width:"30px", height:"30px", borderRadius:"8px", border:"1px solid var(--line)", display:"inline-flex", alignItems:"center", justifyContent:"center", fontFamily:"var(--font-mono)", fontSize:"11px", fontWeight:700, color:"var(--blue-700)", background:"var(--blue-50)" }}, r.av),
+        ].map((r) => React.createElement("div", { key:r.r, style:{ display:"grid", gridTemplateColumns:"36px 1.8fr 1fr .9fr 1fr", gap:"10px", alignItems:"center", padding:"10px 12px", border:`1px solid ${r.lead ? "#F6C9A6" : "var(--line)"}`, borderRadius:"12px", background: r.lead ? "linear-gradient(90deg,var(--orange-50),#fff)" : "#fff", boxShadow: r.lead ? "var(--shadow-sm)" : "none" }},
+          React.createElement("span", { style:{ width:"26px", height:"26px", borderRadius:"8px", display:"flex", alignItems:"center", justifyContent:"center", fontFamily:"var(--font-mono)", fontWeight:700, fontSize:"12px", background: r.lead ? "var(--orange-500)" : "var(--paper-3)", color: r.lead ? "#fff" : "var(--ink-3)" }}, r.r),
+          React.createElement("div", { style:{ display:"flex", alignItems:"center", gap:"9px", fontWeight:600, color:"var(--ink)", fontSize:"12.5px" }},
+            React.createElement("span", { style:{ width:"27px", height:"27px", borderRadius:"8px", border:"1px solid var(--line)", display:"inline-flex", alignItems:"center", justifyContent:"center", fontFamily:"var(--font-mono)", fontSize:"10.5px", fontWeight:700, color:"var(--blue-700)", background:"var(--blue-50)", flex:"none" }}, r.av),
             r.name
           ),
-          React.createElement("div", { style:{ fontFamily:"var(--font-mono)", fontWeight:700, fontSize:"15px", color:"var(--ink)" }}, r.bid),
-          React.createElement("div", { style:{ fontFamily:"var(--font-mono)", fontSize:"13px", color:"var(--ink-2)" }}, r.transit),
-          React.createElement("div", { style:{ fontFamily:"var(--font-mono)", fontSize:"12px", fontWeight:600, color:r.moveColor, textAlign:"right" }}, r.move)
+          React.createElement("div", { style:{ fontFamily:"var(--font-mono)", fontWeight:700, fontSize:"13.5px", color:"var(--ink)" }}, r.bid),
+          React.createElement("div", { style:{ fontFamily:"var(--font-mono)", fontSize:"12px", color:"var(--ink-2)" }}, r.transit),
+          React.createElement("div", { style:{ fontFamily:"var(--font-mono)", fontSize:"11.5px", fontWeight:600, color:r.moveColor, textAlign:"right" }}, r.move)
         ))
       ),
       React.createElement("div", { style:{ marginTop:"14px", padding:"14px", border:"1px solid var(--amber-100)", borderRadius:"12px", background:"linear-gradient(180deg,var(--amber-50),#fff)", display:"flex", gap:"12px", alignItems:"flex-start" }},
@@ -245,18 +331,18 @@ function renderDashPanel() {
           React.createElement("div", { style:{ fontSize:"14px", fontWeight:600, color:"var(--ink)" }}, "Active shipments · this week"),
           React.createElement("span", { style:{ fontSize:"11px", color:"var(--ink-3)" }}, "18 in progress")
         ),
-        React.createElement("div", { style:{ display:"flex", flexDirection:"column", gap:"8px" }},
+        React.createElement("div", { "data-su-dash-table":true, style:{ display:"flex", flexDirection:"column", gap:"8px" }},
           [
             { id:"SH-24-8801", lane:"INNSA → AEJEA", carrier:"Maersk", eta:"Nov 2", status:"On water", statusColor:"var(--good-500)" },
             { id:"SH-24-8802", lane:"INMAA → NLRTM", carrier:"MSC", eta:"Nov 8", status:"Loading", statusColor:"var(--amber-500)" },
             { id:"SH-24-8803", lane:"CNSHA → USLAX", carrier:"Hapag-Lloyd", eta:"Nov 14", status:"Booked", statusColor:"var(--blue-500)" },
             { id:"SH-24-8804", lane:"INMUN → SGSIN", carrier:"COSCO", eta:"Oct 30", status:"Delivered", statusColor:"var(--ink-3)" }
-          ].map((s, i) => React.createElement("div", { key:i, style:{ display:"grid", gridTemplateColumns:"1fr 1.5fr 1.2fr .8fr .8fr", gap:"10px", padding:"11px 12px", border:"1px solid var(--line-soft)", borderRadius:"10px", background:"var(--paper-2)", alignItems:"center", fontSize:"13px" }},
-            React.createElement("div", { style:{ fontFamily:"var(--font-mono)", fontSize:"11.5px", color:"var(--ink-3)", fontWeight:600 }}, s.id),
-            React.createElement("div", { style:{ fontWeight:600, color:"var(--ink)", fontFamily:"var(--font-mono)", fontSize:"12.5px" }}, s.lane),
+          ].map((s, i) => React.createElement("div", { key:i, style:{ display:"grid", gridTemplateColumns:"1fr 1.5fr 1.2fr .8fr .8fr", gap:"10px", padding:"10px 12px", border:"1px solid var(--line-soft)", borderRadius:"10px", background:"var(--paper-2)", alignItems:"center", fontSize:"12px" }},
+            React.createElement("div", { style:{ fontFamily:"var(--font-mono)", fontSize:"11px", color:"var(--ink-3)", fontWeight:600 }}, s.id),
+            React.createElement("div", { style:{ fontWeight:600, color:"var(--ink)", fontFamily:"var(--font-mono)", fontSize:"11.5px" }}, s.lane),
             React.createElement("div", { style:{ color:"var(--ink-2)" }}, s.carrier),
-            React.createElement("div", { style:{ color:"var(--ink-2)", fontFamily:"var(--font-mono)", fontSize:"12px" }}, "ETA " + s.eta),
-            React.createElement("div", { style:{ display:"inline-flex", alignItems:"center", gap:"6px", fontSize:"12px", fontWeight:600, color:s.statusColor }},
+            React.createElement("div", { style:{ color:"var(--ink-2)", fontFamily:"var(--font-mono)", fontSize:"11px" }}, "ETA " + s.eta),
+            React.createElement("div", { style:{ display:"inline-flex", alignItems:"center", gap:"6px", fontSize:"11px", fontWeight:600, color:s.statusColor }},
               React.createElement("i", { style:{ width:"7px", height:"7px", borderRadius:"999px", background:s.statusColor }}),
               s.status
             )
@@ -266,9 +352,632 @@ function renderDashPanel() {
     );
   }
 
+// Isolated so a slider drag re-renders only the calculator, not the whole page
+// (keeps the range sliders lag-free while dragging).
+function RoiCalculator() {
+  const [roi, setRoiState] = useState({ shipments: 60, team: 4, hours: 3, spend: 2200 });
+  const setRoi = (k, v) => setRoiState((s) => ({ ...s, [k]: Number(v) }));
+  const roiVals = computeRoi(roi);
+  return (
+          <div
+            data-su-roi
+            data-su-pair-tight
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1.15fr",
+              gap: "22px",
+              border: "1px solid var(--line)",
+              borderRadius: "20px",
+              background: "#fff",
+              boxShadow: "var(--shadow-lg)",
+              overflow: "hidden",
+            }}
+          >
+            <div
+              data-su-mobile-pad
+              style={{
+                padding: "32px",
+                background: "var(--paper-2)",
+                borderRight: "1px solid var(--line)",
+                display: "flex",
+                flexDirection: "column",
+                gap: "20px",
+              }}
+            >
+              <div>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "baseline",
+                  }}
+                >
+                  <label
+                    style={{
+                      fontSize: "12px",
+                      fontWeight: "700",
+                      letterSpacing: ".06em",
+                      textTransform: "uppercase",
+                      color: "var(--ink-3)",
+                    }}
+                  >
+                    Shipments per month
+                  </label>
+                  <span
+                    data-su-roi-slider-val
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "20px",
+                      fontWeight: "700",
+                      color: "var(--ink)",
+                    }}
+                  >
+                    {roi.shipments}
+                  </span>
+                </div>
+                <input
+                  type="range"
+                  min="5"
+                  max="500"
+                  step="5"
+                  value={roi.shipments}
+                  onChange={(e) => setRoi("shipments", e.target.value)}
+                  style={{
+                    width: "100%",
+                    marginTop: "10px",
+                    accentColor: "var(--blue-600)",
+                  }}
+                />
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "11px",
+                    color: "var(--ink-4)",
+                    marginTop: "2px",
+                  }}
+                >
+                  <span>5</span>
+                  <span>500</span>
+                </div>
+              </div>
+              <div>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "baseline",
+                  }}
+                >
+                  <label
+                    style={{
+                      fontSize: "12px",
+                      fontWeight: "700",
+                      letterSpacing: ".06em",
+                      textTransform: "uppercase",
+                      color: "var(--ink-3)",
+                    }}
+                  >
+                    Procurement team size
+                  </label>
+                  <span
+                    data-su-roi-slider-val
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "20px",
+                      fontWeight: "700",
+                      color: "var(--ink)",
+                    }}
+                  >
+                    {roi.team}
+                  </span>
+                </div>
+                <input
+                  type="range"
+                  min="1"
+                  max="30"
+                  step="1"
+                  value={roi.team}
+                  onChange={(e) => setRoi("team", e.target.value)}
+                  style={{
+                    width: "100%",
+                    marginTop: "10px",
+                    accentColor: "var(--blue-600)",
+                  }}
+                />
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "11px",
+                    color: "var(--ink-4)",
+                    marginTop: "2px",
+                  }}
+                >
+                  <span>1</span>
+                  <span>30</span>
+                </div>
+              </div>
+              <div>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "baseline",
+                  }}
+                >
+                  <label
+                    style={{
+                      fontSize: "12px",
+                      fontWeight: "700",
+                      letterSpacing: ".06em",
+                      textTransform: "uppercase",
+                      color: "var(--ink-3)",
+                    }}
+                  >
+                    Hours to source freight per shipment
+                  </label>
+                  <span
+                    data-su-roi-slider-val
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "20px",
+                      fontWeight: "700",
+                      color: "var(--ink)",
+                    }}
+                  >
+                    {roi.hours}
+                    <span
+                      style={{
+                        fontSize: "13px",
+                        color: "var(--ink-3)",
+                        marginLeft: "2px",
+                      }}
+                    >
+                      hrs
+                    </span>
+                  </span>
+                </div>
+                <input
+                  type="range"
+                  min="0.5"
+                  max="8"
+                  step="0.5"
+                  value={roi.hours}
+                  onChange={(e) => setRoi("hours", e.target.value)}
+                  style={{
+                    width: "100%",
+                    marginTop: "10px",
+                    accentColor: "var(--blue-600)",
+                  }}
+                />
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "11px",
+                    color: "var(--ink-4)",
+                    marginTop: "2px",
+                  }}
+                >
+                  <span>0.5</span>
+                  <span>8</span>
+                </div>
+              </div>
+              <div>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "baseline",
+                  }}
+                >
+                  <label
+                    style={{
+                      fontSize: "12px",
+                      fontWeight: "700",
+                      letterSpacing: ".06em",
+                      textTransform: "uppercase",
+                      color: "var(--ink-3)",
+                    }}
+                  >
+                    Avg. freight spend / shipment (USD)
+                  </label>
+                  <span
+                    data-su-roi-slider-val
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "20px",
+                      fontWeight: "700",
+                      color: "var(--ink)",
+                    }}
+                  >
+                    {"$" + roi.spend.toLocaleString("en-US")}
+                  </span>
+                </div>
+                <input
+                  type="range"
+                  min="500"
+                  max="8000"
+                  step="100"
+                  value={roi.spend}
+                  onChange={(e) => setRoi("spend", e.target.value)}
+                  style={{
+                    width: "100%",
+                    marginTop: "10px",
+                    accentColor: "var(--blue-600)",
+                  }}
+                />
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "11px",
+                    color: "var(--ink-4)",
+                    marginTop: "2px",
+                  }}
+                >
+                  <span>$500</span>
+                  <span>$8,000</span>
+                </div>
+              </div>
+              <div
+                style={{
+                  marginTop: "6px",
+                  padding: "14px",
+                  border: "1px solid var(--blue-100)",
+                  background: "var(--blue-50)",
+                  borderRadius: "12px",
+                  fontSize: "12.5px",
+                  color: "var(--blue-700)",
+                  lineHeight: "1.5",
+                  display: "flex",
+                  gap: "9px",
+                  alignItems: "flex-start",
+                }}
+              >
+                <I
+                  n="info"
+                  style={{
+                    width: "16px",
+                    height: "16px",
+                    flex: "none",
+                    marginTop: "1px",
+                  }}
+                />
+                <span>
+                  Based on Susea customer averages: 90% quote turnaround
+                  reduction, ~6% average freight cost reduction on RFQ'd lanes,
+                  $35/hr fully-loaded procurement cost.
+                </span>
+              </div>
+            </div>
+
+            <div
+              data-su-mobile-pad
+              style={{
+                padding: "32px",
+                display: "flex",
+                flexDirection: "column",
+                gap: "16px",
+                position: "relative",
+                overflow: "hidden",
+              }}
+            >
+              <div
+                style={{
+                  position: "absolute",
+                  left: "24px",
+                  right: "24px",
+                  top: "-1px",
+                  height: "2px",
+                  borderRadius: "2px",
+                  background:
+                    "linear-gradient(90deg,transparent,var(--blue-500),var(--orange-500),var(--amber-500),transparent)",
+                }}
+              ></div>
+              <div>
+                <div
+                  style={{
+                    fontSize: "11px",
+                    fontWeight: "700",
+                    letterSpacing: ".09em",
+                    textTransform: "uppercase",
+                    color: "var(--ink-3)",
+                  }}
+                >
+                  Your Susea impact — annual
+                </div>
+                <div
+                  style={{
+                    marginTop: "10px",
+                    display: "flex",
+                    alignItems: "flex-end",
+                    gap: "10px",
+                  }}
+                >
+                  <div
+                    data-su-roi-total
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "64px",
+                      fontWeight: "700",
+                      letterSpacing: "-.035em",
+                      lineHeight: ".95",
+                      color: "var(--blue-700)",
+                    }}
+                  >
+                    {"$" + roiVals.totalSavings}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: "14px",
+                      color: "var(--ink-3)",
+                      fontWeight: "600",
+                      paddingBottom: "8px",
+                    }}
+                  >
+                    saved / year
+                  </div>
+                </div>
+              </div>
+              <div
+                data-su-cols="2"
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr",
+                  gap: "12px",
+                }}
+              >
+                <div
+                  style={{
+                    border: "1px solid var(--line)",
+                    borderRadius: "12px",
+                    padding: "16px",
+                    background: "#fff",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "8px",
+                      color: "var(--blue-600)",
+                    }}
+                  >
+                    <I n="clock" style={{ width: "16px", height: "16px" }} />
+                    <span
+                      style={{
+                        fontSize: "11px",
+                        fontWeight: "700",
+                        letterSpacing: ".06em",
+                        textTransform: "uppercase",
+                        color: "var(--ink-3)",
+                      }}
+                    >
+                      Hours saved / month
+                    </span>
+                  </div>
+                  <div
+                    data-su-roi-stat
+                    style={{
+                      marginTop: "8px",
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "26px",
+                      fontWeight: "700",
+                      letterSpacing: "-.02em",
+                      color: "var(--ink)",
+                    }}
+                  >
+                    {roiVals.hoursSaved}
+                    <span
+                      style={{
+                        fontSize: "14px",
+                        color: "var(--ink-3)",
+                        marginLeft: "3px",
+                      }}
+                    >
+                      hrs
+                    </span>
+                  </div>
+                </div>
+                <div
+                  style={{
+                    border: "1px solid var(--line)",
+                    borderRadius: "12px",
+                    padding: "16px",
+                    background: "#fff",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "8px",
+                      color: "var(--orange-600)",
+                    }}
+                  >
+                    <I
+                      n="dollar-sign"
+                      style={{ width: "16px", height: "16px" }}
+                    />
+                    <span
+                      style={{
+                        fontSize: "11px",
+                        fontWeight: "700",
+                        letterSpacing: ".06em",
+                        textTransform: "uppercase",
+                        color: "var(--ink-3)",
+                      }}
+                    >
+                      Time savings / year
+                    </span>
+                  </div>
+                  <div
+                    data-su-roi-stat
+                    style={{
+                      marginTop: "8px",
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "26px",
+                      fontWeight: "700",
+                      letterSpacing: "-.02em",
+                      color: "var(--ink)",
+                    }}
+                  >
+                    {"$" + roiVals.timeSavings}
+                  </div>
+                </div>
+                <div
+                  style={{
+                    border: "1px solid var(--line)",
+                    borderRadius: "12px",
+                    padding: "16px",
+                    background: "#fff",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "8px",
+                      color: "var(--good-600)",
+                    }}
+                  >
+                    <I
+                      n="trending-down"
+                      style={{ width: "16px", height: "16px" }}
+                    />
+                    <span
+                      style={{
+                        fontSize: "11px",
+                        fontWeight: "700",
+                        letterSpacing: ".06em",
+                        textTransform: "uppercase",
+                        color: "var(--ink-3)",
+                      }}
+                    >
+                      Freight cost savings / year
+                    </span>
+                  </div>
+                  <div
+                    data-su-roi-stat
+                    style={{
+                      marginTop: "8px",
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "26px",
+                      fontWeight: "700",
+                      letterSpacing: "-.02em",
+                      color: "var(--ink)",
+                    }}
+                  >
+                    {"$" + roiVals.freightSavings}
+                  </div>
+                </div>
+                <div
+                  style={{
+                    border: "1px solid var(--line)",
+                    borderRadius: "12px",
+                    padding: "16px",
+                    background: "#fff",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "8px",
+                      color: "var(--amber-600)",
+                    }}
+                  >
+                    <I n="rocket" style={{ width: "16px", height: "16px" }} />
+                    <span
+                      style={{
+                        fontSize: "11px",
+                        fontWeight: "700",
+                        letterSpacing: ".06em",
+                        textTransform: "uppercase",
+                        color: "var(--ink-3)",
+                      }}
+                    >
+                      Extra shipments handled
+                    </span>
+                  </div>
+                  <div
+                    data-su-roi-stat
+                    style={{
+                      marginTop: "8px",
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "26px",
+                      fontWeight: "700",
+                      letterSpacing: "-.02em",
+                      color: "var(--ink)",
+                    }}
+                  >
+                    {"+" + roiVals.extraShipments}
+                    <span
+                      style={{
+                        fontSize: "14px",
+                        color: "var(--ink-3)",
+                        marginLeft: "3px",
+                      }}
+                    >
+                      / mo
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div
+                style={{
+                  marginTop: "auto",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "10px",
+                }}
+              >
+                <a
+                  href="#demo"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "8px",
+                    height: "52px",
+                    padding: "0 22px",
+                    borderRadius: "12px",
+                    fontSize: "15px",
+                    fontWeight: "600",
+                    background: "var(--blue-600)",
+                    color: "#fff",
+                    boxShadow: "var(--shadow-blue)",
+                  }}
+                >
+                  Get this ROI for my team
+                  <I
+                    n="arrow-right"
+                    style={{ width: "16px", height: "16px" }}
+                  />
+                </a>
+                <div
+                  style={{
+                    fontSize: "12px",
+                    color: "var(--ink-3)",
+                    textAlign: "center",
+                  }}
+                >
+                  Book a 20-min demo — your procurement lead will thank you.
+                </div>
+              </div>
+            </div>
+          </div>
+  );
+}
+
 export default function SpotRatePage() {
   const [tab, setTab] = useState("rates");
-  const [roi, setRoiState] = useState({ shipments: 60, team: 4, hours: 3, spend: 2200 });
   const [form, setFormState] = useState({
     name: "", email: "", company: "", role: "Procurement / Sourcing", volume: "10\u201350", lane: "",
   });
@@ -277,7 +986,6 @@ export default function SpotRatePage() {
   const [openFaq, setOpenFaq] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const setRoi = (k, v) => setRoiState((s) => ({ ...s, [k]: Number(v) }));
   const setForm = (k, v) => setFormState((s) => ({ ...s, [k]: v }));
   const submitForm = (e) => {
     e.preventDefault();
@@ -294,7 +1002,6 @@ export default function SpotRatePage() {
   };
   const toggleFaq = (i) => setOpenFaq((v) => (v === i ? -1 : i));
 
-  const roiVals = computeRoi(roi);
 
   const renderPreview = () =>
     tab === "rates" ? renderRatesPanel() : tab === "rfq" ? renderRfqPanel() : renderDashPanel();
@@ -304,14 +1011,14 @@ export default function SpotRatePage() {
       const open = openFaq === i;
       return (
         <div key={i} style={{ border: "1px solid var(--line)", borderRadius: "12px", background: "#fff", boxShadow: open ? "var(--shadow-sm)" : "var(--shadow-xs)", overflow: "hidden", transition: "box-shadow .2s" }}>
-          <button onClick={() => toggleFaq(i)} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "14px", padding: "18px 20px", width: "100%", textAlign: "left", fontSize: "15px", fontWeight: 600, color: "var(--ink)", cursor: "pointer" }}>
+          <button data-su-faq-q onClick={() => toggleFaq(i)} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "14px", padding: "18px 20px", width: "100%", textAlign: "left", fontSize: "15px", fontWeight: 600, color: "var(--ink)", cursor: "pointer" }}>
             <span>{it.q}</span>
             <span style={{ width: "28px", height: "28px", borderRadius: "8px", background: open ? "var(--blue-600)" : "var(--paper-2)", color: open ? "#fff" : "var(--ink-2)", display: "inline-flex", alignItems: "center", justifyContent: "center", flex: "none", transition: "all .2s", transform: open ? "rotate(45deg)" : "rotate(0)" }}>
               <I n="plus" style={{ width: "16px", height: "16px" }} />
             </span>
           </button>
           {open && (
-            <div style={{ padding: "0 20px 20px", fontSize: "14px", color: "var(--ink-2)", lineHeight: 1.6, animation: "suFadeUp .25s ease" }}>
+            <div data-su-faq-a style={{ padding: "0 20px 20px", fontSize: "14px", color: "var(--ink-2)", lineHeight: 1.6, animation: "suFadeUp .25s ease" }}>
               {it.a}
             </div>
           )}
@@ -404,13 +1111,13 @@ export default function SpotRatePage() {
   const renderTestimonials = () => {
     const cards = TESTIMONIALS.concat(TESTIMONIALS); // duplicate for a seamless -50% loop
     return cards.map((t, i) => (
-      <div key={i} aria-hidden={i >= TESTIMONIALS.length} style={{ flex: "0 0 380px", maxWidth: "380px", border: "1.5px solid " + t.border, borderRadius: "16px", padding: "24px", background: "#fff", boxShadow: "var(--shadow-sm)", display: "flex", flexDirection: "column", gap: "14px", whiteSpace: "normal" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-          <div style={{ width: "36px", height: "36px", borderRadius: "10px", background: t.iconBg, color: t.iconColor, display: "flex", alignItems: "center", justifyContent: "center", flex: "none" }}><I n={t.icon} style={{ width: "20px", height: "20px" }} /></div>
-          <div style={{ fontSize: "15px", fontWeight: "600", color: "var(--ink)" }}>{t.company}</div>
+      <div key={i} aria-hidden={i >= TESTIMONIALS.length} style={{ flex: "0 0 328px", maxWidth: "328px", border: "1.5px solid " + t.border, borderRadius: "14px", padding: "18px", background: "#fff", boxShadow: "var(--shadow-sm)", display: "flex", flexDirection: "column", gap: "11px", whiteSpace: "normal" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <div style={{ width: "32px", height: "32px", borderRadius: "9px", background: t.iconBg, color: t.iconColor, display: "flex", alignItems: "center", justifyContent: "center", flex: "none" }}><I n={t.icon} style={{ width: "18px", height: "18px" }} /></div>
+          <div style={{ fontSize: "14px", fontWeight: "600", color: "var(--ink)" }}>{t.company}</div>
         </div>
-        <p style={{ margin: "0", fontSize: "14px", lineHeight: "1.55", color: "var(--ink-2)" }}>{t.quote}</p>
-        <div style={{ marginTop: "auto", paddingTop: "12px", borderTop: "1px solid var(--line-soft)", fontSize: "13.5px" }}>
+        <p style={{ margin: "0", fontSize: "13px", lineHeight: "1.5", color: "var(--ink-2)" }}>{t.quote}</p>
+        <div style={{ marginTop: "auto", paddingTop: "10px", borderTop: "1px solid var(--line-soft)", fontSize: "12.5px" }}>
           <b style={{ color: "var(--ink)", fontWeight: "600" }}>{t.name}</b> <span style={{ color: "var(--ink-3)" }}>· {t.title}</span>
         </div>
       </div>
@@ -431,7 +1138,7 @@ export default function SpotRatePage() {
           zIndex: "60",
           backdropFilter: "saturate(140%) blur(14px)",
           WebkitBackdropFilter: "saturate(140%) blur(14px)",
-          background: "rgba(255,255,255,.82)",
+          background: "rgba(255,255,255,.50)",
           borderBottom: "1px solid var(--line-soft)",
         }}
       >
@@ -599,58 +1306,26 @@ export default function SpotRatePage() {
               <a
                 key={href}
                 href={href}
+                data-su-menu-link
                 onClick={() => setMenuOpen(false)}
                 style={{
-                  padding: "13px 4px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  padding: "14px 14px",
                   fontSize: "16px",
                   fontWeight: "600",
                   color: "var(--ink)",
-                  borderBottom: "1px solid var(--line-soft)",
+                  borderRadius: "12px",
                 }}
               >
-                {label}
+                <span>{label}</span>
+                <I
+                  n="arrow-right"
+                  style={{ width: "17px", height: "17px" }}
+                />
               </a>
             ))}
-            <a
-              href="#demo"
-              onClick={() => setMenuOpen(false)}
-              style={{
-                marginTop: "12px",
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                height: "46px",
-                borderRadius: "12px",
-                fontSize: "15px",
-                fontWeight: "600",
-                color: "var(--ink)",
-                border: "1px solid var(--line)",
-                background: "#fff",
-              }}
-            >
-              Book demo
-            </a>
-            <a
-              href="#demo"
-              onClick={() => setMenuOpen(false)}
-              style={{
-                marginTop: "8px",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "6px",
-                justifyContent: "center",
-                height: "46px",
-                borderRadius: "12px",
-                fontSize: "15px",
-                fontWeight: "600",
-                color: "#fff",
-                background: "var(--blue-600)",
-                boxShadow: "var(--shadow-blue)",
-              }}
-            >
-              <span>Get instant rates</span>
-              <I n="arrow-right" style={{ width: "16px", height: "16px" }} />
-            </a>
           </div>
         )}
       </nav>
@@ -2497,6 +3172,7 @@ export default function SpotRatePage() {
 
           <div
             data-su-cols="3"
+            data-su-pcards
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(3,1fr)",
@@ -3501,6 +4177,7 @@ export default function SpotRatePage() {
 
           <div
             data-su-cols="2"
+            data-su-how
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr",
@@ -4104,6 +4781,7 @@ export default function SpotRatePage() {
             }}
           >
             <div
+              data-su-tabs
               style={{
                 display: "inline-flex",
                 gap: "6px",
@@ -4208,8 +4886,12 @@ export default function SpotRatePage() {
             </h2>
           </div>
 
+          {/* Desktop / tablet grid — cards mirror PROCUREMENT_FEATURES;
+              keep both in sync if copy changes. Hidden ≤768px in favor of
+              the mobile slider below. */}
           <div
             data-su-cols="4"
+            data-su-proc-grid
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(4,1fr)",
@@ -4607,11 +5289,16 @@ export default function SpotRatePage() {
               </p>
             </div>
           </div>
+
+          {/* Mobile-only Embla slider (≤768px) — isolated component so its
+              state updates don't re-render this huge page (keeps it smooth) */}
+          <ProcMobileSlider />
         </div>
       </section>
 
       <section
         data-su-section
+        data-su-impact
         id="impact"
         style={{
           padding: "56px 0",
@@ -4710,6 +5397,7 @@ export default function SpotRatePage() {
             }}
           >
             <div
+              data-su-metric
               style={{
                 border: "1px solid var(--line)",
                 borderRadius: "14px",
@@ -4719,6 +5407,7 @@ export default function SpotRatePage() {
               }}
             >
               <div
+                data-su-metric-value
                 style={{
                   fontFamily: "var(--font-mono)",
                   fontSize: "52px",
@@ -4730,6 +5419,7 @@ export default function SpotRatePage() {
               >
                 42
                 <span
+                  data-su-metric-unit
                   style={{
                     fontSize: "22px",
                     color: "var(--blue-600)",
@@ -4740,6 +5430,7 @@ export default function SpotRatePage() {
                 </span>
               </div>
               <div
+                data-su-metric-label
                 style={{
                   marginTop: "12px",
                   fontSize: "14px",
@@ -4751,6 +5442,7 @@ export default function SpotRatePage() {
               </div>
             </div>
             <div
+              data-su-metric
               style={{
                 border: "1px solid var(--line)",
                 borderRadius: "14px",
@@ -4760,6 +5452,7 @@ export default function SpotRatePage() {
               }}
             >
               <div
+                data-su-metric-value
                 style={{
                   fontFamily: "var(--font-mono)",
                   fontSize: "52px",
@@ -4771,6 +5464,7 @@ export default function SpotRatePage() {
               >
                 90
                 <span
+                  data-su-metric-unit
                   style={{
                     fontSize: "22px",
                     color: "var(--blue-600)",
@@ -4781,6 +5475,7 @@ export default function SpotRatePage() {
                 </span>
               </div>
               <div
+                data-su-metric-label
                 style={{
                   marginTop: "12px",
                   fontSize: "14px",
@@ -4792,6 +5487,7 @@ export default function SpotRatePage() {
               </div>
             </div>
             <div
+              data-su-metric
               style={{
                 border: "1px solid var(--line)",
                 borderRadius: "14px",
@@ -4801,6 +5497,7 @@ export default function SpotRatePage() {
               }}
             >
               <div
+                data-su-metric-value
                 style={{
                   fontFamily: "var(--font-mono)",
                   fontSize: "52px",
@@ -4812,6 +5509,7 @@ export default function SpotRatePage() {
               >
                 $186
                 <span
+                  data-su-metric-unit
                   style={{
                     fontSize: "22px",
                     color: "var(--blue-600)",
@@ -4822,6 +5520,7 @@ export default function SpotRatePage() {
                 </span>
               </div>
               <div
+                data-su-metric-label
                 style={{
                   marginTop: "12px",
                   fontSize: "14px",
@@ -4833,6 +5532,7 @@ export default function SpotRatePage() {
               </div>
             </div>
             <div
+              data-su-metric
               style={{
                 border: "1px solid var(--line)",
                 borderRadius: "14px",
@@ -4842,6 +5542,7 @@ export default function SpotRatePage() {
               }}
             >
               <div
+                data-su-metric-value
                 style={{
                   fontFamily: "var(--font-mono)",
                   fontSize: "52px",
@@ -4853,6 +5554,7 @@ export default function SpotRatePage() {
               >
                 3.4
                 <span
+                  data-su-metric-unit
                   style={{
                     fontSize: "22px",
                     color: "var(--blue-600)",
@@ -4863,6 +5565,7 @@ export default function SpotRatePage() {
                 </span>
               </div>
               <div
+                data-su-metric-label
                 style={{
                   marginTop: "12px",
                   fontSize: "14px",
@@ -4950,611 +5653,7 @@ export default function SpotRatePage() {
             </p>
           </div>
 
-          <div
-            data-su-roi
-            data-su-pair-tight
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1.15fr",
-              gap: "22px",
-              border: "1px solid var(--line)",
-              borderRadius: "20px",
-              background: "#fff",
-              boxShadow: "var(--shadow-lg)",
-              overflow: "hidden",
-            }}
-          >
-            <div
-              data-su-mobile-pad
-              style={{
-                padding: "32px",
-                background: "var(--paper-2)",
-                borderRight: "1px solid var(--line)",
-                display: "flex",
-                flexDirection: "column",
-                gap: "20px",
-              }}
-            >
-              <div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "baseline",
-                  }}
-                >
-                  <label
-                    style={{
-                      fontSize: "12px",
-                      fontWeight: "700",
-                      letterSpacing: ".06em",
-                      textTransform: "uppercase",
-                      color: "var(--ink-3)",
-                    }}
-                  >
-                    Shipments per month
-                  </label>
-                  <span
-                    style={{
-                      fontFamily: "var(--font-mono)",
-                      fontSize: "20px",
-                      fontWeight: "700",
-                      color: "var(--ink)",
-                    }}
-                  >
-                    {roi.shipments}
-                  </span>
-                </div>
-                <input
-                  type="range"
-                  min="5"
-                  max="500"
-                  step="5"
-                  value={roi.shipments}
-                  onChange={(e) => setRoi("shipments", e.target.value)}
-                  style={{
-                    width: "100%",
-                    marginTop: "10px",
-                    accentColor: "var(--blue-600)",
-                  }}
-                />
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "11px",
-                    color: "var(--ink-4)",
-                    marginTop: "2px",
-                  }}
-                >
-                  <span>5</span>
-                  <span>500</span>
-                </div>
-              </div>
-              <div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "baseline",
-                  }}
-                >
-                  <label
-                    style={{
-                      fontSize: "12px",
-                      fontWeight: "700",
-                      letterSpacing: ".06em",
-                      textTransform: "uppercase",
-                      color: "var(--ink-3)",
-                    }}
-                  >
-                    Procurement team size
-                  </label>
-                  <span
-                    style={{
-                      fontFamily: "var(--font-mono)",
-                      fontSize: "20px",
-                      fontWeight: "700",
-                      color: "var(--ink)",
-                    }}
-                  >
-                    {roi.team}
-                  </span>
-                </div>
-                <input
-                  type="range"
-                  min="1"
-                  max="30"
-                  step="1"
-                  value={roi.team}
-                  onChange={(e) => setRoi("team", e.target.value)}
-                  style={{
-                    width: "100%",
-                    marginTop: "10px",
-                    accentColor: "var(--blue-600)",
-                  }}
-                />
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "11px",
-                    color: "var(--ink-4)",
-                    marginTop: "2px",
-                  }}
-                >
-                  <span>1</span>
-                  <span>30</span>
-                </div>
-              </div>
-              <div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "baseline",
-                  }}
-                >
-                  <label
-                    style={{
-                      fontSize: "12px",
-                      fontWeight: "700",
-                      letterSpacing: ".06em",
-                      textTransform: "uppercase",
-                      color: "var(--ink-3)",
-                    }}
-                  >
-                    Hours to source freight per shipment
-                  </label>
-                  <span
-                    style={{
-                      fontFamily: "var(--font-mono)",
-                      fontSize: "20px",
-                      fontWeight: "700",
-                      color: "var(--ink)",
-                    }}
-                  >
-                    {roi.hours}
-                    <span
-                      style={{
-                        fontSize: "13px",
-                        color: "var(--ink-3)",
-                        marginLeft: "2px",
-                      }}
-                    >
-                      hrs
-                    </span>
-                  </span>
-                </div>
-                <input
-                  type="range"
-                  min="0.5"
-                  max="8"
-                  step="0.5"
-                  value={roi.hours}
-                  onChange={(e) => setRoi("hours", e.target.value)}
-                  style={{
-                    width: "100%",
-                    marginTop: "10px",
-                    accentColor: "var(--blue-600)",
-                  }}
-                />
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "11px",
-                    color: "var(--ink-4)",
-                    marginTop: "2px",
-                  }}
-                >
-                  <span>0.5</span>
-                  <span>8</span>
-                </div>
-              </div>
-              <div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "baseline",
-                  }}
-                >
-                  <label
-                    style={{
-                      fontSize: "12px",
-                      fontWeight: "700",
-                      letterSpacing: ".06em",
-                      textTransform: "uppercase",
-                      color: "var(--ink-3)",
-                    }}
-                  >
-                    Avg. freight spend / shipment (USD)
-                  </label>
-                  <span
-                    style={{
-                      fontFamily: "var(--font-mono)",
-                      fontSize: "20px",
-                      fontWeight: "700",
-                      color: "var(--ink)",
-                    }}
-                  >
-                    {"$" + roi.spend.toLocaleString("en-US")}
-                  </span>
-                </div>
-                <input
-                  type="range"
-                  min="500"
-                  max="8000"
-                  step="100"
-                  value={roi.spend}
-                  onChange={(e) => setRoi("spend", e.target.value)}
-                  style={{
-                    width: "100%",
-                    marginTop: "10px",
-                    accentColor: "var(--blue-600)",
-                  }}
-                />
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "11px",
-                    color: "var(--ink-4)",
-                    marginTop: "2px",
-                  }}
-                >
-                  <span>$500</span>
-                  <span>$8,000</span>
-                </div>
-              </div>
-              <div
-                style={{
-                  marginTop: "6px",
-                  padding: "14px",
-                  border: "1px solid var(--blue-100)",
-                  background: "var(--blue-50)",
-                  borderRadius: "12px",
-                  fontSize: "12.5px",
-                  color: "var(--blue-700)",
-                  lineHeight: "1.5",
-                  display: "flex",
-                  gap: "9px",
-                  alignItems: "flex-start",
-                }}
-              >
-                <I
-                  n="info"
-                  style={{
-                    width: "16px",
-                    height: "16px",
-                    flex: "none",
-                    marginTop: "1px",
-                  }}
-                />
-                <span>
-                  Based on Susea customer averages: 90% quote turnaround
-                  reduction, ~6% average freight cost reduction on RFQ'd lanes,
-                  $35/hr fully-loaded procurement cost.
-                </span>
-              </div>
-            </div>
-
-            <div
-              data-su-mobile-pad
-              style={{
-                padding: "32px",
-                display: "flex",
-                flexDirection: "column",
-                gap: "16px",
-                position: "relative",
-                overflow: "hidden",
-              }}
-            >
-              <div
-                style={{
-                  position: "absolute",
-                  left: "24px",
-                  right: "24px",
-                  top: "-1px",
-                  height: "2px",
-                  borderRadius: "2px",
-                  background:
-                    "linear-gradient(90deg,transparent,var(--blue-500),var(--orange-500),var(--amber-500),transparent)",
-                }}
-              ></div>
-              <div>
-                <div
-                  style={{
-                    fontSize: "11px",
-                    fontWeight: "700",
-                    letterSpacing: ".09em",
-                    textTransform: "uppercase",
-                    color: "var(--ink-3)",
-                  }}
-                >
-                  Your Susea impact — annual
-                </div>
-                <div
-                  style={{
-                    marginTop: "10px",
-                    display: "flex",
-                    alignItems: "flex-end",
-                    gap: "10px",
-                  }}
-                >
-                  <div
-                    style={{
-                      fontFamily: "var(--font-mono)",
-                      fontSize: "64px",
-                      fontWeight: "700",
-                      letterSpacing: "-.035em",
-                      lineHeight: ".95",
-                      color: "var(--blue-700)",
-                    }}
-                  >
-                    {"$" + roiVals.totalSavings}
-                  </div>
-                  <div
-                    style={{
-                      fontSize: "14px",
-                      color: "var(--ink-3)",
-                      fontWeight: "600",
-                      paddingBottom: "8px",
-                    }}
-                  >
-                    saved / year
-                  </div>
-                </div>
-              </div>
-              <div
-                data-su-cols="2"
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr 1fr",
-                  gap: "12px",
-                }}
-              >
-                <div
-                  style={{
-                    border: "1px solid var(--line)",
-                    borderRadius: "12px",
-                    padding: "16px",
-                    background: "#fff",
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "8px",
-                      color: "var(--blue-600)",
-                    }}
-                  >
-                    <I n="clock" style={{ width: "16px", height: "16px" }} />
-                    <span
-                      style={{
-                        fontSize: "11px",
-                        fontWeight: "700",
-                        letterSpacing: ".06em",
-                        textTransform: "uppercase",
-                        color: "var(--ink-3)",
-                      }}
-                    >
-                      Hours saved / month
-                    </span>
-                  </div>
-                  <div
-                    style={{
-                      marginTop: "8px",
-                      fontFamily: "var(--font-mono)",
-                      fontSize: "26px",
-                      fontWeight: "700",
-                      letterSpacing: "-.02em",
-                      color: "var(--ink)",
-                    }}
-                  >
-                    {roiVals.hoursSaved}
-                    <span
-                      style={{
-                        fontSize: "14px",
-                        color: "var(--ink-3)",
-                        marginLeft: "3px",
-                      }}
-                    >
-                      hrs
-                    </span>
-                  </div>
-                </div>
-                <div
-                  style={{
-                    border: "1px solid var(--line)",
-                    borderRadius: "12px",
-                    padding: "16px",
-                    background: "#fff",
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "8px",
-                      color: "var(--orange-600)",
-                    }}
-                  >
-                    <I
-                      n="dollar-sign"
-                      style={{ width: "16px", height: "16px" }}
-                    />
-                    <span
-                      style={{
-                        fontSize: "11px",
-                        fontWeight: "700",
-                        letterSpacing: ".06em",
-                        textTransform: "uppercase",
-                        color: "var(--ink-3)",
-                      }}
-                    >
-                      Time savings / year
-                    </span>
-                  </div>
-                  <div
-                    style={{
-                      marginTop: "8px",
-                      fontFamily: "var(--font-mono)",
-                      fontSize: "26px",
-                      fontWeight: "700",
-                      letterSpacing: "-.02em",
-                      color: "var(--ink)",
-                    }}
-                  >
-                    {"$" + roiVals.timeSavings}
-                  </div>
-                </div>
-                <div
-                  style={{
-                    border: "1px solid var(--line)",
-                    borderRadius: "12px",
-                    padding: "16px",
-                    background: "#fff",
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "8px",
-                      color: "var(--good-600)",
-                    }}
-                  >
-                    <I
-                      n="trending-down"
-                      style={{ width: "16px", height: "16px" }}
-                    />
-                    <span
-                      style={{
-                        fontSize: "11px",
-                        fontWeight: "700",
-                        letterSpacing: ".06em",
-                        textTransform: "uppercase",
-                        color: "var(--ink-3)",
-                      }}
-                    >
-                      Freight cost savings / year
-                    </span>
-                  </div>
-                  <div
-                    style={{
-                      marginTop: "8px",
-                      fontFamily: "var(--font-mono)",
-                      fontSize: "26px",
-                      fontWeight: "700",
-                      letterSpacing: "-.02em",
-                      color: "var(--ink)",
-                    }}
-                  >
-                    {"$" + roiVals.freightSavings}
-                  </div>
-                </div>
-                <div
-                  style={{
-                    border: "1px solid var(--line)",
-                    borderRadius: "12px",
-                    padding: "16px",
-                    background: "#fff",
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "8px",
-                      color: "var(--amber-600)",
-                    }}
-                  >
-                    <I n="rocket" style={{ width: "16px", height: "16px" }} />
-                    <span
-                      style={{
-                        fontSize: "11px",
-                        fontWeight: "700",
-                        letterSpacing: ".06em",
-                        textTransform: "uppercase",
-                        color: "var(--ink-3)",
-                      }}
-                    >
-                      Extra shipments handled
-                    </span>
-                  </div>
-                  <div
-                    style={{
-                      marginTop: "8px",
-                      fontFamily: "var(--font-mono)",
-                      fontSize: "26px",
-                      fontWeight: "700",
-                      letterSpacing: "-.02em",
-                      color: "var(--ink)",
-                    }}
-                  >
-                    {"+" + roiVals.extraShipments}
-                    <span
-                      style={{
-                        fontSize: "14px",
-                        color: "var(--ink-3)",
-                        marginLeft: "3px",
-                      }}
-                    >
-                      / mo
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div
-                style={{
-                  marginTop: "auto",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "10px",
-                }}
-              >
-                <a
-                  href="#demo"
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: "8px",
-                    height: "52px",
-                    padding: "0 22px",
-                    borderRadius: "12px",
-                    fontSize: "15px",
-                    fontWeight: "600",
-                    background: "var(--blue-600)",
-                    color: "#fff",
-                    boxShadow: "var(--shadow-blue)",
-                  }}
-                >
-                  Get this ROI for my team
-                  <I
-                    n="arrow-right"
-                    style={{ width: "16px", height: "16px" }}
-                  />
-                </a>
-                <div
-                  style={{
-                    fontSize: "12px",
-                    color: "var(--ink-3)",
-                    textAlign: "center",
-                  }}
-                >
-                  Book a 20-min demo — your procurement lead will thank you.
-                </div>
-              </div>
-            </div>
-          </div>
+          <RoiCalculator />
         </div>
       </section>
 
@@ -5676,6 +5775,7 @@ export default function SpotRatePage() {
               gap: "48px",
             }}
             data-su-cols="2"
+            data-su-faq
           >
             <div>
               <span
