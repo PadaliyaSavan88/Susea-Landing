@@ -243,14 +243,61 @@ function CompactNode({ n, spec, order }) {
   );
 }
 
-// Vertical connector between two stacked boxes.
-function VConn({ accent }) {
+// Vertical connector between two stacked boxes — mirrors the big-screen
+// diagram: the line draws in, then an accent dot travels down it on a loop.
+// All connectors share one timeline (same begin + duration) so every dot
+// starts together and, being equal length, stays perfectly in sync.
+const DOT_BEGIN = "0.4s";
+const DOT_DUR = "1.9s";
+function VConn({ accent, height = 34 }) {
+  const d = `M6 1 V ${height - 1}`;
   return (
-    <div style={{ display: "flex", justifyContent: "center", padding: "6px 0" }} aria-hidden="true">
-      <svg width="12" height="20" viewBox="0 0 12 20" fill="none">
-        <path d="M6 0V15" stroke={accent} strokeWidth="1.6" strokeLinecap="round" opacity="0.5" />
-        <path d="M2.5 12L6 16l3.5-4" stroke={accent} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" opacity="0.5" />
+    <div style={{ display: "flex", justifyContent: "center" }} aria-hidden="true">
+      <svg width="12" height={height} style={{ overflow: "visible" }}>
+        <path
+          d={d}
+          pathLength={1}
+          stroke="#c7d0de"
+          strokeWidth={1.8}
+          fill="none"
+          style={{ strokeDasharray: 1, strokeDashoffset: 1, animation: "drawLine .45s ease forwards" }}
+        />
+        <circle r={3} fill={accent}>
+          <animateMotion dur={DOT_DUR} begin={DOT_BEGIN} repeatCount="indefinite" path={d} />
+        </circle>
       </svg>
+    </div>
+  );
+}
+
+// Fork from the decision box into the two branch columns: a centred stem, a
+// horizontal split bar, and an animated drop-leg above each column (aligned to
+// the ~25% / ~75% column centres). The legs are fixed-size SVGs so their dots
+// stay round; the bar/stem are CSS lines. Dots share VConn's timeline.
+function ForkConnector({ accent }) {
+  const legH = 22;
+  const d = `M6 1 V ${legH - 1}`;
+  const leg = (leftPct) => (
+    <svg width="12" height={legH} style={{ position: "absolute", top: 13, left: leftPct, transform: "translateX(-6px)", overflow: "visible" }}>
+      <path
+        d={d}
+        pathLength={1}
+        stroke="#c7d0de"
+        strokeWidth={1.8}
+        fill="none"
+        style={{ strokeDasharray: 1, strokeDashoffset: 1, animation: "drawLine .45s ease forwards" }}
+      />
+      <circle r={2.6} fill={accent}>
+        <animateMotion dur={DOT_DUR} begin={DOT_BEGIN} repeatCount="indefinite" path={d} />
+      </circle>
+    </svg>
+  );
+  return (
+    <div style={{ position: "relative", width: "100%", height: 13 + legH }} aria-hidden="true">
+      <div style={{ position: "absolute", top: 0, left: "50%", width: 2, height: 14, marginLeft: -1, background: "#c7d0de" }} />
+      <div style={{ position: "absolute", top: 13, left: "25%", width: "50%", height: 2, background: "#c7d0de" }} />
+      {leg("25%")}
+      {leg("75%")}
     </div>
   );
 }
@@ -259,17 +306,32 @@ function CompactWorkflow({ spec, resetKey }) {
   const { accent } = spec;
   let order = 0;
   return (
-    <div key={resetKey} style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "stretch" }}>
-      {spec.pre.map((n, i) => (
-        <div key={i}>
-          {i > 0 && <VConn accent={accent} />}
-          <CompactNode n={n} spec={spec} order={order++} />
-        </div>
-      ))}
+    <div
+      key={resetKey}
+      style={{
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "stretch",
+        padding: 14,
+        borderRadius: 12,
+        backgroundImage: "radial-gradient(circle, #e3e9f2 1px, transparent 1px)",
+        backgroundSize: "18px 18px",
+      }}
+    >
+      {spec.pre.map((n, i) => {
+        const o = order++;
+        return (
+          <div key={i}>
+            {i > 0 && <VConn accent={accent} />}
+            <CompactNode n={n} spec={spec} order={o} />
+          </div>
+        );
+      })}
 
       {spec.branch && (
         <>
-          <VConn accent={accent} />
+          <ForkConnector accent={accent} />
           <div style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
             {[spec.branch.a, spec.branch.b].map((br, bi) => (
               <div key={bi} style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", alignItems: "stretch" }}>
@@ -290,12 +352,15 @@ function CompactWorkflow({ spec, resetKey }) {
                 >
                   {br.label}
                 </div>
-                {br.nodes.map((n, i) => (
-                  <div key={i}>
-                    <VConn accent={accent} />
-                    <CompactNode n={n} spec={spec} order={order++} />
-                  </div>
-                ))}
+                {br.nodes.map((n, i) => {
+                  const o = order++;
+                  return (
+                    <div key={i}>
+                      <VConn accent={accent} />
+                      <CompactNode n={n} spec={spec} order={o} />
+                    </div>
+                  );
+                })}
               </div>
             ))}
           </div>
