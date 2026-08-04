@@ -438,6 +438,51 @@ section {
   align-items: center;
   gap: 10px;
 }
+.nav-hamburger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  flex: 0 0 auto;
+}
+.nav-mobile-menu {
+  display: none;
+  border-top: 1px solid var(--line-soft);
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: saturate(140%) blur(14px);
+  -webkit-backdrop-filter: saturate(140%) blur(14px);
+  padding: 10px 20px 18px;
+  flex-direction: column;
+  gap: 2px;
+}
+.nav-menu-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+  border-radius: 12px;
+}
+.nav-menu-link:hover {
+  background: var(--paper-2, rgba(0, 0, 0, 0.03));
+}
+@keyframes navFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 /* ===== HERO ===== */
 .hero {
@@ -2672,6 +2717,22 @@ footer {
   .nav-links {
     display: none;
   }
+  .nav-hamburger {
+    display: inline-flex;
+  }
+  .nav-mobile-menu {
+    display: flex;
+    animation: navFadeUp 0.18s ease-out;
+  }
+  /* Shrink the header CTAs so Sign in + Request access + hamburger fit. */
+  .nav-cta {
+    gap: 8px;
+  }
+  .nav-cta .btn {
+    height: 36px;
+    padding: 0 12px;
+    font-size: 13px;
+  }
   .hero-grid {
     grid-template-columns: 1fr;
   }
@@ -3014,6 +3075,25 @@ footer {
   .auto-clusters,
   .auto-stats {
     grid-template-columns: 1fr !important;
+  }
+  .aq-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 12px !important;
+  }
+  .aq-main {
+    width: 100% !important;
+  }
+  .aq-tag {
+    align-self: flex-start !important;
+  }
+  .aq-actions {
+    width: 100% !important;
+  }
+  .aq-btn {
+    flex: 1 1 0 !important;
+    height: 40px !important;
+    justify-content: center !important;
   }
   .steps-grid {
     grid-template-columns: 1fr 1fr !important;
@@ -4426,9 +4506,24 @@ footer {
   flex-direction: column;
   gap: 20px;
 }
+/* Inline accordion diagram — desktop uses the shared right-hand panel instead. */
+.wf-inline {
+  display: none;
+  flex-direction: column;
+  margin-top: 10px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: var(--shadow-md);
+  animation: navFadeUp 0.2s ease-out;
+}
 @media (max-width: 860px) {
   .wf-grid { grid-template-columns: 1fr !important; }
-  .wf-left { flex-direction: row !important; overflow-x: auto !important; }
+  /* Vertical accordion list; the per-card diagram expands inline. */
+  .wf-left { flex-direction: column !important; }
+  .wf-right { display: none !important; }
+  .wf-inline { display: flex !important; }
   .auto-page-ba { grid-template-columns: 1fr !important; }
 }
 
