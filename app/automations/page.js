@@ -132,8 +132,9 @@ const CLUSTERS = [
 ];
 
 // ─── Workflow diagram ──────────────────────────────────────────────────────────
-const NODE_W = 220;
+const NODE_W_MAX = 220;
 const PAD = 16;
+const COL_GAP = 16; // horizontal gap between the two branch columns
 
 function nodeStyle(type, accent) {
   if (type === "trigger")
@@ -162,7 +163,219 @@ function nodeIconColor(type, accent) {
   return "#6b7c96";
 }
 
-function WorkflowDiagram({ spec, resetKey }) {
+// ─── Compact (mobile) workflow ─────────────────────────────────────────────────
+// A flow-based layout: nodes are normal blocks in a flex column with a fixed
+// gap, so every box is guaranteed clear space no matter how its text wraps.
+// Branches render as two equal columns. Replaces the absolute-positioned SVG
+// diagram on narrow screens where fixed slots caused boxes to touch/overlap.
+
+function CompactNode({ n, spec, order }) {
+  const s = nodeStyle(n.type, spec.accent);
+  const iName = nodeIconName(n.type);
+  const iColor = nodeIconColor(n.type, spec.accent);
+  return (
+    <div
+      style={{
+        position: "relative",
+        width: "100%",
+        display: "flex",
+        alignItems: "center",
+        gap: 10,
+        border: s.dashed ? `1px dashed ${s.border}` : `1px solid ${s.border}`,
+        borderLeft: s.borderLeft || undefined,
+        background: s.bg,
+        borderRadius: 12,
+        padding: "11px 12px",
+        boxShadow: s.shadow || "0 1px 2px rgba(14,23,38,.05)",
+        animation: "nodeIn .38s ease both",
+        animationDelay: `${order * 80}ms`,
+      }}
+    >
+      {s.aiTag && (
+        <div
+          style={{
+            position: "absolute",
+            top: -7,
+            right: -7,
+            width: 20,
+            height: 20,
+            borderRadius: 6,
+            background: "linear-gradient(135deg,#f5a000,#f07020)",
+            color: "#fff",
+            fontSize: 8.5,
+            fontWeight: 800,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          AI
+        </div>
+      )}
+      <div
+        style={{
+          flex: "none",
+          width: 28,
+          height: 28,
+          borderRadius: 8,
+          background: n.type === "trigger" ? spec.accent + "1a" : "#f7f9fc",
+          color: iColor,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        {n.type === "trigger" ? (
+          <Icon name={spec.iconName} size={14} />
+        ) : iName ? (
+          <Icon name={iName} size={14} />
+        ) : null}
+      </div>
+      <div style={{ minWidth: 0 }}>
+        <div style={{ fontSize: 12.5, fontWeight: 600, color: "#0e1726", lineHeight: 1.3 }}>{n.label}</div>
+        {n.sub && (
+          <div className="mono" style={{ fontSize: 10.5, color: "#9aa8be", marginTop: 2, lineHeight: 1.3 }}>
+            {n.sub}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// Vertical connector between two stacked boxes — mirrors the big-screen
+// diagram: the line draws in, then an accent dot travels down it on a loop.
+// All connectors share one timeline (same begin + duration) so every dot
+// starts together and, being equal length, stays perfectly in sync.
+const DOT_BEGIN = "0.4s";
+const DOT_DUR = "1.9s";
+function VConn({ accent, height = 34 }) {
+  const d = `M6 1 V ${height - 1}`;
+  return (
+    <div style={{ display: "flex", justifyContent: "center" }} aria-hidden="true">
+      <svg width="12" height={height} style={{ overflow: "visible" }}>
+        <path
+          d={d}
+          pathLength={1}
+          stroke="#c7d0de"
+          strokeWidth={1.8}
+          fill="none"
+          style={{ strokeDasharray: 1, strokeDashoffset: 1, animation: "drawLine .45s ease forwards" }}
+        />
+        <circle r={3} fill={accent}>
+          <animateMotion dur={DOT_DUR} begin={DOT_BEGIN} repeatCount="indefinite" path={d} />
+        </circle>
+      </svg>
+    </div>
+  );
+}
+
+// Fork from the decision box into the two branch columns: a centred stem, a
+// horizontal split bar, and an animated drop-leg above each column (aligned to
+// the ~25% / ~75% column centres). The legs are fixed-size SVGs so their dots
+// stay round; the bar/stem are CSS lines. Dots share VConn's timeline.
+function ForkConnector({ accent }) {
+  const legH = 22;
+  const d = `M6 1 V ${legH - 1}`;
+  const leg = (leftPct) => (
+    <svg width="12" height={legH} style={{ position: "absolute", top: 13, left: leftPct, transform: "translateX(-6px)", overflow: "visible" }}>
+      <path
+        d={d}
+        pathLength={1}
+        stroke="#c7d0de"
+        strokeWidth={1.8}
+        fill="none"
+        style={{ strokeDasharray: 1, strokeDashoffset: 1, animation: "drawLine .45s ease forwards" }}
+      />
+      <circle r={2.6} fill={accent}>
+        <animateMotion dur={DOT_DUR} begin={DOT_BEGIN} repeatCount="indefinite" path={d} />
+      </circle>
+    </svg>
+  );
+  return (
+    <div style={{ position: "relative", width: "100%", height: 13 + legH }} aria-hidden="true">
+      <div style={{ position: "absolute", top: 0, left: "50%", width: 2, height: 14, marginLeft: -1, background: "#c7d0de" }} />
+      <div style={{ position: "absolute", top: 13, left: "25%", width: "50%", height: 2, background: "#c7d0de" }} />
+      {leg("25%")}
+      {leg("75%")}
+    </div>
+  );
+}
+
+function CompactWorkflow({ spec, resetKey }) {
+  const { accent } = spec;
+  let order = 0;
+  return (
+    <div
+      key={resetKey}
+      style={{
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "stretch",
+        padding: 14,
+        borderRadius: 12,
+        backgroundImage: "radial-gradient(circle, #e3e9f2 1px, transparent 1px)",
+        backgroundSize: "18px 18px",
+      }}
+    >
+      {spec.pre.map((n, i) => {
+        const o = order++;
+        return (
+          <div key={i}>
+            {i > 0 && <VConn accent={accent} />}
+            <CompactNode n={n} spec={spec} order={o} />
+          </div>
+        );
+      })}
+
+      {spec.branch && (
+        <>
+          <ForkConnector accent={accent} />
+          <div style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
+            {[spec.branch.a, spec.branch.b].map((br, bi) => (
+              <div key={bi} style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", alignItems: "stretch" }}>
+                <div
+                  style={{
+                    alignSelf: "center",
+                    fontSize: 10.5,
+                    fontWeight: 700,
+                    letterSpacing: ".02em",
+                    color: "#6b7c96",
+                    background: "#fff",
+                    border: "1px solid #e3e9f2",
+                    borderRadius: 999,
+                    padding: "3px 10px",
+                    textAlign: "center",
+                    maxWidth: "100%",
+                  }}
+                >
+                  {br.label}
+                </div>
+                {br.nodes.map((n, i) => {
+                  const o = order++;
+                  return (
+                    <div key={i}>
+                      <VConn accent={accent} />
+                      <CompactNode n={n} spec={spec} order={o} />
+                    </div>
+                  );
+                })}
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
+function WorkflowDiagram({ spec, resetKey, compact }) {
+  if (compact) return <CompactWorkflow spec={spec} resetKey={resetKey} />;
+  return <SvgWorkflowDiagram spec={spec} resetKey={resetKey} />;
+}
+
+function SvgWorkflowDiagram({ spec, resetKey }) {
   const containerRef = useRef(null);
   const [dims, setDims] = useState({ w: 320, h: 540 });
 
@@ -181,15 +394,24 @@ function WorkflowDiagram({ spec, resetKey }) {
   }, []);
 
   const hasBranch = !!spec.branch;
+  // Node width shrinks to fit the container so branched flows (two side-by-side
+  // columns) never overflow on narrow/mobile widths. Branch layout needs
+  // 3·NODE_W + 48 of horizontal room (see preX/colA math below).
+  const NODE_W = hasBranch
+    ? Math.max(116, Math.min(NODE_W_MAX, Math.floor((dims.w - PAD * 2 - COL_GAP) / 2)))
+    : Math.max(140, Math.min(NODE_W_MAX, dims.w - PAD * 2));
   const branchRows = hasBranch
     ? Math.max(spec.branch.a.nodes.length, spec.branch.b.nodes.length)
     : 0;
   const totalRows = spec.pre.length + branchRows;
   const usable = Math.max(dims.h - PAD * 2 - 14, 280);
   const GAP_Y = usable / totalRows;
-  const NODE_H = Math.max(GAP_Y - 16, Math.min(64, GAP_Y - 4));
+  // Keep a real gap between stacked boxes: cap box height and let spacing grow,
+  // so wrapped text on narrow screens never makes neighbours touch.
+  const NODE_H = Math.max(40, Math.min(64, GAP_Y - 20));
 
-  const preX = hasBranch ? (dims.w - NODE_W * 2 - 32) / 2 : (dims.w - NODE_W) / 2;
+  // Pre column is always centred; the branch pair below is centred as a unit.
+  const preX = (dims.w - NODE_W) / 2;
 
   // Build node list
   const nodes = [];
@@ -208,8 +430,8 @@ function WorkflowDiagram({ spec, resetKey }) {
   if (hasBranch) {
     const startY = PAD + spec.pre.length * GAP_Y;
     const decisionNode = prev;
-    const colA = preX - (NODE_W + 16) / 2;
-    const colB = preX + (NODE_W + 16) / 2;
+    const colA = (dims.w - NODE_W * 2 - COL_GAP) / 2;
+    const colB = colA + NODE_W + COL_GAP;
     let bi = idx;
     let prevA = decisionNode;
     spec.branch.a.nodes.forEach((n, i) => {
@@ -646,44 +868,61 @@ export default function AutomationsPage() {
                       const wf = WORKFLOWS[i];
                       const active = activeCap === i;
                       return (
-                        <button
-                          key={i}
-                          onClick={() => selectCap(i)}
-                          style={{
-                            textAlign: "left",
-                            display: "flex",
-                            gap: 12,
-                            alignItems: "flex-start",
-                            border: `1px solid ${active ? wf.accent : "var(--line)"}`,
-                            background: active ? wf.accent + "0d" : "#fff",
-                            borderRadius: 12,
-                            padding: 13,
-                            cursor: "pointer",
-                            minWidth: 220,
-                            transition: "border-color .15s, background .15s",
-                          }}
-                        >
-                          <div
+                        <div key={i}>
+                          <button
+                            onClick={() => selectCap(i)}
+                            aria-expanded={active}
                             style={{
-                              flex: "none",
-                              width: 32,
-                              height: 32,
-                              borderRadius: 9,
-                              border: "1px solid var(--line)",
+                              width: "100%",
+                              textAlign: "left",
                               display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              background: "#fff",
-                              color: active ? wf.accent : "var(--ink-3)",
+                              gap: 12,
+                              alignItems: "flex-start",
+                              border: `1px solid ${active ? wf.accent : "var(--line)"}`,
+                              background: active ? wf.accent + "0d" : "#fff",
+                              borderRadius: 12,
+                              padding: 13,
+                              cursor: "pointer",
+                              transition: "border-color .15s, background .15s",
                             }}
                           >
-                            <Icon name={wf.iconName} size={15} />
-                          </div>
-                          <div style={{ minWidth: 0 }}>
-                            <div style={{ fontSize: 13.5, fontWeight: 600, color: "var(--ink)" }}>{wf.title}</div>
-                            <div style={{ fontSize: 12, color: "var(--ink-2)", lineHeight: 1.4, marginTop: 2 }}>{wf.sub}</div>
-                          </div>
-                        </button>
+                            <div
+                              style={{
+                                flex: "none",
+                                width: 32,
+                                height: 32,
+                                borderRadius: 9,
+                                border: "1px solid var(--line)",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                background: "#fff",
+                                color: active ? wf.accent : "var(--ink-3)",
+                              }}
+                            >
+                              <Icon name={wf.iconName} size={15} />
+                            </div>
+                            <div style={{ minWidth: 0 }}>
+                              <div style={{ fontSize: 13.5, fontWeight: 600, color: "var(--ink)" }}>{wf.title}</div>
+                              <div style={{ fontSize: 12, color: "var(--ink-2)", lineHeight: 1.4, marginTop: 2 }}>{wf.sub}</div>
+                            </div>
+                          </button>
+
+                          {/* Accordion: on mobile the active card expands its own
+                              workflow diagram inline. Hidden on desktop (the shared
+                              right-hand panel handles it there). */}
+                          {active && (
+                            <div className="wf-inline">
+                              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12, gap: 8 }}>
+                                <h4 style={{ margin: 0, fontSize: 14, fontWeight: 600, color: "var(--ink)" }}>{wf.title}</h4>
+                                <span style={{ fontSize: 11.5, color: "var(--ink-4)" }}>Workflow view · live</span>
+                              </div>
+                              <div style={{ opacity: fading ? 0 : 1, transition: "opacity .15s ease" }}>
+                                <WorkflowDiagram spec={wf} resetKey={resetKey} compact />
+                              </div>
+                            </div>
+                          )}
+                        </div>
                       );
                     })}
                   </div>
@@ -693,6 +932,7 @@ export default function AutomationsPage() {
 
             {/* Right: diagram */}
             <div
+              className="wf-right"
               style={{
                 minWidth: 0,
                 border: "1px solid var(--line)",
@@ -810,6 +1050,7 @@ export default function AutomationsPage() {
             {QUEUE_ITEMS.map((q, i) => (
               <div
                 key={i}
+                className="aq-row"
                 style={{
                   display: "flex",
                   alignItems: "center",
@@ -818,21 +1059,23 @@ export default function AutomationsPage() {
                   borderBottom: i < QUEUE_ITEMS.length - 1 ? "1px solid var(--line-soft)" : 0,
                 }}
               >
-                <div style={{ flex: "none", width: 38, height: 38, borderRadius: 10, border: "1px solid var(--line)", background: "var(--paper-2)", color: "var(--ink-2)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <Icon name={q.icon} size={16} />
+                <div className="aq-main" style={{ display: "flex", alignItems: "center", gap: 14, flex: 1, minWidth: 0 }}>
+                  <div style={{ flex: "none", width: 38, height: 38, borderRadius: 10, border: "1px solid var(--line)", background: "var(--paper-2)", color: "var(--ink-2)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <Icon name={q.icon} size={16} />
+                  </div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: "var(--ink)" }}>{q.title}</div>
+                    <div style={{ fontSize: 12.5, color: "var(--ink-2)", marginTop: 2 }}>{q.sub}</div>
+                  </div>
                 </div>
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ fontSize: 14, fontWeight: 600, color: "var(--ink)" }}>{q.title}</div>
-                  <div style={{ fontSize: 12.5, color: "var(--ink-2)", marginTop: 2 }}>{q.sub}</div>
-                </div>
-                <span style={{ flex: "none", padding: "4px 10px", borderRadius: 999, fontSize: 11, fontWeight: 600, border: "1px solid var(--orange-100)", color: "var(--orange-700)", background: "var(--orange-50)", whiteSpace: "nowrap" }}>
+                <span className="aq-tag" style={{ flex: "none", padding: "4px 10px", borderRadius: 999, fontSize: 11, fontWeight: 600, border: "1px solid var(--orange-100)", color: "var(--orange-700)", background: "var(--orange-50)", whiteSpace: "nowrap" }}>
                   {q.tag}
                 </span>
-                <div style={{ flex: "none", display: "flex", gap: 6 }}>
-                  <span style={{ height: 32, padding: "0 12px", fontSize: 12, borderRadius: 9, display: "inline-flex", alignItems: "center", color: "#fff", background: "var(--blue-600)", whiteSpace: "nowrap", fontWeight: 600 }}>
+                <div className="aq-actions" style={{ flex: "none", display: "flex", gap: 6 }}>
+                  <span className="aq-btn" style={{ height: 32, padding: "0 12px", fontSize: 12, borderRadius: 9, display: "inline-flex", alignItems: "center", justifyContent: "center", color: "#fff", background: "var(--blue-600)", whiteSpace: "nowrap", fontWeight: 600 }}>
                     Approve &amp; send
                   </span>
-                  <span style={{ height: 32, padding: "0 12px", fontSize: 12, borderRadius: 9, display: "inline-flex", alignItems: "center", color: "var(--ink)", border: "1px solid var(--line)", background: "#fff", whiteSpace: "nowrap", fontWeight: 600 }}>
+                  <span className="aq-btn" style={{ height: 32, padding: "0 12px", fontSize: 12, borderRadius: 9, display: "inline-flex", alignItems: "center", justifyContent: "center", color: "var(--ink)", border: "1px solid var(--line)", background: "#fff", whiteSpace: "nowrap", fontWeight: 600 }}>
                     Edit
                   </span>
                 </div>

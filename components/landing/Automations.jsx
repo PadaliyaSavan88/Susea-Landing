@@ -230,6 +230,7 @@ export default function Automations() {
           {QUEUE_ITEMS.map((q, i) => (
             <div
               key={i}
+              className="aq-row"
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -240,32 +241,44 @@ export default function Automations() {
               }}
             >
               <div
+                className="aq-main"
                 style={{
-                  flex: "none",
-                  width: 38,
-                  height: 38,
-                  borderRadius: 10,
-                  border: "1px solid var(--line)",
-                  background: "var(--paper-2)",
-                  color: "var(--ink-2)",
                   display: "flex",
                   alignItems: "center",
-                  justifyContent: "center",
+                  gap: 14,
+                  flex: 1,
+                  minWidth: 0,
                 }}
               >
-                <Icon name={q.icon} size={16} />
-              </div>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontSize: 14, fontWeight: 600, color: "var(--ink)" }}>
-                  {q.title}
-                </div>
                 <div
-                  style={{ fontSize: 12.5, color: "var(--ink-2)", marginTop: 2 }}
+                  style={{
+                    flex: "none",
+                    width: 38,
+                    height: 38,
+                    borderRadius: 10,
+                    border: "1px solid var(--line)",
+                    background: "var(--paper-2)",
+                    color: "var(--ink-2)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
                 >
-                  {q.sub}
+                  <Icon name={q.icon} size={16} />
+                </div>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ fontSize: 14, fontWeight: 600, color: "var(--ink)" }}>
+                    {q.title}
+                  </div>
+                  <div
+                    style={{ fontSize: 12.5, color: "var(--ink-2)", marginTop: 2 }}
+                  >
+                    {q.sub}
+                  </div>
                 </div>
               </div>
               <span
+                className="aq-tag"
                 style={{
                   flex: "none",
                   padding: "4px 10px",
@@ -280,8 +293,9 @@ export default function Automations() {
               >
                 {q.tag}
               </span>
-              <div style={{ flex: "none", display: "flex", gap: 6 }}>
+              <div className="aq-actions" style={{ flex: "none", display: "flex", gap: 6 }}>
                 <span
+                  className="aq-btn"
                   style={{
                     height: 32,
                     padding: "0 12px",
@@ -299,6 +313,7 @@ export default function Automations() {
                   Approve &amp; send
                 </span>
                 <span
+                  className="aq-btn"
                   style={{
                     height: 32,
                     padding: "0 12px",
