@@ -2,6 +2,13 @@
    (ported from the Meta Ads "Spot rate" design export). Brand tokens come
    from app/globals.css. */
 
+/* Only on the spot-rate page: keep `body` from becoming a scroll container
+   (global `body { overflow-x: hidden }` would break the sticky nav). Scoped via
+   :has so no other page is affected. */
+body:has(.spot-rate-page) {
+  overflow-x: clip;
+}
+
 .spot-rate-page {
   font-family: var(--font-sans);
   color: var(--ink);

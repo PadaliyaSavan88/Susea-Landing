@@ -143,9 +143,7 @@ body {
   text-rendering: optimizeLegibility;
 }
 body {
-  /* clip (not hidden) so horizontal overflow is still contained without turning
-     body into a scroll container — which would break `position: sticky` headers */
-  overflow-x: clip;
+  overflow-x: hidden;
 }
 a {
   color: inherit;
