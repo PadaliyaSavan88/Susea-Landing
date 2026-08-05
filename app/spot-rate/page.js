@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useRef, useEffect, useCallback } from "react";
+import Script from "next/script";
 import useEmblaCarousel from "embla-carousel-react";
 import * as Lucide from "lucide-react";
 import { smoothScrollToId, smoothScrollToTop } from "@/lib/scroll";
@@ -9,6 +10,20 @@ function I({ n, style }) {
   const key = n.split("-").map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join("");
   const C = Lucide[key];
   return C ? <C style={style} strokeWidth={1.85} /> : null;
+}
+
+/* ---- HubSpot demo-request form (same portal/form as the main landing page). ---- */
+const HS_PORTAL_ID = "246430647";
+const HS_REGION = "na2";
+const HS_FORM_ID = "e8384cae-33eb-484b-8cae-63985955f33d";
+
+function HubSpotForm() {
+  return (
+    <>
+      <div className="hs-form-frame" data-region={HS_REGION} data-form-id={HS_FORM_ID} data-portal-id={HS_PORTAL_ID} />
+      <Script src={`https://js-${HS_REGION}.hsforms.net/forms/embed/${HS_PORTAL_ID}.js`} strategy="afterInteractive" />
+    </>
+  );
 }
 
 function fmtMoney(n) {
@@ -998,7 +1013,7 @@ export default function SpotRatePage() {
   };
   const openCalendly = (e) => {
     e.preventDefault();
-    window.open("https://calendly.com/susea-demo", "_blank", "noopener");
+    window.open("https://calendly.com/darshit-alphabitssolutions/30min", "_blank", "noopener");
   };
   const toggleFaq = (i) => setOpenFaq((v) => (v === i ? -1 : i));
 
@@ -5926,7 +5941,7 @@ export default function SpotRatePage() {
               display: "grid",
               gridTemplateColumns: "1.05fr 1fr",
               gap: "36px",
-              alignItems: "start",
+              alignItems: "center",
               position: "relative",
               overflow: "hidden",
               boxShadow: "var(--shadow-xl)",
@@ -6274,6 +6289,91 @@ export default function SpotRatePage() {
               )}
               {formOpen && (
                 <>
+                  <HubSpotForm />
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "8px",
+                      fontSize: "12px",
+                      color: "var(--ink-3)",
+                      marginTop: "12px",
+                    }}
+                  >
+                    <I
+                      n="shield-check"
+                      style={{
+                        width: "14px",
+                        height: "14px",
+                        color: "var(--good-500)",
+                      }}
+                    />
+                    <span>
+                      No spam. Your details are encrypted and never sold. Only
+                      used to prep your demo.
+                    </span>
+                  </div>
+                  <div
+                    style={{
+                      marginTop: "16px",
+                      paddingTop: "16px",
+                      borderTop: "1px solid var(--line-soft)",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "10px",
+                      flexWrap: "wrap",
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontSize: "11px",
+                        fontWeight: "700",
+                        letterSpacing: ".06em",
+                        textTransform: "uppercase",
+                        color: "var(--ink-4)",
+                      }}
+                    >
+                      Prefer to skip the form?
+                    </span>
+                    <a
+                      href="#"
+                      onClick={openCalendly}
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "6px",
+                        padding: "8px 14px",
+                        borderRadius: "999px",
+                        fontSize: "12.5px",
+                        fontWeight: "600",
+                        background: "var(--blue-50)",
+                        color: "var(--blue-700)",
+                        border: "1px solid var(--blue-100)",
+                      }}
+                    >
+                      <I n="calendar" style={{ width: "13px", height: "13px" }} />
+                      Pick a Calendly slot
+                    </a>
+                    <a
+                      href="mailto:info@alphabitssolutions.com"
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "6px",
+                        padding: "8px 14px",
+                        borderRadius: "999px",
+                        fontSize: "12.5px",
+                        fontWeight: "600",
+                        background: "#fff",
+                        color: "var(--ink)",
+                        border: "1px solid var(--line)",
+                      }}
+                    >
+                      <I n="mail" style={{ width: "13px", height: "13px" }} />
+                      Email sales
+                    </a>
+                  </div>
+                  {false && (
                   <form
                     onSubmit={submitForm}
                     style={{
@@ -6676,6 +6776,7 @@ export default function SpotRatePage() {
                       </div>
                     </div>
                   </form>
+                  )}
                 </>
               )}
             </div>
