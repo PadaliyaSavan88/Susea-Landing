@@ -2,7 +2,11 @@ import { NextResponse } from 'next/server'
 
 export function proxy(request) {
   const { pathname } = request.nextUrl
-  if (!pathname.startsWith('/admin') && pathname !== '/api/waitlist/export') {
+  const isProtected =
+    pathname.startsWith('/admin') ||
+    pathname === '/api/waitlist/export' ||
+    pathname === '/api/playbook/export'
+  if (!isProtected) {
     return NextResponse.next()
   }
 
@@ -27,5 +31,5 @@ export function proxy(request) {
 }
 
 export const config = {
-  matcher: ['/admin/:path*', '/api/waitlist/export'],
+  matcher: ['/admin/:path*', '/api/waitlist/export', '/api/playbook/export'],
 }
