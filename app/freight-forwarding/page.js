@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
+import Script from "next/script";
 import useEmblaCarousel from "embla-carousel-react";
 import { smoothScrollToId, smoothScrollToTop } from "@/lib/scroll";
 import Footer from "@/components/landing/Footer";
@@ -11,6 +12,49 @@ import "./freight-forwarding.css";
    Content, data and layout mirror the source. Forms/CTAs are
    visual-only in this pass (they don't submit anywhere).
    ============================================================ */
+
+/* ---- Calendly booking config ----
+   Flip USE_CALENDLY_EMBED to false to fall back to the custom mock grid,
+   whose day/time cells then open CALENDLY_URL in a new tab instead. ---- */
+const CALENDLY_URL = "https://calendly.com/darshit-alphabitssolutions/30min";
+const USE_CALENDLY_EMBED = true;
+
+/* ---- Calendly inline embed: loads widget.js and mounts the scheduler. ---- */
+function CalendlyEmbed({ url }) {
+  const mounted = useRef(false);
+  const init = () => {
+    if (typeof window === "undefined" || mounted.current) return;
+    const parent = document.getElementById("calendly-inline");
+    if (window.Calendly && parent) {
+      mounted.current = true;
+      window.Calendly.initInlineWidget({ url, parentElement: parent });
+    }
+  };
+  useEffect(() => { init(); }, []); // in case the script was already cached/loaded
+  return (
+    <>
+      <div
+        id="calendly-inline"
+        style={{ minWidth: "320px", width: "100%", height: "820px", maxWidth: "1080px", margin: "0 auto", borderRadius: "20px", overflow: "hidden", background: "#fff", boxShadow: "var(--shadow-xl)" }}
+      />
+      <Script src="https://assets.calendly.com/assets/external/widget.js" strategy="afterInteractive" onLoad={init} />
+    </>
+  );
+}
+
+/* ---- HubSpot beta-access form (same portal/form as the main landing page). ---- */
+const HS_PORTAL_ID = "246430647";
+const HS_REGION = "na2";
+const HS_FORM_ID = "e8384cae-33eb-484b-8cae-63985955f33d";
+
+function HubSpotForm() {
+  return (
+    <>
+      <div className="hs-form-frame" data-region={HS_REGION} data-form-id={HS_FORM_ID} data-portal-id={HS_PORTAL_ID} />
+      <Script src={`https://js-${HS_REGION}.hsforms.net/forms/embed/${HS_PORTAL_ID}.js`} strategy="afterInteractive" />
+    </>
+  );
+}
 
 /* ---- Hover helper: reproduces the source's inline `style-hover`. ---- */
 function Hover({ as: Tag = "div", base, hover, children, ...rest }) {
@@ -24,6 +68,84 @@ function Hover({ as: Tag = "div", base, hover, children, ...rest }) {
     >
       {children}
     </Tag>
+  );
+}
+
+/* ---- Playbook lead-magnet form: posts to /api/playbook, emails the PDF ----
+   Shared by the lead-magnet section and the exit-intent modal. Handles its own
+   loading/success/error state and includes a honeypot field for basic bot defense. */
+function PlaybookForm({ source, buttonLabel = "Get the playbook", wrapperStyle }) {
+  const [email, setEmail] = useState("");
+  const [website, setWebsite] = useState(""); // honeypot — real users leave this blank
+  const [status, setStatus] = useState("idle"); // idle | loading | success | error
+  const [error, setError] = useState("");
+
+  const submit = async (e) => {
+    e.preventDefault();
+    if (status === "loading") return;
+    setStatus("loading");
+    setError("");
+    try {
+      const res = await fetch("/api/playbook", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, source, website }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setError(data.error || "Something went wrong. Please try again.");
+        setStatus("error");
+        return;
+      }
+      setStatus("success");
+    } catch {
+      setError("Network error. Please check your connection and try again.");
+      setStatus("error");
+    }
+  };
+
+  if (status === "success") {
+    return (
+      <div style={{ display: "flex", alignItems: "flex-start", gap: "10px", padding: "14px 16px", borderRadius: "10px", background: "rgba(46,107,216,.08)", border: "1px solid rgba(46,107,216,.25)", animation: "ffFadeUp .3s ease", ...wrapperStyle }}>
+        <span style={{ fontSize: "18px", lineHeight: 1.2 }}>✉️</span>
+        <div style={{ fontSize: "14px", color: "var(--ink-2)", lineHeight: 1.5 }}>
+          Check your inbox — the playbook is on its way to <strong style={{ color: "var(--ink)" }}>{email}</strong>. It may take a minute (and check spam just in case).
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div style={wrapperStyle}>
+      <form onSubmit={submit} style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+        <input
+          type="email"
+          placeholder="ops@yourcompany.com"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          disabled={status === "loading"}
+          style={{ flex: 1, minWidth: "200px", padding: "13px 16px", borderRadius: "10px", border: `1px solid ${status === "error" ? "#D92D20" : "var(--line-strong)"}`, background: "#fff" }}
+        />
+        {/* Honeypot: hidden from real users, catches naive bots */}
+        <input
+          type="text"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          value={website}
+          onChange={(e) => setWebsite(e.target.value)}
+          style={{ position: "absolute", left: "-9999px", width: "1px", height: "1px", opacity: 0 }}
+        />
+        <Hover as="button" type="submit" disabled={status === "loading"} base={{ padding: "13px 20px", borderRadius: "10px", background: "var(--ink)", color: "#fff", fontWeight: 600, fontSize: "14px", opacity: status === "loading" ? 0.7 : 1, cursor: status === "loading" ? "wait" : "pointer" }} hover={{ background: "var(--blue-700)" }}>
+          {status === "loading" ? "Sending…" : buttonLabel}
+        </Hover>
+      </form>
+      {status === "error" && (
+        <div style={{ fontSize: "12.5px", color: "#D92D20", marginTop: "8px" }}>{error}</div>
+      )}
+    </div>
   );
 }
 
@@ -66,15 +188,16 @@ const ROI_INPUTS = [
 ];
 
 /* ---- Content data (ported from the source) ---- */
+// Dummy partner logos — placeholder brand marks (fictional forwarders).
 const BASE_LOGOS = [
-  { name: "Meridian Freight", mono: "MF" },
-  { name: "BluePort Logistics", mono: "BL" },
-  { name: "Neptune Cargo", mono: "NC" },
-  { name: "Sable NVOCC", mono: "SN" },
-  { name: "Kavala Shipping", mono: "KS" },
-  { name: "Orient Forwarders", mono: "OF" },
-  { name: "Cargo Vault CHA", mono: "CV" },
-  { name: "Tallwave 3PL", mono: "TW" },
+  { name: "Meridian Freight", mono: "MF", color: "linear-gradient(135deg,#2563eb,#1e40af)" },
+  { name: "BluePort Logistics", mono: "BL", color: "linear-gradient(135deg,#0ea5e9,#0369a1)" },
+  { name: "Neptune Cargo", mono: "NC", color: "linear-gradient(135deg,#14b8a6,#0f766e)" },
+  { name: "Sable NVOCC", mono: "SN", color: "linear-gradient(135deg,#6366f1,#4338ca)" },
+  { name: "Kavala Shipping", mono: "KS", color: "linear-gradient(135deg,#f59e0b,#b45309)" },
+  { name: "Orient Forwarders", mono: "OF", color: "linear-gradient(135deg,#ef4444,#b91c1c)" },
+  { name: "Cargo Vault CHA", mono: "CV", color: "linear-gradient(135deg,#8b5cf6,#6d28d9)" },
+  { name: "Tallwave 3PL", mono: "TW", color: "linear-gradient(135deg,#10b981,#047857)" },
 ];
 const TRUST_LOGOS = [...BASE_LOGOS, ...BASE_LOGOS];
 
@@ -458,6 +581,10 @@ export default function FreightForwardingPage() {
     smoothScrollToTop();
   };
   const inert = (e) => e.preventDefault(); // visual-only forms/CTAs
+  const openCalendly = (e) => {
+    e.preventDefault();
+    window.open(CALENDLY_URL, "_blank", "noopener");
+  };
 
   return (
     <div className="freight-forwarding-page">
@@ -658,12 +785,12 @@ export default function FreightForwardingPage() {
       {/* ============ 4. TRUST STRIP ============ */}
       <section style={{ padding: "32px 20px 48px", background: "#fff", borderBottom: "1px solid var(--line-soft)" }}>
         <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
-          <div style={{ textAlign: "center", fontSize: "12px", fontWeight: 700, letterSpacing: ".14em", textTransform: "uppercase", color: "var(--ink-3)", marginBottom: "24px" }}>Trusted by beta forwarders across 8 countries · <span style={{ color: "var(--ink-4)" }}>[placeholder logos — swap in real partners]</span></div>
+          <div style={{ textAlign: "center", fontSize: "12px", fontWeight: 700, letterSpacing: ".14em", textTransform: "uppercase", color: "var(--ink-3)", marginBottom: "24px" }}>Trusted by beta forwarders across 8 countries</div>
           <div className="marquee">
             <div className="marquee-track">
               {TRUST_LOGOS.map((logo, i) => (
                 <div key={i} style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "44px", padding: "0 24px", fontFamily: "var(--font-mono)", fontSize: "13px", fontWeight: 600, letterSpacing: ".02em", color: "var(--ink-3)", border: "1px solid var(--line)", borderRadius: "10px", background: "#fff", whiteSpace: "nowrap", minWidth: "180px" }}>
-                  <span style={{ width: "24px", height: "24px", border: "1px solid var(--line-strong)", borderRadius: "6px", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: "10px", color: "var(--ink-2)", marginRight: "10px" }}>{logo.mono}</span>
+                  <span style={{ width: "26px", height: "26px", borderRadius: "7px", background: logo.color, display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: "10px", fontWeight: 700, color: "#fff", letterSpacing: ".02em", marginRight: "10px", flexShrink: 0 }}>{logo.mono}</span>
                   {logo.name}
                 </div>
               ))}
@@ -1053,10 +1180,7 @@ export default function FreightForwardingPage() {
                   <li key={t} style={{ display: "flex", gap: "10px", fontSize: "14px", color: "var(--ink-2)" }}><span style={{ color: "var(--good-500)", fontWeight: 700 }}>✓</span>{t}</li>
                 ))}
               </ul>
-              <form onSubmit={inert} style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-                <input type="email" placeholder="ops@yourcompany.com" required style={{ flex: 1, minWidth: "200px", padding: "13px 16px", borderRadius: "10px", border: "1px solid var(--line-strong)", background: "#fff" }} />
-                <Hover as="button" type="submit" base={{ padding: "13px 20px", borderRadius: "10px", background: "var(--ink)", color: "#fff", fontWeight: 600, fontSize: "14px" }} hover={{ background: "var(--blue-700)" }}>Get the playbook</Hover>
-              </form>
+              <PlaybookForm source="freight-page" buttonLabel="Get the playbook" />
               <div style={{ fontSize: "11.5px", color: "var(--ink-3)", marginTop: "10px" }}>One email. No sequence. Unsubscribe with one click.</div>
             </div>
             <div style={{ position: "relative", display: "flex", justifyContent: "center" }}>
@@ -1087,7 +1211,10 @@ export default function FreightForwardingPage() {
           </h2>
           <p style={{ fontSize: "18px", lineHeight: 1.55, color: "rgba(255,255,255,.75)", margin: "0 auto 40px", maxWidth: "640px" }}>20 minutes. We come with your carrier list, your lanes, and a live draft of what Susea would look like on your desk by Friday.</p>
 
-          {/* Calendly mock */}
+          {/* Calendly booking: live embed, or the custom mock grid as a fallback */}
+          {USE_CALENDLY_EMBED ? (
+          <CalendlyEmbed url={CALENDLY_URL} />
+          ) : (
           <div style={{ background: "#fff", borderRadius: "20px", padding: "32px", boxShadow: "var(--shadow-xl)", color: "var(--ink)", textAlign: "left", maxWidth: "820px", margin: "0 auto" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px", paddingBottom: "16px", borderBottom: "1px solid var(--line-soft)" }}>
               <div>
@@ -1100,7 +1227,7 @@ export default function FreightForwardingPage() {
             </div>
             <div className="day-grid" style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: "8px", marginBottom: "20px" }}>
               {DAYS.map((d) => (
-                <Hover key={d.day} base={{ background: d.bg, border: `1px solid ${d.border}`, borderRadius: "10px", padding: "12px", textAlign: "center", cursor: "pointer", transition: "transform .15s" }} hover={{ transform: "translateY(-2px)", borderColor: "var(--blue-500)" }}>
+                <Hover key={d.day} as="button" onClick={openCalendly} base={{ background: d.bg, border: `1px solid ${d.border}`, borderRadius: "10px", padding: "12px", textAlign: "center", cursor: "pointer", transition: "transform .15s", width: "100%", font: "inherit" }} hover={{ transform: "translateY(-2px)", borderColor: "var(--blue-500)" }}>
                   <div style={{ fontSize: "11px", fontWeight: 700, letterSpacing: ".08em", textTransform: "uppercase", color: "var(--ink-3)" }}>{d.day}</div>
                   <div className="ds-mono" style={{ fontSize: "20px", fontWeight: 600, color: d.textColor, marginTop: "2px" }}>{d.date}</div>
                   <div style={{ fontSize: "11px", color: "var(--ink-3)", marginTop: "4px" }}>{d.slots}</div>
@@ -1109,7 +1236,7 @@ export default function FreightForwardingPage() {
             </div>
             <div className="slot-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: "8px" }}>
               {SLOTS.map((time) => (
-                <Hover key={time} as="button" onClick={inert} base={{ padding: "14px", borderRadius: "10px", border: "1px solid var(--line-strong)", background: "#fff", color: "var(--ink)", fontWeight: 600, fontSize: "14px", fontFamily: "var(--font-mono)" }} hover={{ background: "var(--blue-600)", color: "#fff", borderColor: "var(--blue-600)" }}>{time}</Hover>
+                <Hover key={time} as="button" onClick={openCalendly} base={{ padding: "14px", borderRadius: "10px", border: "1px solid var(--line-strong)", background: "#fff", color: "var(--ink)", fontWeight: 600, fontSize: "14px", fontFamily: "var(--font-mono)" }} hover={{ background: "var(--blue-600)", color: "#fff", borderColor: "var(--blue-600)" }}>{time}</Hover>
               ))}
             </div>
             <div style={{ marginTop: "20px", paddingTop: "20px", borderTop: "1px solid var(--line-soft)", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px" }}>
@@ -1117,6 +1244,7 @@ export default function FreightForwardingPage() {
               <div style={{ fontSize: "11px", color: "var(--ink-4)", fontFamily: "var(--font-mono)" }}>calendly.com/susea/demo</div>
             </div>
           </div>
+          )}
         </div>
       </section>
 
@@ -1128,40 +1256,13 @@ export default function FreightForwardingPage() {
             <h2 className="ds-h2" style={{ margin: "0 0 12px", textWrap: "balance" }}>Request beta access.</h2>
             <p className="ds-lead" style={{ maxWidth: "520px", margin: "0 auto" }}>Short form · we route it to sales within 24 hours · priority onboarding for cohort members.</p>
           </div>
-          <form onSubmit={inert} style={{ background: "var(--paper-2)", border: "1px solid var(--line)", borderRadius: "20px", padding: "32px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }} className="grid-2-md">
-            <div style={{ gridColumn: "1/-1" }}>
-              <label style={{ display: "block", fontSize: "12px", fontWeight: 700, letterSpacing: ".08em", textTransform: "uppercase", color: "var(--ink-3)", marginBottom: "6px" }}>Your name</label>
-              <input required style={{ width: "100%", padding: "13px 16px", borderRadius: "10px", border: "1px solid var(--line-strong)", background: "#fff" }} placeholder="Priya Sharma" />
+          <div style={{ background: "var(--paper-2)", border: "1px solid var(--line)", borderRadius: "20px", padding: "32px" }}>
+            <HubSpotForm />
+            <div style={{ marginTop: "20px", paddingTop: "20px", borderTop: "1px solid var(--line)", fontSize: "12.5px", color: "var(--ink-3)", display: "flex", alignItems: "center", gap: "8px" }}>
+              <span className="live-dot" style={{ background: "var(--orange-500)" }} />
+              SSL-secured · GDPR-compliant · we never share your data.
             </div>
-            <div>
-              <label style={{ display: "block", fontSize: "12px", fontWeight: 700, letterSpacing: ".08em", textTransform: "uppercase", color: "var(--ink-3)", marginBottom: "6px" }}>Work email</label>
-              <input type="email" required style={{ width: "100%", padding: "13px 16px", borderRadius: "10px", border: "1px solid var(--line-strong)", background: "#fff" }} placeholder="priya@forwarder.co" />
-            </div>
-            <div>
-              <label style={{ display: "block", fontSize: "12px", fontWeight: 700, letterSpacing: ".08em", textTransform: "uppercase", color: "var(--ink-3)", marginBottom: "6px" }}>Company</label>
-              <input required style={{ width: "100%", padding: "13px 16px", borderRadius: "10px", border: "1px solid var(--line-strong)", background: "#fff" }} placeholder="Acme Forwarding" />
-            </div>
-            <div>
-              <label style={{ display: "block", fontSize: "12px", fontWeight: 700, letterSpacing: ".08em", textTransform: "uppercase", color: "var(--ink-3)", marginBottom: "6px" }}>Role</label>
-              <select style={{ width: "100%", padding: "13px 16px", borderRadius: "10px", border: "1px solid var(--line-strong)", background: "#fff" }}>
-                <option>Founder / CEO</option>
-                <option>Operations Manager</option>
-                <option>Pricing / Commercial</option>
-                <option>Freight Executive</option>
-                <option>Other</option>
-              </select>
-            </div>
-            <div>
-              <label style={{ display: "block", fontSize: "12px", fontWeight: 700, letterSpacing: ".08em", textTransform: "uppercase", color: "var(--ink-3)", marginBottom: "6px" }}>Monthly quote volume</label>
-              <select style={{ width: "100%", padding: "13px 16px", borderRadius: "10px", border: "1px solid var(--line-strong)", background: "#fff" }}>
-                <option>&lt; 50</option><option>50 – 200</option><option>200 – 500</option><option>500 – 2000</option><option>2000+</option>
-              </select>
-            </div>
-            <div style={{ gridColumn: "1/-1", display: "flex", gap: "16px", alignItems: "center", flexWrap: "wrap", marginTop: "8px" }}>
-              <Hover as="button" type="submit" base={{ padding: "15px 28px", borderRadius: "12px", background: "var(--orange-500)", color: "#fff", fontWeight: 600, fontSize: "15px", boxShadow: "var(--shadow-orange)" }} hover={{ background: "var(--orange-600)" }}>Request beta access →</Hover>
-              <div style={{ fontSize: "12.5px", color: "var(--ink-3)" }}>SSL-secured · GDPR-compliant · we never share your data.</div>
-            </div>
-          </form>
+          </div>
         </div>
       </section>
 
@@ -1184,10 +1285,7 @@ export default function FreightForwardingPage() {
               <div className="ds-eyebrow" style={{ color: "var(--orange-500)", marginBottom: "10px" }}>Before you go</div>
               <h3 className="ds-h3" style={{ margin: "0 0 12px" }}>Take the playbook with you.</h3>
               <p className="ds-body" style={{ margin: "0 0 20px" }}>The Ocean Freight Automation Playbook — 12 workflows our beta forwarders turned on in week one. No sales sequence.</p>
-              <form onSubmit={(e) => { e.preventDefault(); setExitOpen(false); }} style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "12px" }}>
-                <input type="email" placeholder="ops@yourcompany.com" required style={{ flex: 1, minWidth: "200px", padding: "13px 16px", borderRadius: "10px", border: "1px solid var(--line-strong)", background: "#fff" }} />
-                <Hover as="button" type="submit" base={{ padding: "13px 20px", borderRadius: "10px", background: "var(--ink)", color: "#fff", fontWeight: 600, fontSize: "14px" }} hover={{ background: "var(--blue-700)" }}>Email me the guide</Hover>
-              </form>
+              <PlaybookForm source="exit-intent" buttonLabel="Email me the guide" wrapperStyle={{ marginBottom: "12px" }} />
               <div style={{ fontSize: "12px", color: "var(--ink-3)", textAlign: "center", paddingTop: "12px", borderTop: "1px solid var(--line-soft)", marginTop: "12px" }}>Not ready to talk? <button onClick={() => { setExitOpen(false); setTimeout(() => smoothScrollToId("waitlist"), 100); }} style={{ color: "var(--blue-700)", fontWeight: 600, textDecoration: "underline" }}>Just email me beta launch updates</button></div>
             </div>
           </div>

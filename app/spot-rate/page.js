@@ -1306,26 +1306,58 @@ export default function SpotRatePage() {
               <a
                 key={href}
                 href={href}
-                data-su-menu-link
                 onClick={() => setMenuOpen(false)}
                 style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  padding: "14px 14px",
+                  padding: "13px 4px",
                   fontSize: "16px",
                   fontWeight: "600",
                   color: "var(--ink)",
-                  borderRadius: "12px",
+                  borderBottom: "1px solid var(--line-soft)",
                 }}
               >
-                <span>{label}</span>
-                <I
-                  n="arrow-right"
-                  style={{ width: "17px", height: "17px" }}
-                />
+                {label}
               </a>
             ))}
+            <a
+              href="#demo"
+              onClick={() => setMenuOpen(false)}
+              style={{
+                marginTop: "12px",
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                height: "46px",
+                borderRadius: "12px",
+                fontSize: "15px",
+                fontWeight: "600",
+                color: "var(--ink)",
+                border: "1px solid var(--line)",
+                background: "#fff",
+              }}
+            >
+              Book demo
+            </a>
+            <a
+              href="#demo"
+              onClick={() => setMenuOpen(false)}
+              style={{
+                marginTop: "8px",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "6px",
+                justifyContent: "center",
+                height: "46px",
+                borderRadius: "12px",
+                fontSize: "15px",
+                fontWeight: "600",
+                color: "#fff",
+                background: "var(--blue-600)",
+                boxShadow: "var(--shadow-blue)",
+              }}
+            >
+              <span>Get instant rates</span>
+              <I n="arrow-right" style={{ width: "16px", height: "16px" }} />
+            </a>
           </div>
         )}
       </nav>
