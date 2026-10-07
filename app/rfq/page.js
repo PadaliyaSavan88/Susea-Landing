@@ -2,9 +2,11 @@
 import { useState, useMemo, useRef, useEffect } from "react";
 import Image from "next/image";
 import Icon from "@/components/ui/Icon";
+import Nav from "@/components/landing/Nav";
 import TestimonialsSlider from "@/components/landing/TestimonialsSlider";
 import Footer from "@/components/landing/Footer";
 import Waitlist from "@/components/landing/Waitlist";
+import { smoothScrollToId } from "@/lib/scroll";
 
 /* ─── Auction data ─────────────────────────────────────────────────── */
 const AGENTS_INIT = [
@@ -508,27 +510,7 @@ export default function RFQPage() {
   return (
     <>
       {/* ── Nav ── */}
-      <nav className="nav">
-        <div className="container nav-inner">
-          <a className="logo" href="/">
-            <Image src="/assets/susea-mark-black.png" alt="Susea" width={26} height={26} />
-            <span>Susea</span>
-          </a>
-          <div className="nav-links">
-            <a href="/#two-ways">Overview</a>
-            <a href="/instant-rates">Instant rates</a>
-            <a href="/rfq" style={{ color: "var(--blue-600)", fontWeight: 600 }}>RFQ</a>
-            <a href="/automations">Automations</a>
-            <a href="/#features">Features</a>
-            <a href="/pricing">Pricing</a>
-            <a href="/#why">Why Susea</a>
-          </div>
-          <div className="nav-cta">
-            <a className="btn btn-ghost" href="/signin">Sign in</a>
-            <a className="btn btn-primary" href="/#waitlist">Request access</a>
-          </div>
-        </div>
-      </nav>
+      <Nav onRequest={() => smoothScrollToId("waitlist")} />
 
       {/* ── Hero ── */}
       <header style={{ position: "relative", padding: "60px 0 40px", overflow: "hidden", background: "radial-gradient(900px 480px at 18% -6%, #eef4fd, transparent 62%), radial-gradient(720px 420px at 92% 4%, #fdf0e6, transparent 60%), linear-gradient(180deg, #eff5fe, #fff 70%)" }}>
