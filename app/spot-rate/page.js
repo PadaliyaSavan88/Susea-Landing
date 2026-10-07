@@ -91,7 +91,7 @@ const PROCUREMENT_FEATURES = [
   { icon:"search", iconBg:"var(--blue-50)", iconColor:"var(--blue-600)", title:"Live rates on any lane", body:"40+ carriers, updated continuously. FCL, LCL, air. Every major trade lane." },
   { icon:"scale", iconBg:"var(--blue-50)", iconColor:"var(--blue-600)", title:"Side-by-side comparison", body:"All-in price, transit time, free time, validity: apples to apples." },
   { icon:"send", iconBg:"var(--blue-50)", iconColor:"var(--blue-600)", title:"Multi-provider RFQ", body:"One structured brief → every forwarder responds in the same format." },
-  { icon:”sparkles”, iconBg:”linear-gradient(135deg,var(--amber-500),var(--orange-500))”, iconColor:”#fff”, title:”AI recommendations”, body:””Best rate”, “fastest transit”, “best free time”: surfaced automatically.” },
+  { icon:"sparkles", iconBg:"linear-gradient(135deg,var(--amber-500),var(--orange-500))", iconColor:"#fff", title:"AI recommendations", body:"“Best rate”, “fastest transit”, “best free time”: surfaced automatically." },
   { icon:"file-text", iconBg:"var(--blue-50)", iconColor:"var(--blue-600)", title:"Branded quotations", body:"Customer-ready PDF quotes with your logo, generated in seconds." },
   { icon:"calculator", iconBg:"var(--blue-50)", iconColor:"var(--blue-600)", title:"Surcharges built-in", body:"BAF, THC, ISPS, LSS: calculated and audited. No margin leaks." },
   { icon:"history", iconBg:"var(--blue-50)", iconColor:"var(--blue-600)", title:"Rate & RFQ history", body:"Every quote, every award: searchable. Real leverage on your next lane." },
