@@ -117,7 +117,7 @@ function CtaMidpage({ onRequest }) {
               maxWidth: 600,
             }}
           >
-            Join the beta cohort. Onboarding starts small, one lane at a time —
+            Join the beta cohort. Onboarding starts small, one lane at a time,
             with our team in the loop.
           </p>
           <div

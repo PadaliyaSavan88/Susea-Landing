@@ -240,11 +240,11 @@ const RATES = [
   ["HN", "Harbor Nine", "$1,684", "9d", "14d", "Dec 06", "", "", false],
 ];
 const SURCHARGES = [
-  ["BAF — Bunker Adj.", "$84.00"],
-  ["CAF — Currency Adj.", "$36.00"],
+  ["BAF: Bunker Adj.", "$84.00"],
+  ["CAF: Currency Adj.", "$36.00"],
   ["THC origin (INNSA)", "$62.00"],
   ["THC destination (AEJEA)", "$78.00"],
-  ["LSS — Low Sulphur", "$28.00"],
+  ["LSS: Low Sulphur", "$28.00"],
   ["ISPS / Security", "$12.00"],
   ["Documentation", "$35.00"],
 ];
@@ -267,7 +267,7 @@ export default function PricingTerminal() {
     //     <div className="sec-head left">
     //       <span className="eyebrow"><span className="dot"></span> Pricing intelligence</span>
     //       <h2 className="h-section">An AI-powered Bloomberg terminal,<br />for ocean freight.</h2>
-    //       <p className="lead">Compare carriers in real time. Watch market trends across trade lanes. Get AI-suggested routings and validity windows — for every container you ship.</p>
+    //       <p className="lead">Compare carriers in real time. Watch market trends across trade lanes. Get AI-suggested routings and validity windows, for every container you ship.</p>
     //     </div>
 
     //     <div style={{ border: '1px solid var(--line)', borderRadius: 20, background: '#fff', overflow: 'hidden', boxShadow: 'var(--shadow-lg)' }}>
@@ -330,7 +330,7 @@ export default function PricingTerminal() {
     //           <div style={{ marginTop: 18, border: '1px solid var(--line)', borderRadius: 12, padding: 14, background: 'var(--paper-2)' }}>
     //             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
     //               <div>
-    //                 <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)' }}>Spot market — {ctn} · last 30 days</div>
+    //                 <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)' }}>Spot market: {ctn} · last 30 days</div>
     //                 <div className="small" style={{ marginTop: 2 }}>Index: Susea Ocean Pricing · INNSA→AEJEA</div>
     //               </div>
     //               <div className="mono" style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)' }}>$1,486 <span style={{ color: 'var(--good-600)', fontSize: 11 }}>▲ 4.2%</span></div>
@@ -354,7 +354,7 @@ export default function PricingTerminal() {
 
     //           <div style={{ border: '1px solid var(--amber-100)', borderRadius: 12, padding: 14, background: 'linear-gradient(180deg,var(--amber-50),#fff)' }}>
     //             <h5 style={{ color: 'var(--amber-600)', margin: '0 0 6px', fontSize: 11, letterSpacing: '.1em', textTransform: 'uppercase', fontWeight: 700, display: 'flex', alignItems: 'center', gap: 6 }}><Icon name="sparkles" size={13} /> AI recommendation</h5>
-    //             <p style={{ margin: 0, fontSize: 12.5, lineHeight: 1.5, color: 'var(--ink-2)' }}>Route via <b style={{ color: 'var(--ink)' }}>Mundra → Jebel Ali</b> on <b style={{ color: 'var(--ink)' }}>Maritime A</b>. Saves <b style={{ color: 'var(--orange-700)' }}>$184</b> versus current best, with same 7-day transit. GRI announced Dec 1 — lock booking by <b style={{ color: 'var(--ink)' }}>Nov 28</b>.</p>
+    //             <p style={{ margin: 0, fontSize: 12.5, lineHeight: 1.5, color: 'var(--ink-2)' }}>Route via <b style={{ color: 'var(--ink)' }}>Mundra → Jebel Ali</b> on <b style={{ color: 'var(--ink)' }}>Maritime A</b>. Saves <b style={{ color: 'var(--orange-700)' }}>$184</b> versus current best, with same 7-day transit. GRI announced Dec 1; lock booking by <b style={{ color: 'var(--ink)' }}>Nov 28</b>.</p>
     //             <div style={{ display: 'flex', gap: 6, marginTop: 12 }}>
     //               <button className="btn btn-primary" style={{ height: 32, fontSize: 12, padding: '0 12px' }}>Apply suggestion</button>
     //               <button className="btn btn-ghost" style={{ height: 32, fontSize: 12, padding: '0 12px' }}>Dismiss</button>

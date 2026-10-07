@@ -4,7 +4,7 @@ import Icon from '@/components/ui/Icon'
 export default function ProblemSolution() {
   const chaos = [
     ['maersk_rates_q4.xlsx', 'r span2 tilt'], ['WhatsApp · CMA agent', 'y span2'], ['tariff_msc_oct.pdf', 't span2 tilt2'],
-    ['Re: Updated GRI Nov 1st — pls quote', 'r span3'], ['india_uae_rates_FINAL_v6.xlsx', 't span3 tilt'],
+    ['Re: Updated GRI Nov 1st, pls quote', 'r span3'], ['india_uae_rates_FINAL_v6.xlsx', 't span3 tilt'],
     ['surcharge_baf.png', 'y span2'], ['portal: hapag.com', 'span2 t'], ['missed booking', 'span2 r tilt2'],
     ['scan_005.jpg', 'span2 t tilt'], ['Customer chasing quote · 4h', 'span3 y'], ['manual margin calc', 'span3 t tilt2'],
   ]
@@ -34,7 +34,7 @@ export default function ProblemSolution() {
           <div className="panel-lg min">
             <span className="tag blue">After · Susea command center</span>
             <h3 style={{ marginTop: 8 }}>One AI-powered pricing layer</h3>
-            <p className="panel-sub">All tariffs ingested, all surcharges normalized, all carriers comparable, all quotes generated — automatically.</p>
+            <p className="panel-sub">All tariffs ingested, all surcharges normalized, all carriers comparable, all quotes generated, automatically.</p>
             <div className="problems-list">
               {problems.map((p, i) => <div className="pr" key={i}><span className="x">✕</span>{p}</div>)}
             </div>

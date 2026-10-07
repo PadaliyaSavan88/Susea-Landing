@@ -69,13 +69,13 @@ const QUEUE_ITEMS = [
   {
     icon: "clock",
     title: "Quote SQ-48311 expiring in 6h",
-    sub: "Re-priced against today's tariff — draft ready",
+    sub: "Re-priced against today's tariff: draft ready",
     tag: "Ready to send",
   },
   {
     icon: "search",
     title: "3 agents haven't bid on RFQ-2207",
-    sub: "Nudge drafted — time-left and ranking included",
+    sub: "Nudge drafted: time-left and ranking included",
     tag: "Ready to send",
   },
 ];
@@ -83,7 +83,7 @@ const QUEUE_ITEMS = [
 const STATS = [
   { v: "6.5h", l: "Saved chasing quotes & bids, per week", placeholder: true },
   { v: "32%", l: "Of quotes recovered before expiring", placeholder: true },
-  { v: "0", l: "Auto-sends — every draft is human-approved", placeholder: false },
+  { v: "0", l: "Auto-sends; every draft is human-approved", placeholder: false },
 ];
 
 export default function Automations() {
@@ -101,7 +101,7 @@ export default function Automations() {
           </h2>
           <p className="lead">
             Nothing waits for a human to remember it. Inbound requests,
-            follow-ups, agent chasing, award memos — Susea drafts them the
+            follow-ups, agent chasing, award memos: Susea drafts them the
             moment they&rsquo;re needed. You approve everything; nothing sends,
             prices or decides on its own.
           </p>
@@ -377,7 +377,7 @@ export default function Automations() {
                 marginTop: 4,
               }}
             >
-              AI drafts, extracts and routes — it never touches the price or the
+              AI drafts, extracts and routes; it never touches the price or the
               margin math. Pricing stays exactly as deterministic as it is today,
               and everything above is fully logged and audit-ready.
             </div>
@@ -458,7 +458,7 @@ export default function Automations() {
             textAlign: "center",
           }}
         >
-          Placeholder figures shown for illustration — swapped for real pilot
+          Placeholder figures shown for illustration; swapped for real pilot
           data before launch.
         </p>
 

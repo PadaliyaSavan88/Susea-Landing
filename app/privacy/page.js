@@ -3,7 +3,7 @@ import Footer from '@/components/landing/Footer'
 
 export const metadata = {
   title: 'Privacy Policy | Susea',
-  description: 'Privacy Policy for Susea.ai — how AlphaBits Solutions collects, processes, and protects your data on the Susea platform.',
+  description: 'Privacy Policy for Susea.ai: how AlphaBits Solutions collects, processes, and protects your data on the Susea platform.',
   alternates: { canonical: 'https://susea.ai/privacy' },
 }
 
@@ -23,7 +23,7 @@ export default function PrivacyPage() {
 
             <h2>1. Introduction and Scope of Policy</h2>
             <p>This Privacy Policy governs the collection, processing, and storage of information by AlphaBits Solutions (owner and operator of the Susea.ai platform, accessible at www.susea.ai), encompassing our logistics automation software, artificial intelligence agent diagnostic tools, Model Context Protocol (MCP) interfaces, and any associated application programming interfaces (APIs) provided on the platform.</p>
-            <p>We recognize that modern logistics requires the processing of highly sensitive commercial documentation alongside advanced generative AI capabilities. Consequently, AlphaBits Solutions treats all client data on the Susea.ai platform—including proprietary workflow intelligence, shipment routing information, and AI telemetry—with the utmost confidentiality.</p>
+            <p>We recognize that modern logistics requires the processing of highly sensitive commercial documentation alongside advanced generative AI capabilities. Consequently, AlphaBits Solutions treats all client data on the Susea.ai platform, including proprietary workflow intelligence, shipment routing information, and AI telemetry, with the utmost confidentiality.</p>
             <p>This document explicitly outlines our practices in accordance with leading global data protection regulations, including:</p>
             <ul>
               <li>General Data Protection Regulation (GDPR)</li>

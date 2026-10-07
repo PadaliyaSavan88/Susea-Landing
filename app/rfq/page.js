@@ -20,7 +20,7 @@ const AGENTS_INIT = [
 const ROW_STEP = 64;
 const AUCTION_MODES = [
   { id: "sealed", label: "Sealed bid", icon: "eye-off", short: "Vendors see nothing until the RFQ closes." },
-  { id: "rank", label: "Rank-only", icon: "list-ordered", short: "Vendors see only their own rank — never prices.", rec: true },
+  { id: "rank", label: "Rank-only", icon: "list-ordered", short: "Vendors see only their own rank; never prices.", rec: true },
   { id: "best", label: "Best price", icon: "badge-dollar-sign", short: "Vendors see the lowest price, not who quoted it." },
   { id: "open", label: "Open auction", icon: "eye", short: "Everyone sees all prices and rankings." },
 ];
@@ -251,7 +251,7 @@ function LiveAuction({ tickMs = 1150 }) {
                         <Icon name="arrow-down" size={11} /> ${Math.abs(mv)}
                       </>
                     ) : (
-                      "—"
+                      "-"
                     )}
                   </div>
                 </div>
@@ -282,7 +282,7 @@ function LiveAuction({ tickMs = 1150 }) {
               </button>
             )}
             <span className="auc-note">
-              <Icon name="lock" size={13} /> Agents see only their own rank —
+              <Icon name="lock" size={13} /> Agents see only their own rank;
               never competitors&apos; prices.
             </span>
           </div>
@@ -325,7 +325,7 @@ function LiveAuction({ tickMs = 1150 }) {
                     </div>
                     <div className="sub">
                       {meRank === 1
-                        ? "You're leading — hold or defend"
+                        ? "You're leading; hold or defend"
                         : "Lower your bid to climb the ranking"}
                     </div>
                   </div>
@@ -354,7 +354,7 @@ function LiveAuction({ tickMs = 1150 }) {
                       ${leader.bid.toLocaleString()}
                     </div>
                     <div className="sub" style={{ marginTop: 2 }}>
-                      Quoted by — hidden
+                      Quoted by: hidden
                     </div>
                   </div>
                   <div className="av-mine">
@@ -386,7 +386,7 @@ function LiveAuction({ tickMs = 1150 }) {
               <Icon name="sparkles" size={13} /> AI award recommendation
             </h5>
             <p>
-              Award <b>{rec.name}</b> —{" "}
+              Award <b>{rec.name}</b>:{" "}
               {rankOf[rec.code] === 0
                 ? "lowest bid"
                 : `$${(rec.bid - leader.bid).toLocaleString()} above lead`}{" "}
@@ -491,18 +491,18 @@ const RFQ_STATS = [
 ];
 
 const STEPS = [
-  { n: "1", title: "Build & launch", desc: "Upload many lanes at once and float the RFQ to your own agents in a single click — spot or contract.", icon: "rocket" },
-  { n: "2", title: "Agents bid live", desc: "Invited agents bid in your chosen visibility mode — sealed, rank-only, best-price or open — and re-bid down to climb the ranking.", icon: "gavel" },
+  { n: "1", title: "Build & launch", desc: "Upload many lanes at once and float the RFQ to your own agents in a single click: spot or contract.", icon: "rocket" },
+  { n: "2", title: "Agents bid live", desc: "Invited agents bid in your chosen visibility mode: sealed, rank-only, best-price or open, and re-bid down to climb the ranking.", icon: "gavel" },
   { n: "3", title: "AI compares & ranks", desc: "Every bid is normalized and sanity-checked. AI recommends the best agent by cost, transit or schedule.", icon: "sparkles" },
-  { n: "4", title: "Approve & award", desc: "Route the winner through your approval matrix with documented justification — fully audit-ready.", icon: "shield-check" },
+  { n: "4", title: "Approve & award", desc: "Route the winner through your approval matrix with documented justification; fully audit-ready.", icon: "shield-check" },
   { n: "5", title: "Contract & track", desc: "Awarded rates become digital contracts. Susea tracks utilization so negotiated savings actually land.", icon: "file-check-2" },
 ];
 
 const VISIBILITY_MODES = [
-  { label: "Sealed bid", desc: "Vendors see nothing until the RFQ closes — best when trust is still building." },
-  { label: "Rank-only", desc: "Vendors see only their own rank, never competitors' prices — pushes agents to compete without full transparency." },
-  { label: "Best price", desc: "Vendors see the lowest price, not who quoted it — creates real urgency to beat the leader." },
-  { label: "Open auction", desc: "Everyone sees all prices and rankings — total transparency when that serves you." },
+  { label: "Sealed bid", desc: "Vendors see nothing until the RFQ closes; best when trust is still building." },
+  { label: "Rank-only", desc: "Vendors see only their own rank, never competitors' prices; pushes agents to compete without full transparency." },
+  { label: "Best price", desc: "Vendors see the lowest price, not who quoted it; creates real urgency to beat the leader." },
+  { label: "Open auction", desc: "Everyone sees all prices and rankings; total transparency when that serves you." },
 ];
 
 /* ─── Page ──────────────────────────────────────────────────────────── */
@@ -524,7 +524,7 @@ export default function RFQPage() {
               <br />for every shipment.
             </h1>
             <p className="lead" style={{ textAlign: "center", maxWidth: 640, margin: 0 }}>
-              Invite your own forwarder and agent network to one live auction. Choose how much they see — sealed, rank-only, best-price or fully open. They bid down to win, and most of the negotiation is over before you step in.
+              Invite your own forwarder and agent network to one live auction. Choose how much they see: sealed, rank-only, best-price or fully open. They bid down to win, and most of the negotiation is over before you step in.
             </p>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center" }}>
               <a href="/#waitlist" className="btn btn-primary btn-lg">Join the waitlist</a>
@@ -551,7 +551,7 @@ export default function RFQPage() {
             Negotiating one agent at a time <br />is negotiating against yourself.
           </h2>
           <p style={{ margin: 0, color: "#41506a", fontSize: 16.5, lineHeight: 1.65, maxWidth: 640 }}>
-            A phone call to Agent A. A follow-up email to Agent B. A WhatsApp voice note from Agent C, three days late. By the time you&apos;ve heard from everyone, the best price you got first has probably already changed. A tender that takes four to six weeks isn&apos;t a negotiation — it&apos;s an ambush of your own patience.
+            A phone call to Agent A. A follow-up email to Agent B. A WhatsApp voice note from Agent C, three days late. By the time you&apos;ve heard from everyone, the best price you got first has probably already changed. A tender that takes four to six weeks isn&apos;t a negotiation; it&apos;s an ambush of your own patience.
           </p>
         </div>
       </section>
@@ -562,7 +562,7 @@ export default function RFQPage() {
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: 16, marginBottom: 60 }}>
             <span className="eyebrow"><span className="dot"></span> How an RFQ works</span>
             <h2 style={{ margin: 0, maxWidth: 860, fontSize: "clamp(30px,4vw,50px)", lineHeight: 1.08, letterSpacing: "-.028em", fontWeight: 600 }}>
-              Launch → bid → compare → award, <br />in days — not a month.
+              Launch → bid → compare → award, <br />in days, not a month.
             </h2>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 14 }} className="steps-grid">
@@ -589,7 +589,7 @@ export default function RFQPage() {
               Sealed, rank-only, best-price, or fully open.
             </h2>
             <p style={{ margin: 0, color: "#41506a", fontSize: 15.5, lineHeight: 1.6, maxWidth: 660 }}>
-              Every network is different. Choose sealed bids when trust is still building, rank-only when you want agents pushing each other without seeing prices, best-price to create real urgency, or fully open when total transparency serves you. Switch per auction — it&apos;s not a one-time setup decision.
+              Every network is different. Choose sealed bids when trust is still building, rank-only when you want agents pushing each other without seeing prices, best-price to create real urgency, or fully open when total transparency serves you. Switch per auction; it&apos;s not a one-time setup decision.
             </p>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 14 }} className="rfq-visibility-grid">
@@ -618,7 +618,7 @@ export default function RFQPage() {
             Chasing bids and writing justifications used to be manual too.
           </h2>
           <p style={{ margin: 0, color: "#41506a", fontSize: 16, lineHeight: 1.6, maxWidth: 660 }}>
-            Susea&apos;s automation layer covers what happens around the auction, not just inside it — nudging agents who haven&apos;t bid yet, catching a bad bid before it reaches your award screen, drafting the justification memo your approval matrix needs, and flagging awarded lanes that are going underused. All human-approved, none of it retyped by hand.
+            Susea&apos;s automation layer covers what happens around the auction, not just inside it: nudging agents who haven&apos;t bid yet, catching a bad bid before it reaches your award screen, drafting the justification memo your approval matrix needs, and flagging awarded lanes that are going underused. All human-approved, none of it retyped by hand.
           </p>
           <a href="/automations" style={{ color: "#2f6bd8", fontSize: 14.5, fontWeight: 600, marginTop: 4 }}>
             See all the automations →

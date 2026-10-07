@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { smoothScrollToId, smoothScrollToTop } from "@/lib/scroll";
 
-/* Hover helper — mirrors the one in the homepage */
+/* Hover helper; mirrors the one in the homepage */
 function Hover({ as: Tag = "div", base, hover, children, ...rest }) {
   const [h, setH] = useState(false);
   return (

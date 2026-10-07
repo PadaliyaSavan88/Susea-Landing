@@ -21,16 +21,16 @@ const QUOTE_STATS = [
 const STEPS = [
   { n: "1", title: "Search", desc: "Enter origin, destination, container type and cargo. Susea checks 200+ carriers at once, no separate portals." },
   { n: "2", title: "Compare", desc: "See all-in cost, transit time and validity side by side, with AI flagging a cheaper or faster routing where one exists." },
-  { n: "3", title: "Quote", desc: "Susea builds the full landed cost automatically — ocean freight, BAF, THC, documentation, your margin — no manual calculation." },
+  { n: "3", title: "Quote", desc: "Susea builds the full landed cost automatically: ocean freight, BAF, THC, documentation, your margin, no manual calculation." },
   { n: "4", title: "Send", desc: "Push a branded quote straight to the customer over WhatsApp or email, with one-tap acceptance." },
-  { n: "5", title: "Follow up, automatically", desc: "If the quote goes quiet or is about to expire, Susea drafts the nudge or the re-price for your approval — you never have to remember it." },
+  { n: "5", title: "Follow up, automatically", desc: "If the quote goes quiet or is about to expire, Susea drafts the nudge or the re-price for your approval; you never have to remember it." },
 ];
 
 const FEATURES = [
   { icon: "file-scan", title: "AI Tariff Extraction", desc: "Drop any PDF, XLS, or forwarded WhatsApp rate sheet. Susea reads it like a pricing analyst." },
   { icon: "layout-grid", title: "Multi-Carrier Pricing", desc: "200+ shipping lines, normalized into one comparable view." },
-  { icon: "refresh-cw", title: "Live Rate Visibility", desc: "Rates refresh every 60 seconds — never quote off a stale sheet." },
-  { icon: "clock", title: "Quotes that don't need re-checking", desc: "Once sent, Susea watches the clock — flagging expiring quotes and drafting the re-price before the customer has to ask." },
+  { icon: "refresh-cw", title: "Live Rate Visibility", desc: "Rates refresh every 60 seconds; never quote off a stale sheet." },
+  { icon: "clock", title: "Quotes that don't need re-checking", desc: "Once sent, Susea watches the clock, flagging expiring quotes and drafting the re-price before the customer has to ask." },
 ];
 
 export default function InstantRatesPage() {
@@ -132,7 +132,7 @@ export default function InstantRatesPage() {
             By the time you&rsquo;ve checked three tariff sheets, called an
             agent to confirm a surcharge, and typed the numbers into Excel, your
             customer has already asked someone else. Speed isn&rsquo;t a
-            nice-to-have in spot pricing — it&rsquo;s the whole pitch.
+            nice-to-have in spot pricing; it&rsquo;s the whole pitch.
           </p>
         </div>
       </section>

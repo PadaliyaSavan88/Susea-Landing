@@ -33,7 +33,7 @@ const LOGOS = {
   ),
   harbor: (
     <svg viewBox="0 0 32 32" width="28" height="28" fill="none" aria-hidden="true">
-      {/* Ship's wheel — hub */}
+      {/* Ship's wheel: hub */}
       <circle cx="16" cy="16" r="3.5" stroke="#f07020" strokeWidth="2" />
       {/* Outer rim */}
       <circle cx="16" cy="16" r="11" stroke="#f07020" strokeWidth="1.8" />
@@ -79,14 +79,14 @@ const TESTIMONIALS = [
     company: 'Trident Global Forwarding',
     name: 'Daniel Osei',
     title: 'Operations Manager',
-    quote: 'We used to have someone calling eight agents one by one asking if they\'d bid yet. Now Susea nudges them automatically — time left, their rank, a reason to move. Our last RFQ closed with all eight bids in without a single manual chase. That\'s a job nobody misses.',
+    quote: 'We used to have someone calling eight agents one by one asking if they\'d bid yet. Now Susea nudges them automatically: time left, their rank, a reason to move. Our last RFQ closed with all eight bids in without a single manual chase. That\'s a job nobody misses.',
   },
   {
     logo: LOGOS.apex,
     company: 'Apex Trade Partners',
     name: 'Sarah Lindqvist',
     title: 'CEO',
-    quote: 'A customer\'s WhatsApp message used to sit in an inbox until someone had time to retype it into a quote. Now it shows up already priced, ready for me to approve. I still say yes or no — I just never have to be the one who starts it.',
+    quote: 'A customer\'s WhatsApp message used to sit in an inbox until someone had time to retype it into a quote. Now it shows up already priced, ready for me to approve. I still say yes or no; I just never have to be the one who starts it.',
   },
   {
     logo: LOGOS.harbor,
