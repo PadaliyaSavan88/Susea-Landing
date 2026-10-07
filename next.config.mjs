@@ -6,6 +6,15 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  async redirects() {
+    return [
+      {
+        source: '/freight-forwarding',
+        destination: '/',
+        permanent: true,
+      },
+    ];
+  },
 }
 
 const withMDX = createMDX({

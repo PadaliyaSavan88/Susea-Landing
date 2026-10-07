@@ -473,6 +473,11 @@ section {
 .nav-menu-link:hover {
   background: var(--paper-2, rgba(0, 0, 0, 0.03));
 }
+/* Hides desktop nav links on mobile — used by Nav.jsx */
+@media (max-width: 768px) {
+  .hide-md { display: none !important; }
+}
+
 @keyframes navFadeUp {
   from {
     opacity: 0;

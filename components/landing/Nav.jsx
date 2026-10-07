@@ -4,6 +4,21 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { smoothScrollToId, smoothScrollToTop } from "@/lib/scroll";
 
+/* Hover helper — mirrors the one in the homepage */
+function Hover({ as: Tag = "div", base, hover, children, ...rest }) {
+  const [h, setH] = useState(false);
+  return (
+    <Tag
+      style={{ ...base, ...(h ? hover : null) }}
+      onMouseEnter={() => setH(true)}
+      onMouseLeave={() => setH(false)}
+      {...rest}
+    >
+      {children}
+    </Tag>
+  );
+}
+
 export default function Nav({ onRequest }) {
   const pathname = usePathname();
   const isHome = pathname === "/";
@@ -14,13 +29,12 @@ export default function Nav({ onRequest }) {
   // `id` marks an in-page section (smooth-scrolled on home); its absence means a
   // real route that should navigate normally.
   const links = [
-    { label: "Overview", id: "two-ways" },
-    { label: "Instant rates", href: "/instant-rates" },
     { label: "RFQ", href: "/rfq" },
     { label: "Automations", href: "/automations" },
-    { label: "Features", id: "features" },
     { label: "Pricing", href: "/pricing" },
-    { label: "Why Susea", id: "why" },
+    { label: "ROI calculator", id: "roi" },
+    { label: "Why Susea", id: "why-susea" },
+    { label: "FAQ", id: "faq" },
   ];
 
   // Arriving from another page via /#section: smooth-scroll to the target, then
@@ -29,7 +43,6 @@ export default function Nav({ onRequest }) {
     if (!isHome) return;
     const id = window.location.hash.slice(1);
     if (!id) return;
-    // Wait a beat so layout (and images above the target) has settled.
     const t = setTimeout(() => {
       smoothScrollToId(id);
       history.replaceState(null, "", window.location.pathname + window.location.search);
@@ -52,33 +65,47 @@ export default function Nav({ onRequest }) {
   };
 
   return (
-    <nav className="nav">
-      <div className="container nav-inner">
-        <a className="logo" href={isHome ? "#top" : "/"} onClick={onLogo}>
-          <Image
-            src="/assets/susea-mark-black.png"
-            alt="Susea"
-            width={26}
-            height={26}
-          />
-          <span>Susea</span>
+    <header style={{ position: "sticky", top: 0, zIndex: 50, background: "rgba(255,255,255,.78)", backdropFilter: "blur(14px) saturate(140%)", WebkitBackdropFilter: "blur(14px) saturate(140%)", borderBottom: "1px solid var(--line-soft)" }}>
+      <div style={{ maxWidth: "1280px", margin: "0 auto", display: "flex", alignItems: "center", gap: "24px", padding: "14px 20px" }}>
+        <a href={isHome ? "#top" : "/"} onClick={onLogo} style={{ display: "inline-flex", alignItems: "center", gap: "10px" }}>
+          <Image src="/assets/susea-mark-black.png" alt="Susea" width={28} height={28} style={{ height: "28px", width: "auto" }} />
+          <span style={{ fontWeight: 700, fontSize: "20px", letterSpacing: "-.02em", color: "var(--ink)" }}>Susea</span>
         </a>
-        <div className="nav-links">
-          <a href={h("two-ways")} onClick={onInternal("two-ways")}>Overview</a>
-          <a href="/instant-rates">Instant rates</a>
-          <a href="/rfq">RFQ</a>
-          <a href="/automations">Automations</a>
-          <a href={h("features")} onClick={onInternal("features")}>Features</a>
-          <a href="/pricing">Pricing</a>
-          <a href={h("why")} onClick={onInternal("why")}>Why Susea</a>
-        </div>
-        <div className="nav-cta">
-          <a className="btn btn-ghost" href="/signin">
-            Sign in
-          </a>
-          <button className="btn btn-primary" onClick={onRequest}>
-            Request access
-          </button>
+
+        <nav style={{ display: "flex", gap: "22px", marginLeft: "16px" }} className="hide-md">
+          {links.map(({ label, id, href }) => (
+            <Hover
+              key={label}
+              as="a"
+              href={id ? h(id) : href}
+              onClick={id ? onInternal(id) : undefined}
+              base={{ fontSize: "14px", color: "var(--ink-2)", fontWeight: 500, whiteSpace: "nowrap" }}
+              hover={{ color: "var(--ink)" }}
+            >
+              {label}
+            </Hover>
+          ))}
+        </nav>
+
+        <div style={{ marginLeft: "auto", display: "flex", gap: "10px", alignItems: "center" }}>
+          <Hover
+            as="button"
+            onClick={onRequest}
+            className="hide-md"
+            base={{ fontSize: "14px", color: "var(--ink)", fontWeight: 600, padding: "9px 14px", borderRadius: "10px", border: "1px solid var(--line-strong)", background: "#fff", cursor: "pointer" }}
+            hover={{ background: "var(--paper-2)" }}
+          >
+            Request beta access
+          </Hover>
+          <Hover
+            as="a"
+            href={h("booking")}
+            onClick={onInternal("booking")}
+            base={{ fontSize: "14px", color: "#fff", fontWeight: 600, padding: "10px 16px", borderRadius: "10px", background: "var(--blue-600)", boxShadow: "var(--shadow-blue)" }}
+            hover={{ background: "var(--blue-700)", transform: "translateY(-1px)" }}
+          >
+            Book a demo
+          </Hover>
           <button
             type="button"
             className="nav-hamburger"
@@ -100,7 +127,7 @@ export default function Nav({ onRequest }) {
       </div>
 
       {menuOpen && (
-        <div className="nav-mobile-menu">
+        <div style={{ borderTop: "1px solid var(--line-soft)", background: "rgba(255,255,255,.98)", backdropFilter: "saturate(140%) blur(14px)", WebkitBackdropFilter: "saturate(140%) blur(14px)", padding: "10px 20px 18px", display: "flex", flexDirection: "column", gap: "2px" }}>
           {links.map(({ label, id, href }) => (
             <a
               key={label}
@@ -119,6 +146,6 @@ export default function Nav({ onRequest }) {
           ))}
         </div>
       )}
-    </nav>
+    </header>
   );
 }
