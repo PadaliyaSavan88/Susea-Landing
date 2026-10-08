@@ -616,11 +616,13 @@ export default function FreightForwardingPage() {
         {/* ---- Nav ---- */}
         <header data-su-nav style={{ background: "rgba(255,255,255,.78)", backdropFilter: "blur(14px) saturate(140%)", WebkitBackdropFilter: "blur(14px) saturate(140%)", borderBottom: "1px solid var(--line-soft)" }}>
           <div style={{ maxWidth: "1280px", margin: "0 auto", display: "flex", alignItems: "center", gap: "24px", padding: "14px 20px" }}>
-            <a href="#top" onClick={toTop} style={{ display: "inline-flex", alignItems: "center", gap: "10px" }}>
-              <img src="/assets/susea-mark-black.png" alt="Susea" style={{ height: "28px", width: "auto" }} />
-              <span style={{ fontWeight: 700, fontSize: "20px", letterSpacing: "-.02em", color: "var(--ink)" }}>Susea</span>
-            </a>
-            <nav style={{ display: "flex", gap: "22px", marginLeft: "16px" }} className="hide-md">
+            <div style={{ display: "flex" }}>
+              <a href="#top" onClick={toTop} style={{ display: "inline-flex", alignItems: "center", gap: "10px" }}>
+                <img src="/assets/susea-mark-black.png" alt="Susea" style={{ height: "28px", width: "auto" }} />
+                <span style={{ fontWeight: 700, fontSize: "20px", letterSpacing: "-.02em", color: "var(--ink)" }}>Susea</span>
+              </a>
+            </div>
+            <nav style={{ flex: 1, display: "flex", gap: "22px", justifyContent: "center" }} className="hide-md">
               <Hover as="a" href="#product" onClick={jump("product")} base={{ fontSize: "14px", color: "var(--ink-2)", fontWeight: 500 }} hover={{ color: "var(--ink)" }}>Product</Hover>
               <Hover as="a" href="#automations" onClick={jump("automations")} base={{ fontSize: "14px", color: "var(--ink-2)", fontWeight: 500 }} hover={{ color: "var(--ink)" }}>Automations</Hover>
               <Hover as="a" href="#roi" onClick={jump("roi")} base={{ fontSize: "14px", color: "var(--ink-2)", fontWeight: 500 }} hover={{ color: "var(--ink)" }}>ROI calculator</Hover>

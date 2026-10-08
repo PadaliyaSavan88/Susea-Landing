@@ -67,12 +67,14 @@ export default function Nav({ onRequest }) {
   return (
     <header style={{ position: "sticky", top: 0, zIndex: 50, background: "rgba(255,255,255,.78)", backdropFilter: "blur(14px) saturate(140%)", WebkitBackdropFilter: "blur(14px) saturate(140%)", borderBottom: "1px solid var(--line-soft)" }}>
       <div style={{ maxWidth: "1280px", margin: "0 auto", display: "flex", alignItems: "center", gap: "24px", padding: "14px 20px" }}>
-        <a href={isHome ? "#top" : "/"} onClick={onLogo} style={{ display: "inline-flex", alignItems: "center", gap: "10px" }}>
-          <Image src="/assets/susea-mark-black.png" alt="Susea" width={28} height={28} style={{ height: "28px", width: "auto" }} />
-          <span style={{ fontWeight: 700, fontSize: "20px", letterSpacing: "-.02em", color: "var(--ink)" }}>Susea</span>
-        </a>
+        <div style={{ display: "flex" }}>
+          <a href={isHome ? "#top" : "/"} onClick={onLogo} style={{ display: "inline-flex", alignItems: "center", gap: "10px" }}>
+            <Image src="/assets/susea-mark-black.png" alt="Susea" width={28} height={28} style={{ height: "28px", width: "auto" }} />
+            <span style={{ fontWeight: 700, fontSize: "20px", letterSpacing: "-.02em", color: "var(--ink)" }}>Susea</span>
+          </a>
+        </div>
 
-        <nav style={{ display: "flex", gap: "22px", marginLeft: "16px" }} className="hide-md">
+        <nav style={{ flex: 1, display: "flex", gap: "22px", justifyContent: "center" }} className="hide-md">
           {links.map(({ label, id, href }) => (
             <Hover
               key={label}
