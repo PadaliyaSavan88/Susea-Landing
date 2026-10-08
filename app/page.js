@@ -6,6 +6,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import { smoothScrollToId, smoothScrollToTop } from "@/lib/scroll";
 import Footer from "@/components/landing/Footer";
 import WhySusea from "@/components/landing/WhySusea";
+import { PARTNER_LOGOS } from "@/components/landing/TestimonialsSlider";
 import "./freight-forwarding/freight-forwarding.css";
 
 /* ============================================================
@@ -189,18 +190,8 @@ const ROI_INPUTS = [
 ];
 
 /* ---- Content data (ported from the source) ---- */
-// Dummy partner logos, placeholder brand marks (fictional forwarders).
-const BASE_LOGOS = [
-  { name: "Meridian Freight", mono: "MF", color: "linear-gradient(135deg,#2563eb,#1e40af)" },
-  { name: "BluePort Logistics", mono: "BL", color: "linear-gradient(135deg,#0ea5e9,#0369a1)" },
-  { name: "Neptune Cargo", mono: "NC", color: "linear-gradient(135deg,#14b8a6,#0f766e)" },
-  { name: "Sable NVOCC", mono: "SN", color: "linear-gradient(135deg,#6366f1,#4338ca)" },
-  { name: "Kavala Shipping", mono: "KS", color: "linear-gradient(135deg,#f59e0b,#b45309)" },
-  { name: "Orient Forwarders", mono: "OF", color: "linear-gradient(135deg,#ef4444,#b91c1c)" },
-  { name: "Cargo Vault CHA", mono: "CV", color: "linear-gradient(135deg,#8b5cf6,#6d28d9)" },
-  { name: "Tallwave 3PL", mono: "TW", color: "linear-gradient(135deg,#10b981,#047857)" },
-];
-const TRUST_LOGOS = [...BASE_LOGOS, ...BASE_LOGOS];
+// Beta partner marks, same as the testimonials section on /rfq.
+const TRUST_LOGOS = [...PARTNER_LOGOS, ...PARTNER_LOGOS];
 
 const PAINS = [
   { n: "01", title: "The pricing sheet lives on version 14", body: 'Every operator has a "final_v3_actualfinal.xlsx" on their desktop. When the GRI hits, nobody knows whose sheet is right.' },
@@ -612,11 +603,13 @@ export default function FreightForwardingPage() {
         {/* ---- Nav ---- */}
         <header data-su-nav style={{ background: "rgba(255,255,255,.78)", backdropFilter: "blur(14px) saturate(140%)", WebkitBackdropFilter: "blur(14px) saturate(140%)", borderBottom: "1px solid var(--line-soft)" }}>
           <div style={{ maxWidth: "1280px", margin: "0 auto", display: "flex", alignItems: "center", gap: "24px", padding: "14px 20px" }}>
-            <a href="#top" onClick={toTop} style={{ display: "inline-flex", alignItems: "center", gap: "10px" }}>
-              <img src="/assets/susea-mark-black.png" alt="Susea" style={{ height: "28px", width: "auto" }} />
-              <span style={{ fontWeight: 700, fontSize: "20px", letterSpacing: "-.02em", color: "var(--ink)" }}>Susea</span>
-            </a>
-            <nav style={{ display: "flex", gap: "22px", marginLeft: "16px" }} className="hide-md">
+            <div style={{ display: "flex" }}>
+              <a href="#top" onClick={toTop} style={{ display: "inline-flex", alignItems: "center", gap: "10px" }}>
+                <img src="/assets/susea-mark-black.png" alt="Susea" style={{ height: "28px", width: "auto" }} />
+                <span style={{ fontWeight: 700, fontSize: "20px", letterSpacing: "-.02em", color: "var(--ink)" }}>Susea</span>
+              </a>
+            </div>
+            <nav style={{ flex: 1, display: "flex", gap: "22px", justifyContent: "center" }} className="hide-md">
               <Hover as="a" href="/rfq" base={{ fontSize: "14px", color: "var(--ink-2)", fontWeight: 500 }} hover={{ color: "var(--ink)" }}>RFQ</Hover>
               <Hover as="a" href="/automations" base={{ fontSize: "14px", color: "var(--ink-2)", fontWeight: 500 }} hover={{ color: "var(--ink)" }}>Automations</Hover>
               <Hover as="a" href="/pricing" base={{ fontSize: "14px", color: "var(--ink-2)", fontWeight: 500 }} hover={{ color: "var(--ink)" }}>Pricing</Hover>
@@ -796,8 +789,8 @@ export default function FreightForwardingPage() {
             <div className="marquee-track">
               {TRUST_LOGOS.map((logo, i) => (
                 <div key={i} style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "44px", padding: "0 24px", fontFamily: "var(--font-mono)", fontSize: "13px", fontWeight: 600, letterSpacing: ".02em", color: "var(--ink-3)", border: "1px solid var(--line)", borderRadius: "10px", background: "#fff", whiteSpace: "nowrap", minWidth: "180px" }}>
-                  <span style={{ width: "26px", height: "26px", borderRadius: "7px", background: logo.color, display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: "10px", fontWeight: 700, color: "#fff", letterSpacing: ".02em", marginRight: "10px", flexShrink: 0 }}>{logo.mono}</span>
-                  {logo.name}
+                  <span style={{ display: "inline-flex", marginRight: "10px", flexShrink: 0 }}>{logo.logo}</span>
+                  {logo.company}
                 </div>
               ))}
             </div>

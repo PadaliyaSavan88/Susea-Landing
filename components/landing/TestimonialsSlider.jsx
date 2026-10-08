@@ -104,6 +104,9 @@ const TESTIMONIALS = [
   },
 ]
 
+// Partner marks, shared with the homepage "Trusted by beta forwarders" strip.
+export const PARTNER_LOGOS = TESTIMONIALS.map(({ logo, company }) => ({ logo, company }))
+
 function TestiCard({ logo, company, name, title, quote }) {
   return (
     <div className="tcard">
