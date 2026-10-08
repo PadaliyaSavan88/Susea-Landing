@@ -243,7 +243,7 @@ function CompactNode({ n, spec, order }) {
   );
 }
 
-// Vertical connector between two stacked boxes — mirrors the big-screen
+// Vertical connector between two stacked boxes; mirrors the big-screen
 // diagram: the line draws in, then an accent dot travels down it on a loop.
 // All connectors share one timeline (same begin + duration) so every dot
 // starts together and, being equal length, stays perfectly in sync.
@@ -636,14 +636,14 @@ function SvgWorkflowDiagram({ spec, resetKey }) {
 
 // ─── Page ──────────────────────────────────────────────────────────────────────
 const TRUST_STRIP = [
-  { icon: "shield-check", title: "Human-approved", desc: "Every draft waits for your click — no auto-send, ever." },
-  { icon: "lock", title: "Pricing stays yours", desc: "AI drafts and routes — it never touches price or margin." },
+  { icon: "shield-check", title: "Human-approved", desc: "Every draft waits for your click; no auto-send, ever." },
+  { icon: "lock", title: "Pricing stays yours", desc: "AI drafts and routes; it never touches price or margin." },
   { icon: "file-text", title: "Fully logged", desc: "Every draft, approval and send is audit-ready by default." },
 ];
 
 const BEFORE = [
   "Requests arrive as WhatsApp texts and emails someone has to read and retype",
-  "Quotes expire silently — no one notices until the customer asks",
+  "Quotes expire silently; no one notices until the customer asks",
   "Agents get chased one at a time, by phone or message",
 ];
 const AFTER = [
@@ -655,13 +655,13 @@ const AFTER = [
 const STATS = [
   { v: "6.5h", l: "Saved chasing quotes & bids, per week", placeholder: true },
   { v: "32%", l: "Of quotes that would have expired silently, recovered", placeholder: true },
-  { v: "0", l: "Auto-sends — every draft is human-approved", placeholder: false },
+  { v: "0", l: "Auto-sends; every draft is human-approved", placeholder: false },
 ];
 
 const QUEUE_ITEMS = [
   { icon: "message-square", title: "New inquiry via WhatsApp", sub: "Acme Exports · Nhava Sheva → Jebel Ali · priced at $1,882.40", tag: "Ready to send" },
-  { icon: "clock", title: "Quote SQ-48311 expiring in 6h", sub: "Re-priced against today's tariff — draft ready", tag: "Ready to send" },
-  { icon: "search", title: "3 agents haven't bid on RFQ-2207", sub: "Nudge drafted — time-left and ranking included", tag: "Ready to send" },
+  { icon: "clock", title: "Quote SQ-48311 expiring in 6h", sub: "Re-priced against today's tariff: draft ready", tag: "Ready to send" },
+  { icon: "search", title: "3 agents haven't bid on RFQ-2207", sub: "Nudge drafted: time-left and ranking included", tag: "Ready to send" },
 ];
 
 function jumpTo(id) {
@@ -727,7 +727,7 @@ export default function AutomationsPage() {
             </h1>
             <p className="lead" style={{ textAlign: "center", margin: "0 auto" }}>
               Susea already owns the price. Now it owns the conversation around it
-              — the follow-ups, the chasing, the re-typing. The human still decides
+              , the follow-ups, the chasing, the re-typing. The human still decides
               and approves everything; they just never have to be the one to
               remember to start it.
             </p>
@@ -842,7 +842,7 @@ export default function AutomationsPage() {
             </h2>
             <p className="lead">
               Every one of these drafts, extracts or routes. None of them touch
-              the price or the margin math — that stays deterministic, and yours.
+              the price or the margin math; that stays deterministic, and yours.
             </p>
           </div>
 
@@ -1003,7 +1003,7 @@ export default function AutomationsPage() {
             ))}
           </div>
           <p style={{ margin: "12px 0 0", fontSize: 11.5, color: "var(--ink-4)", textAlign: "center" }}>
-            Placeholder figures shown for illustration — swapped for real pilot data before launch.
+            Placeholder figures shown for illustration; swapped for real pilot data before launch.
           </p>
         </div>
       </section>
@@ -1026,8 +1026,8 @@ export default function AutomationsPage() {
               }}
             >
               {[
-                "Every AI draft is human-approved before anything sends — zero auto-sends.",
-                "AI drafts, extracts and routes — it never touches the price or the margin math.",
+                "Every AI draft is human-approved before anything sends; zero auto-sends.",
+                "AI drafts, extracts and routes; it never touches the price or the margin math.",
                 "Pricing stays deterministic, exactly as it is today.",
                 "Every draft, approval and send is fully logged and audit-ready.",
               ].map((t, i) => (

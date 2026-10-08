@@ -75,7 +75,7 @@ export default function Waitlist() {
             </h2>
             <p>
               Get early access to Susea and modernize your freight quotation
-              workflows with AI-powered pricing intelligence. Limited spots —
+              workflows with AI-powered pricing intelligence. Limited spots;
               onboarding forwarders and logistics companies this quarter.
             </p>
             <div className="wl-tags">

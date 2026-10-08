@@ -61,7 +61,7 @@ export default function WhySusea() {
           </h2>
           <p className="lead">
             One operating system replaces the spreadsheets, the WhatsApp threads
-            and the month-long tenders — for both instant pricing and
+            and the month-long tenders, for both instant pricing and
             competitive procurement.
           </p>
         </div>

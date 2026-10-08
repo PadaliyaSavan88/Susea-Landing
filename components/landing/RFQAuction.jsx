@@ -13,7 +13,7 @@ const AGENTS_INIT = [
 const ROW_STEP = 64
 const AUCTION_MODES = [
   { id: 'sealed', label: 'Sealed bid', icon: 'eye-off', short: 'Vendors see nothing until the RFQ closes.' },
-  { id: 'rank', label: 'Rank-only', icon: 'list-ordered', short: 'Vendors see only their own rank — never prices.', rec: true },
+  { id: 'rank', label: 'Rank-only', icon: 'list-ordered', short: 'Vendors see only their own rank; never prices.', rec: true },
   { id: 'best', label: 'Best price', icon: 'badge-dollar-sign', short: 'Vendors see the lowest price, not who quoted it.' },
   { id: 'open', label: 'Open auction', icon: 'eye', short: 'Everyone sees all prices and rankings.' },
 ]
@@ -98,7 +98,7 @@ export default function RFQAuction({ tickMs = 1150 }) {
         <div className="sec-head left">
           <span className="eyebrow orange"><span className="dot"></span> Live reverse auction</span>
           <h2 className="h-section">Make your agents <em>compete</em> <br />for every shipment.</h2>
-          <p className="lead">Invite your own forwarder and agent network to one live auction. Choose how much they see — sealed, rank-only, best-price or fully open. They bid down to win, and most of the negotiation is over before you step in.</p>
+          <p className="lead">Invite your own forwarder and agent network to one live auction. Choose how much they see: sealed, rank-only, best-price or fully open. They bid down to win, and most of the negotiation is over before you step in.</p>
         </div>
 
         <div className="auc-shell">
@@ -150,7 +150,7 @@ export default function RFQAuction({ tickMs = 1150 }) {
                       <div className={'lb-move ' + (isLead && status === 'closed' ? 'win' : mv ? 'dn' : 'hold')}>
                         {isLead && status === 'closed' ? <><Icon name="check" size={12} /> won</>
                           : mv ? <><Icon name="arrow-down" size={11} /> ${Math.abs(mv)}</>
-                            : '—'}
+                            : '-'}
                       </div>
                     </div>
                   )
@@ -161,7 +161,7 @@ export default function RFQAuction({ tickMs = 1150 }) {
                 {status === 'running'
                   ? <button className="btn btn-ghost" disabled style={{ opacity: .7 }}><span className="lvdot" style={{ background: 'var(--orange-500)' }}></span> Auction live…</button>
                   : <button className="btn btn-orange" onClick={start}><Icon name={status === 'closed' ? 'rotate-ccw' : 'play'} size={14} /> {status === 'closed' ? 'Replay auction' : 'Run auction'}</button>}
-                <span className="auc-note"><Icon name="lock" size={13} /> Agents see only their own rank — never competitors&apos; prices.</span>
+                <span className="auc-note"><Icon name="lock" size={13} /> Agents see only their own rank; never competitors&apos; prices.</span>
               </div>
             </div>
 
@@ -181,7 +181,7 @@ export default function RFQAuction({ tickMs = 1150 }) {
                     <>
                       <div className="av-rank">
                         <div className="big">#<span>{meRank}</span> <span style={{ color: 'var(--ink-4)', fontSize: 18 }}>/ 8</span></div>
-                        <div className="sub">{meRank === 1 ? "You're leading — hold or defend" : 'Lower your bid to climb the ranking'}</div>
+                        <div className="sub">{meRank === 1 ? "You're leading; hold or defend" : 'Lower your bid to climb the ranking'}</div>
                       </div>
                       <div className="av-mine"><span>Your bid</span><b>${meAgent.bid.toLocaleString()}</b></div>
                     </>
@@ -191,7 +191,7 @@ export default function RFQAuction({ tickMs = 1150 }) {
                       <div className="av-best">
                         <div className="sub" style={{ marginBottom: 4 }}>Lowest bid so far</div>
                         <div className="big" style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: 30, color: 'var(--ink)', letterSpacing: '-.02em' }}>${leader.bid.toLocaleString()}</div>
-                        <div className="sub" style={{ marginTop: 2 }}>Quoted by — hidden</div>
+                        <div className="sub" style={{ marginTop: 2 }}>Quoted by: hidden</div>
                       </div>
                       <div className="av-mine"><span>Your bid · rank #{meRank}</span><b>${meAgent.bid.toLocaleString()}</b></div>
                     </>
@@ -210,7 +210,7 @@ export default function RFQAuction({ tickMs = 1150 }) {
 
               <div className="auc-rec">
                 <h5><Icon name="sparkles" size={13} /> AI award recommendation</h5>
-                <p>Award <b>{rec.name}</b> — {rankOf[rec.code] === 0 ? 'lowest bid' : `$${(rec.bid - leader.bid).toLocaleString()} above lead`} but best service blend: <b>{rec.onTime}% on-time</b>, <b>{rec.transit}-day</b> transit. {status === 'closed' ? 'Ready to route for approval.' : 'Updating as bids land…'}</p>
+                <p>Award <b>{rec.name}</b>: {rankOf[rec.code] === 0 ? 'lowest bid' : `$${(rec.bid - leader.bid).toLocaleString()} above lead`} but best service blend: <b>{rec.onTime}% on-time</b>, <b>{rec.transit}-day</b> transit. {status === 'closed' ? 'Ready to route for approval.' : 'Updating as bids land…'}</p>
                 <div className="rec-foot">
                   <button className="btn btn-primary" disabled={status !== 'closed'} style={{ height: 32, fontSize: 12, padding: '0 12px', opacity: status === 'closed' ? 1 : .55 }}>Award &amp; approve</button>
                   <button className="btn btn-ghost" style={{ height: 32, fontSize: 12, padding: '0 12px' }}>Split award</button>

@@ -3,7 +3,7 @@ import Waitlist from '@/components/landing/Waitlist'
 import Footer from '@/components/landing/Footer'
 
 export const metadata = {
-  title: 'Join the Waitlist — Susea',
+  title: 'Join the Waitlist: Susea',
   description: 'Susea is in private beta. Join the waitlist to get early access to the AI pricing OS for freight forwarders.',
   alternates: { canonical: 'https://susea.ai/signin' },
 }

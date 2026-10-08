@@ -16,7 +16,7 @@ export default function Hero({ onRequest, onTour }) {
           </h1>
           <p className="lead">
             Susea is the pricing &amp; procurement operating system for freight
-            forwarders — instant spot rates, live agent auctions, and an AI
+            forwarders: instant spot rates, live agent auctions, and an AI
             layer that drafts, follows up and chases so nothing waits on someone
             to remember it. You approve everything; nothing sends on its own.
           </p>

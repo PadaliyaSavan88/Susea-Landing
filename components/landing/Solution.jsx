@@ -22,7 +22,7 @@ const ROWS = [
     "var(--amber-600)",
     "var(--amber-50)",
     "Carrier comparison engine",
-    "Spot rates, contract rates, transit time, free time — side by side",
+    "Spot rates, contract rates, transit time, free time: side by side",
     "/compare",
   ],
   [
@@ -38,7 +38,7 @@ const ROWS = [
     "var(--blue-600)",
     "var(--blue-50)",
     "Surcharge & margin automation",
-    "BAF, CAF, THC, LSS, ISPS — calculated, applied, audited",
+    "BAF, CAF, THC, LSS, ISPS: calculated, applied, audited",
     "/automation",
   ],
 ];
@@ -51,14 +51,14 @@ export default function Solution() {
     //     <div className="sec-head">
     //       <span className="eyebrow"><span className="dot"></span> The platform</span>
     //       <h2 className="h-section">One platform for ocean freight<br />pricing &amp; operations.</h2>
-    //       <p className="lead">Susea centralizes carrier pricing, quotations, tracking, and operational intelligence into one AI-powered platform — built for how modern forwarders actually work.</p>
+    //       <p className="lead">Susea centralizes carrier pricing, quotations, tracking, and operational intelligence into one AI-powered platform, built for how modern forwarders actually work.</p>
     //     </div>
     //     <div className="panel-lg" style={{ padding: 28 }}>
     //       <div className="sol-grid">
     //         <div>
     //           <span className="tag blue">SUSEA OS</span>
     //           <h3 style={{ margin: '8px 0 8px', fontSize: 26, letterSpacing: '-.02em' }}>The pricing &amp; quotation stack</h3>
-    //           <p style={{ color: 'var(--ink-2)', fontSize: 14.5, lineHeight: 1.55, margin: 0 }}>Replace 6 tools with one operating system. Built on a tariff intelligence engine that reads anything — PDFs, images, spreadsheets, even forwarded WhatsApp threads — and turns it into structured, comparable pricing.</p>
+    //           <p style={{ color: 'var(--ink-2)', fontSize: 14.5, lineHeight: 1.55, margin: 0 }}>Replace 6 tools with one operating system. Built on a tariff intelligence engine that reads anything: PDFs, images, spreadsheets, even forwarded WhatsApp threads, and turns it into structured, comparable pricing.</p>
     //           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 18 }}>
     //             <span className="pill blue">Pricing engine</span>
     //             <span className="pill orange">Quote automation</span>

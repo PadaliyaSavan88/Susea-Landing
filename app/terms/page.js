@@ -3,7 +3,7 @@ import Footer from '@/components/landing/Footer'
 
 export const metadata = {
   title: 'Terms and Conditions | Susea',
-  description: 'Terms and Conditions for Susea.ai — the legally binding agreement governing use of the Susea platform by AlphaBits Solutions.',
+  description: 'Terms and Conditions for Susea.ai: the legally binding agreement governing use of the Susea platform by AlphaBits Solutions.',
   alternates: { canonical: 'https://susea.ai/terms' },
 }
 
@@ -57,7 +57,7 @@ export default function TermsPage() {
             <p>Susea.ai heavily integrates artificial intelligence ("AI") to read, parse, and extract complex ocean freight contract logic from unstructured documents (e.g., PDFs, emails, Excel files) without requiring manual templates. By utilizing these AI Services, Customer expressly acknowledges, understands, and agrees to the following specialized terms:</p>
             <ul>
               <li><strong>6.1 Probabilistic Nature of Technology:</strong> AI and machine learning models are inherently probabilistic and dynamic. While Susea.ai optimizes the Platform for high accuracy in freight rate extraction, the AI Services may occasionally generate outputs, extracted rates, or procurement suggestions that are inaccurate, hallucinated, incomplete, or inappropriate for Customer's commercial context.</li>
-              <li><strong>6.2 Mandatory Human-in-the-Loop Verification:</strong> The Platform is a decision-support tool, not an autonomous agent. Customer agrees that all AI-generated outputs—including but not limited to extracted Spot rates, NAC logic, FAK tables, transit schedules, and margin calculations—must be independently reviewed and verified by a qualified human logistics professional prior to execution, quoting to third parties, or binding financial commitment.</li>
+              <li><strong>6.2 Mandatory Human-in-the-Loop Verification:</strong> The Platform is a decision-support tool, not an autonomous agent. Customer agrees that all AI-generated outputs, including but not limited to extracted Spot rates, NAC logic, FAK tables, transit schedules, and margin calculations, must be independently reviewed and verified by a qualified human logistics professional prior to execution, quoting to third parties, or binding financial commitment.</li>
               <li><strong>6.3 Disclaimer of Algorithmic and Extraction Liability:</strong> Alphabits Solutions expressly disclaims any and all liability for financial losses, lost margins, missed container bookings, or delayed shipments arising from Customer's reliance on AI-generated outputs or extraction errors. The risk of utilizing AI-extracted data for commercial quoting rests entirely with the Customer.</li>
               <li><strong>6.4 AI Training and Data Utilization:</strong> To continuously improve the AI Services, Susea.ai requires diverse training data. Customer hereby grants Alphabits Solutions a perpetual, worldwide, royalty-free, non-exclusive license to use, reproduce, and process anonymized and aggregated Customer Data strictly for the purpose of training, fine-tuning, and enhancing the Platform's underlying machine learning models. This processing shall strictly adhere to applicable data privacy frameworks, ensuring no personally identifiable information (PII) or competitively sensitive identifiable corporate metrics are exposed.</li>
             </ul>

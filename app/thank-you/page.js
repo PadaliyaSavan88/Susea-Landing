@@ -32,7 +32,7 @@ export default function ThankYouPage() {
               </h1>
               <p className="lead">
                 We&apos;re onboarding freight forwarders in cohorts. We&apos;ll
-                reach out as soon as your spot opens up — keep an eye on your
+                reach out as soon as your spot opens up; keep an eye on your
                 inbox.
               </p>
               <a href="/" className="btn btn-ghost btn-lg">

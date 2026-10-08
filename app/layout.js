@@ -3,7 +3,7 @@ import Script from 'next/script'
 
 export const metadata = {
   metadataBase: new URL("https://susea.ai"),
-  title: "Susea — AI Operating System for Ocean Freight",
+  title: "Susea: AI Operating System for Ocean Freight",
   description:
     "The pricing & quotation OS for freight forwarders. Get instant spot rates, run live RFQ auctions, and quote customers in under 90 seconds.",
   icons: {
@@ -12,7 +12,7 @@ export const metadata = {
     apple: "/favicon.png",
   },
   openGraph: {
-    title: "Susea — AI Operating System for Ocean Freight",
+    title: "Susea: AI Operating System for Ocean Freight",
     description: "The pricing & quotation OS for freight forwarders.",
     url: "https://susea.ai",
     siteName: "Susea",
@@ -26,7 +26,7 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Susea — AI Operating System for Ocean Freight",
+    title: "Susea: AI Operating System for Ocean Freight",
     description: "The pricing & quotation OS for freight forwarders.",
     images: ["/og-image.png"],
   },

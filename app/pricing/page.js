@@ -2,7 +2,7 @@ import PricingPage from '@/components/pricing/PricingPage'
 
 export const metadata = {
   title: 'Pricing | Susea',
-  description: 'Simple pricing for modern freight forwarders. Search Spot Rates, manage RFQs, and create quotations faster — Starter, Pro, and Enterprise plans.',
+  description: 'Simple pricing for modern freight forwarders. Search Spot Rates, manage RFQs, and create quotations faster: Starter, Pro, and Enterprise plans.',
   alternates: { canonical: 'https://susea.ai/pricing' },
   openGraph: {
     title: 'Susea Pricing',

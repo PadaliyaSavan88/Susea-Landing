@@ -76,7 +76,7 @@ function Hover({ as: Tag = "div", base, hover, children, ...rest }) {
    loading/success/error state and includes a honeypot field for basic bot defense. */
 function PlaybookForm({ source, buttonLabel = "Get the playbook", wrapperStyle }) {
   const [email, setEmail] = useState("");
-  const [website, setWebsite] = useState(""); // honeypot — real users leave this blank
+  const [website, setWebsite] = useState(""); // honeypot; real users leave this blank
   const [status, setStatus] = useState("idle"); // idle | loading | success | error
   const [error, setError] = useState("");
 
@@ -109,7 +109,7 @@ function PlaybookForm({ source, buttonLabel = "Get the playbook", wrapperStyle }
       <div style={{ display: "flex", alignItems: "flex-start", gap: "10px", padding: "14px 16px", borderRadius: "10px", background: "rgba(46,107,216,.08)", border: "1px solid rgba(46,107,216,.25)", animation: "ffFadeUp .3s ease", ...wrapperStyle }}>
         <span style={{ fontSize: "18px", lineHeight: 1.2 }}>✉️</span>
         <div style={{ fontSize: "14px", color: "var(--ink-2)", lineHeight: 1.5 }}>
-          Check your inbox — the playbook is on its way to <strong style={{ color: "var(--ink)" }}>{email}</strong>. It may take a minute (and check spam just in case).
+          Check your inbox: the playbook is on its way to <strong style={{ color: "var(--ink)" }}>{email}</strong>. It may take a minute (and check spam just in case).
         </div>
       </div>
     );
@@ -188,7 +188,7 @@ const ROI_INPUTS = [
 ];
 
 /* ---- Content data (ported from the source) ---- */
-// Dummy partner logos — placeholder brand marks (fictional forwarders).
+// Dummy partner logos: placeholder brand marks (fictional forwarders).
 const BASE_LOGOS = [
   { name: "Meridian Freight", mono: "MF", color: "linear-gradient(135deg,#2563eb,#1e40af)" },
   { name: "BluePort Logistics", mono: "BL", color: "linear-gradient(135deg,#0ea5e9,#0369a1)" },
@@ -203,23 +203,23 @@ const TRUST_LOGOS = [...BASE_LOGOS, ...BASE_LOGOS];
 
 const PAINS = [
   { n: "01", title: "Requests land in five inboxes", body: "Email, WhatsApp, portal, phone, walk-in. Someone has to read each one and retype it into a quote form." },
-  { n: "02", title: "Quotes go out and are forgotten", body: "Sent Tuesday. Customer went quiet. On Friday afternoon a rep might chase it — if they remember." },
-  { n: "03", title: "Agents get chased one at a time", body: 'Calls, WhatsApp voice notes, "did you get my email?" — every award cycle burns hours on nudging.' },
-  { n: "04", title: "Bad bids reach the award screen", body: "A missing surcharge, wrong currency, or unrealistic transit — nobody caught it before it was awarded." },
+  { n: "02", title: "Quotes go out and are forgotten", body: "Sent Tuesday. Customer went quiet. On Friday afternoon a rep might chase it; if they remember." },
+  { n: "03", title: "Agents get chased one at a time", body: 'Calls, WhatsApp voice notes, "did you get my email?"; every award cycle burns hours on nudging.' },
+  { n: "04", title: "Bad bids reach the award screen", body: "A missing surcharge, wrong currency, or unrealistic transit; nobody caught it before it was awarded." },
   { n: "05", title: "Tariff sheets pile up unread", body: "A GRI hits on Monday. Someone finds out on Friday when the customer complains about the invoice." },
-  { n: "06", title: "Scaling means hiring — nothing else works", body: "Double the volume, double the desk. The tools don't leverage anyone." },
+  { n: "06", title: "Scaling means hiring; nothing else works", body: "Double the volume, double the desk. The tools don't leverage anyone." },
 ];
 
 const BEFORE_ITEMS = [
-  "Requests scattered across WhatsApp, email and inboxes — someone has to read each one, retype it into a quote form.",
-  "Quotes sent then forgotten until the customer follows up — if they follow up at all.",
-  'Agents chased one at a time — calls, WhatsApp voice notes, "did you get my email?"',
+  "Requests scattered across WhatsApp, email and inboxes: someone has to read each one, retype it into a quote form.",
+  "Quotes sent then forgotten until the customer follows up; if they follow up at all.",
+  'Agents chased one at a time: calls, WhatsApp voice notes, "did you get my email?"',
   "Bad bids reach your award screen because nobody caught the missing surcharge or wrong currency.",
   "Tariff sheets pile up unread; a GRI hits and someone finds out on Friday.",
 ];
 const AFTER_ITEMS = [
   "Every inbound request lands as a priced draft in your approval queue.",
-  "Quiet quotes get nudged automatically at the right moment — recovery rate goes up without anyone remembering to chase.",
+  "Quiet quotes get nudged automatically at the right moment; recovery rate goes up without anyone remembering to chase.",
   "Non-bidding agents get context-aware nudges (time left, current rank) without you thinking about it.",
   "Bad bids get flagged before they touch your award screen.",
   "New tariffs update themselves the moment they hit your inbox.",
@@ -243,7 +243,7 @@ const CLUSTERS = [
     tint: "var(--orange-50)",
     border: "#F3CAB0",
     items: [
-      { id: "a-03", icon: "↺", tint: "var(--orange-50)", color: "var(--orange-700)", title: "Quote follow-up", body: "Drafts a nudge the moment a quote goes quiet — so recovery doesn't depend on memory.", trigger: "quote · silent" },
+      { id: "a-03", icon: "↺", tint: "var(--orange-50)", color: "var(--orange-700)", title: "Quote follow-up", body: "Drafts a nudge the moment a quote goes quiet; so recovery doesn't depend on memory.", trigger: "quote · silent" },
       { id: "a-04", icon: "⏱", tint: "var(--orange-50)", color: "var(--orange-700)", title: "Expiry re-price", body: "Catches lapsing quotes and drafts the re-send before the customer notices.", trigger: "validity · approaching" },
     ],
   },
@@ -254,17 +254,17 @@ const CLUSTERS = [
     border: "#F0DEA6",
     items: [
       { id: "a-05", icon: "⇄", tint: "var(--amber-50)", color: "var(--amber-600)", title: "Bid chasing", body: "Nudges agents who haven't bid, with time-left and ranking context in the message.", trigger: "bid · outstanding" },
-      { id: "a-06", icon: "⚑", tint: "var(--amber-50)", color: "var(--amber-600)", title: "Bid QA", body: "Flags bad bids before they reach your award screen — missing surcharges, wrong currency, off-market rates.", trigger: "bid · submitted" },
+      { id: "a-06", icon: "⚑", tint: "var(--amber-50)", color: "var(--amber-600)", title: "Bid QA", body: "Flags bad bids before they reach your award screen: missing surcharges, wrong currency, off-market rates.", trigger: "bid · submitted" },
     ],
   },
 ];
-// Flat list of the six workflows — used by the ≤768px mobile slider so it never drifts from the grid.
+// Flat list of the six workflows: used by the ≤768px mobile slider so it never drifts from the grid.
 const AUTOMATIONS = CLUSTERS.flatMap((c) => c.items);
 
 const DASH_ROWS = [
   { id: "Q-2416", lane: "INNSA→NLRTM", price: "$1,420", delta: "▼ 4.2%", dcolor: "var(--good-500)", status: "Ready", stint: "var(--good-50)", scolor: "var(--good-600)" },
   { id: "Q-2415", lane: "AEJEA→CNSHA", price: "$2,180", delta: "▲ 1.1%", dcolor: "var(--bad-500)", status: "Draft", stint: "var(--blue-50)", scolor: "var(--blue-700)" },
-  { id: "Q-2414", lane: "USLAX→INNSA", price: "$3,050", delta: "—", dcolor: "var(--ink-3)", status: "Sent", stint: "var(--paper-3)", scolor: "var(--ink-2)" },
+  { id: "Q-2414", lane: "USLAX→INNSA", price: "$3,050", delta: "-", dcolor: "var(--ink-3)", status: "Sent", stint: "var(--paper-3)", scolor: "var(--ink-2)" },
   { id: "Q-2413", lane: "SGSIN→NLRTM", price: "$1,890", delta: "▼ 2.4%", dcolor: "var(--good-500)", status: "Won", stint: "var(--good-50)", scolor: "var(--good-600)" },
   { id: "Q-2412", lane: "CNSHA→USLAX", price: "$2,410", delta: "▲ 3.8%", dcolor: "var(--bad-500)", status: "Chasing", stint: "var(--amber-50)", scolor: "var(--amber-600)" },
 ];
@@ -273,7 +273,7 @@ const STATS_TOP = [
   { big: "40+ hrs", label: "Saved per operator per month on chasing and retyping", tint: "var(--blue-50)", color: "var(--blue-600)", icon: "↑" },
   { big: "32%", label: "Of quiet quotes recovered before they would have gone silent", tint: "var(--amber-50)", color: "var(--amber-600)", icon: "↺" },
   { big: "100%", label: "Of bids QA'd before they reach the award screen", tint: "var(--orange-50)", color: "var(--orange-600)", icon: "⚑" },
-  { big: "Zero", label: "Auto-sends — every draft is human-approved", tint: "var(--good-50)", color: "var(--good-500)", icon: "✓" },
+  { big: "Zero", label: "Auto-sends: every draft is human-approved", tint: "var(--good-50)", color: "var(--good-500)", icon: "✓" },
 ];
 const STATS_ROW = [
   { big: "6", unit: "automations", label: "Running the work around every quote" },
@@ -284,7 +284,7 @@ const STATS_ROW = [
 const TESTIMONIALS = [
   { quote: "A WhatsApp request now lands as a priced draft in the queue before I'd even have opened the message. My operators just approve.", metric: "Inquiry intake", metricLabel: "requests read + drafted automatically", metricColor: "var(--blue-700)", name: "Priya S.", title: "Head of Operations, Meridian Freight (India)", initials: "PS", avatarA: "#4A82D9", avatarB: "#8FB3EC" },
   { quote: "We recovered a quote we'd have lost because Susea nudged the customer 48 hours in. Nobody on my team would have remembered to chase it.", metric: "Quote follow-up", metricLabel: "quiet quotes chased, not forgotten", metricColor: "var(--orange-600)", name: "Ahmed K.", title: "Founder, Sable NVOCC (UAE)", initials: "AK", avatarA: "#F07020", avatarB: "#F5A000" },
-  { quote: "Caught a bid missing BAF before it hit our award screen — a $2,400 mistake avoided. That paid for the quarter on its own.", metric: "Bid QA", metricLabel: "bad bids flagged pre-award", metricColor: "var(--amber-600)", name: "Marta L.", title: "Commercial Lead, BluePort Logistics (NL)", initials: "ML", avatarA: "#F5A000", avatarB: "#F07020" },
+  { quote: "Caught a bid missing BAF before it hit our award screen; a $2,400 mistake avoided. That paid for the quarter on its own.", metric: "Bid QA", metricLabel: "bad bids flagged pre-award", metricColor: "var(--amber-600)", name: "Marta L.", title: "Commercial Lead, BluePort Logistics (NL)", initials: "ML", avatarA: "#F5A000", avatarB: "#F07020" },
 ];
 
 const COMPARE_ROWS = [
@@ -295,7 +295,7 @@ const COMPARE_ROWS = [
   { cap: "Bad bids", trad: "Reach the award screen · caught (or not) by the operator", susea: "Flagged before award · missing surcharges, wrong currency, off-market rates" },
   { cap: "Tariff updates", trad: "Sheets pile up unread; a GRI hits, you find out Friday", susea: "New tariffs update themselves the moment they hit your inbox" },
   { cap: "What your team does", trad: "Reads, retypes, chases, watches, guesses", susea: "Approves. Decides. Talks to customers." },
-  { cap: "What ships without a human", trad: "Nothing — because there is no automation", susea: "Nothing — every draft is human-approved. Zero auto-sends." },
+  { cap: "What ships without a human", trad: "Nothing: because there is no automation", susea: "Nothing: every draft is human-approved. Zero auto-sends." },
 ];
 
 const INSIGHTS = [
@@ -315,18 +315,18 @@ const SLOTS = ["10:00", "11:30", "14:00", "16:30"];
 
 const FAQ_DATA = [
   { q: "How long does implementation take?", a: "The beta cohort onboards in 3–5 business days. A founder walks your ops lead through connecting carriers, importing your tariff sheet, and setting up your first two automations. You send real quotes from day one." },
-  { q: "Will this fit our existing workflow, or do we rip stuff out?", a: "Nothing to rip out. Susea sits alongside your CRM, email, and WhatsApp — it reads inbound RFQs, generates the quote, and hands off to whatever you already use downstream. Most beta customers still use their existing accounting and shipment tracking tools." },
+  { q: "Will this fit our existing workflow, or do we rip stuff out?", a: "Nothing to rip out. Susea sits alongside your CRM, email, and WhatsApp: it reads inbound RFQs, generates the quote, and hands off to whatever you already use downstream. Most beta customers still use their existing accounting and shipment tracking tools." },
   { q: "How does the team learn to use it?", a: "One 45-minute onboarding session per team, plus a shared Slack/WhatsApp channel with the founding team. Your operators are drafting live quotes by end of day one. There is no certification to pass." },
-  { q: "Is our tariff data secure?", a: "Yes — your data lives in a single-tenant, EU/US region of your choice. TLS 1.3 in transit, AES-256 at rest, SOC 2 Type II underway. We do not train on your rates. You can delete your workspace at any time and we return the data." },
+  { q: "Is our tariff data secure?", a: "Yes: your data lives in a single-tenant, EU/US region of your choice. TLS 1.3 in transit, AES-256 at rest, SOC 2 Type II underway. We do not train on your rates. You can delete your workspace at any time and we return the data." },
   { q: "Which carriers and integrations are supported?", a: "Most major carriers (MSC, Maersk, CMA CGM, Hapag-Lloyd, COSCO, Evergreen, HMM, ONE, ZIM, Yang Ming, and 14+ more). We ingest their tariffs from PDF, XLS, email, and WhatsApp forwards. CRM: HubSpot, Salesforce, Pipedrive. Email: Outlook, Gmail. Accounting: Zoho, QuickBooks. Missing yours? We build it during onboarding." },
-  { q: "What is beta pricing? Does it get more expensive later?", a: "Beta customers lock in founding-cohort pricing for 24 months from signup. No surprise increases. When we exit beta, standard pricing applies to new customers — not to you." },
+  { q: "What is beta pricing? Does it get more expensive later?", a: "Beta customers lock in founding-cohort pricing for 24 months from signup. No surprise increases. When we exit beta, standard pricing applies to new customers; not to you." },
   { q: "What kind of support do we get?", a: "A shared channel with the founding team. Median first response under 30 minutes during business hours. Every customer has a named founder as their point of contact for the first 90 days." },
 ];
 
 /* Small reusable style atom from the source. */
 const checkDot = { width: "22px", height: "22px", borderRadius: "50%", background: "var(--good-50)", color: "var(--good-600)", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: "13px", fontWeight: 700, flexShrink: 0 };
 
-/* Single source of truth for an automation card — matches the review page's
+/* Single source of truth for an automation card: matches the review page's
    simple card. Rendered both in the desktop cluster grid and in the ≤768px
    Embla slider so the two never drift. No hover effect (by design). */
 function renderAutomationCard(a) {
@@ -371,7 +371,7 @@ function Chevron({ dir }) {
   );
 }
 
-/* ≤768px swipe slider for the automation cards — mirrors the spot-rate /
+/* ≤768px swipe slider for the automation cards: mirrors the spot-rate /
    main-page Features slider. Isolated so Embla's drag/select state re-renders
    only the slider, not the large page tree (keeps the swipe smooth). */
 function AutomationsSlider() {
@@ -420,7 +420,7 @@ function AutomationsSlider() {
   );
 }
 
-/* ≤768px auto-scrolling marquee for the testimonial cards — reuses the page's
+/* ≤768px auto-scrolling marquee for the testimonial cards: reuses the page's
    .marquee / .marquee-track band (same as "Trusted by beta forwarders"). The
    array is doubled so ffSlideAcross loops seamlessly. Desktop keeps the grid. */
 function TestimonialsMarquee() {
@@ -438,7 +438,7 @@ function TestimonialsMarquee() {
 }
 
 // Isolated so a slider drag re-renders only the calculator, not the whole page
-// (keeps the range sliders lag-free while dragging) — matches spot-rate's RoiCalculator.
+// (keeps the range sliders lag-free while dragging): matches spot-rate's RoiCalculator.
 function RoiCalculator() {
   const [currency, setCurrency] = useState("USD");
   const [roiState, setRoiState] = useState({
@@ -462,7 +462,7 @@ function RoiCalculator() {
           <div style={{ textAlign: "center", marginBottom: "28px" }}>
             <div className="ds-eyebrow" style={{ color: "var(--blue-600)", marginBottom: "14px" }}>ROI calculator · your numbers, honest math</div>
             <h2 className="ds-h2" style={{ margin: "0 0 16px", textWrap: "balance" }}>What Susea saves your team this year.</h2>
-            <p className="ds-lead" style={{ maxWidth: "640px", margin: "0 auto" }}>Conservative assumptions, editable inputs. We're not selling 10x — we're showing real hours back on the desk.</p>
+            <p className="ds-lead" style={{ maxWidth: "640px", margin: "0 auto" }}>Conservative assumptions, editable inputs. We're not selling 10x; we're showing real hours back on the desk.</p>
           </div>
 
           <div style={{ background: "#fff", borderRadius: "20px", boxShadow: "var(--shadow-xl)", border: "1px solid var(--line)", overflow: "hidden" }}>
@@ -596,7 +596,7 @@ export default function FreightForwardingPage() {
       {/* ============ 1+2. STICKY HEADER STACK (announcement bar + nav) ============
          Both live in one sticky wrapper so the nav always sits BELOW the bar
          instead of pinning to the same top:0 and sliding behind it. When the
-         bar is dismissed, only the nav remains — still sticky. */}
+         bar is dismissed, only the nav remains; still sticky. */}
       <div style={{ position: "sticky", top: 0, zIndex: 60 }}>
         {/* ---- Announcement bar ---- */}
         {barVisible && (
@@ -605,7 +605,7 @@ export default function FreightForwardingPage() {
               <span style={{ display: "inline-flex", alignItems: "center", gap: "8px", padding: "4px 10px", borderRadius: "999px", background: "rgba(245,160,0,.18)", color: "#FFCB6B", fontWeight: 600, fontSize: "11px", letterSpacing: ".08em", textTransform: "uppercase", border: "1px solid rgba(245,160,0,.35)", flexShrink: 0 }}>
                 <span className="live-dot" style={{ background: "#F5A000", boxShadow: "0 0 0 4px rgba(245,160,0,.25)" }} />Beta · live
               </span>
-              <span style={{ opacity: 0.95 }} className="sticky-bar-text"><strong style={{ color: "#fff" }}>4 slots</strong> this month — the founding team personally onboards every customer.</span>
+              <span style={{ opacity: 0.95 }} className="sticky-bar-text"><strong style={{ color: "#fff" }}>4 slots</strong> this month: the founding team personally onboards every customer.</span>
               <span style={{ opacity: 0.95, fontSize: "12.5px" }} className="show-md-only mobile-sm-text"><strong style={{ color: "#fff" }}>4 slots</strong> left this month.</span>
               <a href="#booking" onClick={jump("booking")} style={{ marginLeft: "auto", color: "#fff", fontWeight: 600, display: "inline-flex", alignItems: "center", gap: "6px", borderBottom: "1px solid rgba(255,255,255,.4)", paddingBottom: "2px", fontSize: "13px", flexShrink: 0 }}>Book <span aria-hidden="true">→</span></a>
               <button onClick={() => setBarVisible(false)} aria-label="Dismiss" style={{ color: "rgba(255,255,255,.7)", fontSize: "20px", lineHeight: 1, padding: "0 4px", flexShrink: 0 }}>×</button>
@@ -694,7 +694,7 @@ export default function FreightForwardingPage() {
               <span style={{ background: "linear-gradient(120deg,var(--blue-600) 0%,var(--orange-500) 60%,var(--amber-500) 100%)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>Every bad bid flagged. Automatically.</span>
             </h1>
             <p style={{ fontSize: "19px", lineHeight: 1.55, color: "var(--ink-2)", margin: "0 0 32px", maxWidth: "580px", textWrap: "pretty" }}>
-              Susea drafts, chases, watches and flags the work around every quote — so your team stays on decisions, not switching between inboxes.
+              Susea drafts, chases, watches and flags the work around every quote; so your team stays on decisions, not switching between inboxes.
             </p>
             <div className="hero-cta-row" style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginBottom: "28px" }}>
               <Hover as="a" href="#booking" onClick={jump("booking")} className="hero-cta" base={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px", padding: "15px 24px", borderRadius: "12px", background: "var(--blue-600)", color: "#fff", fontWeight: 600, fontSize: "16px", boxShadow: "var(--shadow-blue)" }} hover={{ background: "var(--blue-700)", transform: "translateY(-2px)" }}>
@@ -732,7 +732,7 @@ export default function FreightForwardingPage() {
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "16px" }}>
                   <div>
                     <div style={{ fontSize: "11px", fontWeight: 700, letterSpacing: ".08em", textTransform: "uppercase", color: "var(--ink-3)", marginBottom: "6px" }}>Quotation Q-2416</div>
-                    <div className="mock-title" style={{ fontFamily: "var(--font-sans)", fontSize: "22px", fontWeight: 600, letterSpacing: "-.02em" }}>Acme Textiles — INNSA → NLRTM</div>
+                    <div className="mock-title" style={{ fontFamily: "var(--font-sans)", fontSize: "22px", fontWeight: 600, letterSpacing: "-.02em" }}>Acme Textiles: INNSA → NLRTM</div>
                     <div style={{ fontSize: "13px", color: "var(--ink-3)", marginTop: "4px" }}>2 × 40'HC · Cotton yarn · Sailing 12 Aug</div>
                   </div>
                   <div style={{ textAlign: "right" }}>
@@ -810,14 +810,14 @@ export default function FreightForwardingPage() {
           <div style={{ textAlign: "center", marginBottom: "32px" }}>
             <div className="ds-eyebrow" style={{ color: "var(--orange-500)", marginBottom: "14px" }}>The hidden cost of manual work</div>
             <h2 className="ds-h2" style={{ margin: "0 0 16px", textWrap: "balance", maxWidth: "820px", marginInline: "auto" }}>A Monday morning on the pricing desk shouldn't look like this.</h2>
-            <p className="ds-lead" style={{ maxWidth: "640px", margin: "0 auto" }}>You know the shape of the day. Susea knows it too — that's why it exists.</p>
+            <p className="ds-lead" style={{ maxWidth: "640px", margin: "0 auto" }}>You know the shape of the day. Susea knows it too; that's why it exists.</p>
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1.1fr .9fr", gap: "40px", alignItems: "stretch" }} className="grid-2-md">
             <div className="pain-narrative-card" style={{ background: "#fff", border: "1px solid var(--line)", borderRadius: "18px", padding: "36px 40px", boxShadow: "var(--shadow-sm)", position: "relative" }}>
               <div className="ds-eyebrow" style={{ color: "var(--ink-3)", marginBottom: "16px" }}>08:42 · Monday</div>
               <div className="pain-narrative" style={{ fontFamily: "var(--font-sans)", fontSize: "22px", lineHeight: 1.5, letterSpacing: "-.01em", color: "var(--ink)", textWrap: "pretty" }}>
-                Your operator opens Outlook. <span style={{ background: "linear-gradient(180deg,transparent 60%,var(--amber-50) 60%)" }}>47 unread RFQs</span>, three of them from Friday. WhatsApp: a carrier just posted <span style={{ fontFamily: "var(--font-mono)", color: "var(--orange-600)", fontWeight: 600 }}>GRI ▲ $150</span> on INNSA–NLRTM. Excel opens next — the tariff sheet is on version 14. By 11am they've built <span style={{ fontFamily: "var(--font-mono)", color: "var(--ink)", fontWeight: 600 }}>6 quotes</span>. Two customers already awarded to whoever answered first.
+                Your operator opens Outlook. <span style={{ background: "linear-gradient(180deg,transparent 60%,var(--amber-50) 60%)" }}>47 unread RFQs</span>, three of them from Friday. WhatsApp: a carrier just posted <span style={{ fontFamily: "var(--font-mono)", color: "var(--orange-600)", fontWeight: 600 }}>GRI ▲ $150</span> on INNSA–NLRTM. Excel opens next; the tariff sheet is on version 14. By 11am they've built <span style={{ fontFamily: "var(--font-mono)", color: "var(--ink)", fontWeight: 600 }}>6 quotes</span>. Two customers already awarded to whoever answered first.
               </div>
               <div style={{ marginTop: "24px", paddingTop: "20px", borderTop: "1px solid var(--line-soft)", display: "flex", gap: "24px", flexWrap: "wrap" }}>
                 {[["18 min", "Avg. per quote today"], ["32%", "Quotes that will expire silently"], ["0", "Automated follow-ups sent"]].map(([v, l]) => (
@@ -843,9 +843,9 @@ export default function FreightForwardingPage() {
             </div>
           </div>
 
-          {/* Inline CTA — matches the review page (sits at the bottom of the pain section) */}
+          {/* Inline CTA: matches the review page (sits at the bottom of the pain section) */}
           <div className="pain-cta" style={{ marginTop: "36px", display: "flex", justifyContent: "center", alignItems: "center", gap: "14px", flexWrap: "wrap", paddingTop: "28px", borderTop: "1px solid var(--line-soft)" }}>
-            <div style={{ fontSize: "15px", color: "var(--ink-2)", textWrap: "balance", maxWidth: "420px", textAlign: "center" }}>See what Susea would take off your desk this week —</div>
+            <div style={{ fontSize: "15px", color: "var(--ink-2)", textWrap: "balance", maxWidth: "420px", textAlign: "center" }}>See what Susea would take off your desk this week</div>
             <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", justifyContent: "center" }}>
               <Hover as="a" href="#booking" onClick={jump("booking")} base={{ display: "inline-flex", alignItems: "center", gap: "6px", padding: "11px 18px", borderRadius: "10px", background: "var(--blue-600)", color: "#fff", fontWeight: 600, fontSize: "14px", boxShadow: "var(--shadow-blue)" }} hover={{ background: "var(--blue-700)" }}>Book a live demo <span>→</span></Hover>
               <Hover as="a" href="#waitlist" onClick={jump("waitlist")} base={{ display: "inline-flex", alignItems: "center", gap: "6px", padding: "11px 18px", borderRadius: "10px", background: "transparent", color: "var(--ink-2)", fontWeight: 600, fontSize: "14px" }} hover={{ color: "var(--ink)" }}>Request beta access</Hover>
@@ -931,7 +931,7 @@ export default function FreightForwardingPage() {
           {/* ≤768px: grid hidden, swipe slider shown (see freight-forwarding.css) */}
           <AutomationsSlider />
 
-          <div style={{ textAlign: "center", marginTop: "20px", fontSize: "12.5px", color: "var(--ink-3)" }}>Susea also supports RFQ workflows for procurement teams — see <a href="https://susea.ai/rfq" target="_blank" rel="noopener" style={{ color: "var(--blue-700)", fontWeight: 600 }}>susea.ai/rfq</a>.</div>
+          <div style={{ textAlign: "center", marginTop: "20px", fontSize: "12.5px", color: "var(--ink-3)" }}>Susea also supports RFQ workflows for procurement teams: see <a href="https://susea.ai/rfq" target="_blank" rel="noopener" style={{ color: "var(--blue-700)", fontWeight: 600 }}>susea.ai/rfq</a>.</div>
         </div>
       </section>
 
@@ -942,9 +942,9 @@ export default function FreightForwardingPage() {
             <div className="pp-copy">
               <div className="ds-eyebrow" style={{ color: "var(--blue-600)", marginBottom: "14px" }}>See the product first</div>
               <h2 className="ds-h2" style={{ margin: "0 0 20px", textWrap: "balance" }}>The approval queue your team lives in.</h2>
-              <p className="ds-lead" style={{ margin: "0 0 24px", maxWidth: "520px" }}>Every drafted quote, every silent follow-up, every flagged bid — one screen, live status. Nothing sends without a human tap.</p>
+              <p className="ds-lead" style={{ margin: "0 0 24px", maxWidth: "520px" }}>Every drafted quote, every silent follow-up, every flagged bid: one screen, live status. Nothing sends without a human tap.</p>
               <ul style={{ listStyle: "none", padding: 0, margin: "0 0 28px", display: "flex", flexDirection: "column", gap: "12px" }}>
-                {["Drafts sit in the queue waiting for one-tap approval", "Follow-ups scheduled automatically — you see them before they fire", "Every inbound request, every version, every touch — logged", "Works alongside your CRM, email, and WhatsApp — nothing to rip out"].map((t) => (
+                {["Drafts sit in the queue waiting for one-tap approval", "Follow-ups scheduled automatically; you see them before they fire", "Every inbound request, every version, every touch: logged", "Works alongside your CRM, email, and WhatsApp: nothing to rip out"].map((t) => (
                   <li key={t} style={{ display: "flex", gap: "12px", fontSize: "15px", color: "var(--ink-2)" }}><span style={checkDot}>✓</span>{t}</li>
                 ))}
               </ul>
@@ -1038,7 +1038,7 @@ export default function FreightForwardingPage() {
           <div style={{ textAlign: "center", marginBottom: "32px" }}>
             <div className="ds-eyebrow" style={{ color: "var(--amber-600)", marginBottom: "14px" }}>Beta partners · in their words</div>
             <h2 className="ds-h2" style={{ margin: "0 0 12px", textWrap: "balance" }}>The people running the actual pricing desk.</h2>
-            <p className="ds-lead" style={{ maxWidth: "600px", margin: "0 auto" }}>Cohort quotes — anonymized where the customer preferred. Numbers are real.</p>
+            <p className="ds-lead" style={{ maxWidth: "600px", margin: "0 auto" }}>Cohort quotes: anonymized where the customer preferred. Numbers are real.</p>
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "20px" }} className="grid-3-md testi-grid">
@@ -1141,7 +1141,7 @@ export default function FreightForwardingPage() {
                 <div className="ds-mono insight-stat" style={{ fontSize: "44px", fontWeight: 700, color: i.color, lineHeight: 1, letterSpacing: "-.02em", marginBottom: "14px" }}>{i.stat}</div>
                 <div className="insight-text">
                   <div className="insight-claim" style={{ fontSize: "15px", color: "var(--ink)", fontWeight: 500, lineHeight: 1.4, marginBottom: "12px" }}>{i.claim}</div>
-                  <div className="insight-source" style={{ fontSize: "12px", color: "var(--ink-3)", fontFamily: "var(--font-mono)" }}>— {i.source}</div>
+                  <div className="insight-source" style={{ fontSize: "12px", color: "var(--ink-3)", fontFamily: "var(--font-mono)" }}>{i.source}</div>
                 </div>
               </div>
             ))}
@@ -1156,7 +1156,7 @@ export default function FreightForwardingPage() {
             <div>
               <div className="ds-eyebrow" style={{ color: "var(--orange-500)", marginBottom: "14px" }}>Free guide · 24 pages</div>
               <h2 className="ds-h3" style={{ margin: "0 0 16px" }}>The Ocean Freight Automation Playbook: 12 workflows you can steal.</h2>
-              <p className="ds-body" style={{ margin: "0 0 24px" }}>The exact automations our beta customers turned on in week one — with the trigger logic, edge cases, and the "don't do this" list from watching six forwarders roll them out.</p>
+              <p className="ds-body" style={{ margin: "0 0 24px" }}>The exact automations our beta customers turned on in week one: with the trigger logic, edge cases, and the "don't do this" list from watching six forwarders roll them out.</p>
               <ul style={{ listStyle: "none", padding: 0, margin: "0 0 24px", display: "flex", flexDirection: "column", gap: "8px" }}>
                 {["Follow-up cadences that recover 32% of quiet quotes", "RFQ intake templates for WhatsApp & email", "GRI / BAF surcharge alerting logic"].map((t) => (
                   <li key={t} style={{ display: "flex", gap: "10px", fontSize: "14px", color: "var(--ink-2)" }}><span style={{ color: "var(--good-500)", fontWeight: 700 }}>✓</span>{t}</li>
@@ -1201,7 +1201,7 @@ export default function FreightForwardingPage() {
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px", paddingBottom: "16px", borderBottom: "1px solid var(--line-soft)" }}>
               <div>
                 <div style={{ fontSize: "11px", fontWeight: 700, letterSpacing: ".08em", textTransform: "uppercase", color: "var(--ink-3)", marginBottom: "4px" }}>Calendly · 20 min · Google Meet</div>
-                <div style={{ fontSize: "20px", fontWeight: 600, letterSpacing: "-.02em" }}>Susea demo — with a founder</div>
+                <div style={{ fontSize: "20px", fontWeight: 600, letterSpacing: "-.02em" }}>Susea demo: with a founder</div>
               </div>
               <div style={{ textAlign: "right" }}>
                 <div style={{ fontSize: "11px", color: "var(--ink-3)", textTransform: "uppercase", letterSpacing: ".08em" }}>This week · IST</div>
@@ -1266,7 +1266,7 @@ export default function FreightForwardingPage() {
             <div style={{ padding: "32px" }}>
               <div className="ds-eyebrow" style={{ color: "var(--orange-500)", marginBottom: "10px" }}>Before you go</div>
               <h3 className="ds-h3" style={{ margin: "0 0 12px" }}>Take the playbook with you.</h3>
-              <p className="ds-body" style={{ margin: "0 0 20px" }}>The Ocean Freight Automation Playbook — 12 workflows our beta forwarders turned on in week one. No sales sequence.</p>
+              <p className="ds-body" style={{ margin: "0 0 20px" }}>The Ocean Freight Automation Playbook: 12 workflows our beta forwarders turned on in week one. No sales sequence.</p>
               <PlaybookForm source="exit-intent" buttonLabel="Email me the guide" wrapperStyle={{ marginBottom: "12px" }} />
               <div style={{ fontSize: "12px", color: "var(--ink-3)", textAlign: "center", paddingTop: "12px", borderTop: "1px solid var(--line-soft)", marginTop: "12px" }}>Not ready to talk? <button onClick={() => { setExitOpen(false); setTimeout(() => smoothScrollToId("waitlist"), 100); }} style={{ color: "var(--blue-700)", fontWeight: 600, textDecoration: "underline" }}>Just email me beta launch updates</button></div>
             </div>

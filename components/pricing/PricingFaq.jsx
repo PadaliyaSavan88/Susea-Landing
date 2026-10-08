@@ -9,7 +9,7 @@ const FAQS = [
   },
   {
     q: 'Can I upgrade anytime?',
-    a: "Yes. Upgrade from Starter to Pro at any time — you'll only be charged the prorated difference for the remainder of your billing cycle.",
+    a: "Yes. Upgrade from Starter to Pro at any time; you'll only be charged the prorated difference for the remainder of your billing cycle.",
   },
   {
     q: 'Do unused RFQs roll over?',
@@ -21,7 +21,7 @@ const FAQS = [
   },
   {
     q: 'Can I cancel anytime?',
-    a: 'Yes, no long-term contracts. Cancel from account settings at any time — access continues until the end of your current billing period.',
+    a: 'Yes, no long-term contracts. Cancel from account settings at any time; access continues until the end of your current billing period.',
   },
 ]
 

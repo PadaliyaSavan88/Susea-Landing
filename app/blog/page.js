@@ -4,12 +4,12 @@ import Nav from '@/components/landing/Nav'
 import Footer from '@/components/landing/Footer'
 
 export const metadata = {
-  title: "Blog — Freight Forwarding Intelligence | Susea",
+  title: "Blog: Freight Forwarding Intelligence | Susea",
   description:
     "Pricing, procurement, and AI intelligence for freight forwarders. Guides on surcharges, RFQ, ocean rates, and building a modern pricing desk.",
   alternates: { canonical: "https://susea.ai/blog" },
   openGraph: {
-    title: "Susea Blog — Freight Intelligence",
+    title: "Susea Blog: Freight Intelligence",
     description: "Pricing, procurement, and AI guides for freight forwarders.",
     url: "https://susea.ai/blog",
     images: [
@@ -63,10 +63,10 @@ export default function BlogPage() {
           <div className="container">
             <span className="eyebrow"><span className="dot"></span> Freight Intelligence</span>
             <h1 className="h-display" style={{ marginTop: 20, marginBottom: 16 }}>
-              Pricing, procurement &amp;<br />ocean freight — explained.
+              Pricing, procurement &amp;<br />ocean freight, explained.
             </h1>
             <p className="lead">
-              In-depth guides on surcharges, RFQ, AI tariff extraction, and building a modern pricing desk — written for freight forwarders and NVOCCs.
+              In-depth guides on surcharges, RFQ, AI tariff extraction, and building a modern pricing desk, written for freight forwarders and NVOCCs.
             </p>
           </div>
         </section>

@@ -66,10 +66,10 @@ const FAQ_ITEMS = [
   { q:"How long does onboarding take?", a:"Most teams are running their first real RFQ within a day. Our team walks your buyers through it in a single 30-minute session." },
   { q:"Will my team need training?", a:"Susea looks like the tools your team already uses. Most users are confident on day one; we include unlimited async support and a live 30-min session for every new hire." },
   { q:"Is my data secure?", a:"Yes. 256-bit encryption at rest and in transit, GDPR compliant, SOC 2 Type II in progress. Your contracts and supplier data never leave your workspace." },
-  { q:"Can we keep using our existing forwarders?", a:"Absolutely. Susea layers on top of your existing forwarder relationships — you just get them all in one workspace, responding in one format." },
-  { q:"Do you integrate with our ERP / TMS?", a:"Yes — we have native connectors for SAP, Oracle NetSuite, Zoho and generic REST APIs. Everything you award on Susea can flow back into your system of record." },
+  { q:"Can we keep using our existing forwarders?", a:"Absolutely. Susea layers on top of your existing forwarder relationships; you just get them all in one workspace, responding in one format." },
+  { q:"Do you integrate with our ERP / TMS?", a:"Yes; we have native connectors for SAP, Oracle NetSuite, Zoho and generic REST APIs. Everything you award on Susea can flow back into your system of record." },
   { q:"What support do you provide?", a:"Every plan includes a dedicated onboarding lead, chat & email support, and a shared Slack channel. Enterprise plans get a named account manager." },
-  { q:"How do you price?", a:"Simple usage-based tiers. Book a demo for a quote — most teams find the platform pays for itself in the first 60 days from freight-cost savings alone." }
+  { q:"How do you price?", a:"Simple usage-based tiers. Book a demo for a quote; most teams find the platform pays for itself in the first 60 days from freight-cost savings alone." }
 ];
 
 const TESTIMONIALS = [
@@ -78,9 +78,9 @@ const TESTIMONIALS = [
   { company: "BlueWave Logistics", name: "Priya Nair", title: "Commercial Director", icon: "waves", border: "var(--blue-500)", iconBg: "var(--amber-50)", iconColor: "var(--amber-600)",
     quote: "The tariff extraction alone saved us hours every week. We were drowning in PDF rate sheets from agents. Susea just reads them and normalises everything automatically. The surcharge automation is something we didn't know we needed until we had it." },
   { company: "Trident Global Forwarding", name: "Daniel Osei", title: "Operations Manager", icon: "gavel", border: "var(--orange-500)", iconBg: "var(--orange-50)", iconColor: "var(--orange-600)",
-    quote: "We used to have someone calling eight agents one by one asking if they'd bid yet. Now Susea nudges them automatically — time left, their rank, a reason to move. Our last RFQ closed with all eight bids in without a single manual chase. That's a job nobody misses." },
+    quote: "We used to have someone calling eight agents one by one asking if they'd bid yet. Now Susea nudges them automatically: time left, their rank, a reason to move. Our last RFQ closed with all eight bids in without a single manual chase. That's a job nobody misses." },
   { company: "Apex Trade Partners", name: "Sarah Lindqvist", title: "CEO", icon: "activity", border: "var(--blue-500)", iconBg: "var(--orange-50)", iconColor: "var(--orange-600)",
-    quote: "A customer's WhatsApp message used to sit in an inbox until someone had time to retype it into a quote. Now it shows up already priced, ready for me to approve. I still say yes or no — I just never have to be the one who starts it." },
+    quote: "A customer's WhatsApp message used to sit in an inbox until someone had time to retype it into a quote. Now it shows up already priced, ready for me to approve. I still say yes or no; I just never have to be the one who starts it." },
   { company: "Harbor & Co Freight", name: "Mohammed Al-Rashidi", title: "Pricing Lead", icon: "life-buoy", border: "var(--orange-500)", iconBg: "var(--blue-50)", iconColor: "var(--blue-600)",
     quote: "The WhatsApp quote sharing is genuinely a game changer for our market. Customers expect instant responses. Now we send a branded, fully calculated quote directly on WhatsApp in seconds, with a one-tap acceptance. Our conversion rate on quotes has gone up noticeably." },
   { company: "Continental Cargo Group", name: "Elena Vasquez", title: "Head of Procurement", icon: "globe", border: "var(--blue-500)", iconBg: "var(--bad-50)", iconColor: "var(--bad-500)",
@@ -89,13 +89,13 @@ const TESTIMONIALS = [
 
 const PROCUREMENT_FEATURES = [
   { icon:"search", iconBg:"var(--blue-50)", iconColor:"var(--blue-600)", title:"Live rates on any lane", body:"40+ carriers, updated continuously. FCL, LCL, air. Every major trade lane." },
-  { icon:"scale", iconBg:"var(--blue-50)", iconColor:"var(--blue-600)", title:"Side-by-side comparison", body:"All-in price, transit time, free time, validity — apples to apples." },
+  { icon:"scale", iconBg:"var(--blue-50)", iconColor:"var(--blue-600)", title:"Side-by-side comparison", body:"All-in price, transit time, free time, validity: apples to apples." },
   { icon:"send", iconBg:"var(--blue-50)", iconColor:"var(--blue-600)", title:"Multi-provider RFQ", body:"One structured brief → every forwarder responds in the same format." },
-  { icon:"sparkles", iconBg:"linear-gradient(135deg,var(--amber-500),var(--orange-500))", iconColor:"#fff", title:"AI recommendations", body:"“Best rate”, “fastest transit”, “best free time” — surfaced automatically." },
+  { icon:"sparkles", iconBg:"linear-gradient(135deg,var(--amber-500),var(--orange-500))", iconColor:"#fff", title:"AI recommendations", body:"“Best rate”, “fastest transit”, “best free time”: surfaced automatically." },
   { icon:"file-text", iconBg:"var(--blue-50)", iconColor:"var(--blue-600)", title:"Branded quotations", body:"Customer-ready PDF quotes with your logo, generated in seconds." },
-  { icon:"calculator", iconBg:"var(--blue-50)", iconColor:"var(--blue-600)", title:"Surcharges built-in", body:"BAF, THC, ISPS, LSS — calculated and audited. No margin leaks." },
-  { icon:"history", iconBg:"var(--blue-50)", iconColor:"var(--blue-600)", title:"Rate & RFQ history", body:"Every quote, every award — searchable. Real leverage on your next lane." },
-  { icon:"users", iconBg:"var(--blue-50)", iconColor:"var(--blue-600)", title:"Team collaboration", body:"Buyers, ops, finance — everyone on the same shipment, same page." },
+  { icon:"calculator", iconBg:"var(--blue-50)", iconColor:"var(--blue-600)", title:"Surcharges built-in", body:"BAF, THC, ISPS, LSS: calculated and audited. No margin leaks." },
+  { icon:"history", iconBg:"var(--blue-50)", iconColor:"var(--blue-600)", title:"Rate & RFQ history", body:"Every quote, every award: searchable. Real leverage on your next lane." },
+  { icon:"users", iconBg:"var(--blue-50)", iconColor:"var(--blue-600)", title:"Team collaboration", body:"Buyers, ops, finance: everyone on the same shipment, same page." },
 ];
 
 function renderProcCard(f, key) {
@@ -110,7 +110,7 @@ function renderProcCard(f, key) {
 }
 
 // Isolated so Embla's select/drag state updates re-render ONLY the slider,
-// not the whole (very large) SpotRatePage tree — this is what keeps the
+// not the whole (very large) SpotRatePage tree; this is what keeps the
 // animation as smooth as the main page's Features slider.
 function ProcMobileSlider() {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, align: "center" });
@@ -236,17 +236,17 @@ function renderRatesTable() {
 
 function renderRfqPanel() {
     const steps = [
-      { n:1, title:"Build & launch", body:"Upload many lanes at once and float the RFQ to your own agents in one click — spot or contract.", icon:"rocket" },
-      { n:2, title:"Agents bid live", body:"Invited agents bid in your chosen visibility mode — sealed, rank-only, best-price or open — and re-bid down to climb.", icon:"gavel" },
+      { n:1, title:"Build & launch", body:"Upload many lanes at once and float the RFQ to your own agents in one click: spot or contract.", icon:"rocket" },
+      { n:2, title:"Agents bid live", body:"Invited agents bid in your chosen visibility mode: sealed, rank-only, best-price or open, and re-bid down to climb.", icon:"gavel" },
       { n:3, title:"AI compares & ranks", body:"Every bid is normalized and sanity-checked. AI recommends the best agent by cost, transit or schedule.", icon:"sparkles" },
-      { n:4, title:"Approve & award", body:"Route the winner through your approval matrix with documented justification — fully audit-ready.", icon:"check-check" },
+      { n:4, title:"Approve & award", body:"Route the winner through your approval matrix with documented justification; fully audit-ready.", icon:"check-check" },
       { n:5, title:"Contract & track", body:"Awarded rates become digital contracts. Susea tracks utilization so negotiated savings actually land.", icon:"file-check" }
     ];
     const workflow = React.createElement("div", { style:{ marginBottom:"14px" }},
       React.createElement("div", { style:{ display:"flex", alignItems:"center", justifyContent:"space-between", flexWrap:"wrap", gap:"10px", marginBottom:"12px" }},
         React.createElement("div", null,
           React.createElement("div", { style:{ fontSize:"10.5px", fontWeight:700, letterSpacing:".08em", textTransform:"uppercase", color:"var(--orange-700)" }}, "How an RFQ works"),
-          React.createElement("div", { style:{ fontSize:"15px", fontWeight:600, color:"var(--ink)", marginTop:"3px", letterSpacing:"-.01em" }}, "Launch → bid → compare → award, in days — not a month")
+          React.createElement("div", { style:{ fontSize:"15px", fontWeight:600, color:"var(--ink)", marginTop:"3px", letterSpacing:"-.01em" }}, "Launch → bid → compare → award, in days, not a month")
         ),
         React.createElement("span", { style:{ display:"inline-flex", alignItems:"center", gap:"6px", padding:"5px 10px", borderRadius:"999px", fontSize:"11px", fontWeight:700, color:"var(--good-600)", background:"var(--good-50)", border:"1px solid #C2E7D6" }}, "1–3 days, tender → award")
       ),
@@ -274,7 +274,7 @@ function renderRfqPanel() {
             on ? React.createElement("b", { style:{ marginLeft:"4px", fontSize:"10px", color:"var(--orange-700)" }}, "· recommended") : null
           ))
         ),
-        React.createElement("span", { "data-su-rfq-vis-note":true, style:{ marginLeft:"auto", fontSize:"11.5px", color:"var(--ink-3)" }}, "Switch per auction — not a one-time setup.")
+        React.createElement("span", { "data-su-rfq-vis-note":true, style:{ marginLeft:"auto", fontSize:"11.5px", color:"var(--ink-3)" }}, "Switch per auction; not a one-time setup.")
       )
     );
     return React.createElement("div", { key:"rfq", style:{ position:"relative", border:"1px solid var(--line)", borderRadius:"18px", background:"#fff", padding:"20px", boxShadow:"var(--shadow-xl)", animation:"suFadeUp .35s ease" }},
@@ -705,7 +705,7 @@ function RoiCalculator() {
                     color: "var(--ink-3)",
                   }}
                 >
-                  Your Susea impact — annual
+                  Your Susea impact: annual
                 </div>
                 <div
                   style={{
@@ -983,7 +983,7 @@ function RoiCalculator() {
                     textAlign: "center",
                   }}
                 >
-                  Book a 20-min demo — your procurement lead will thank you.
+                  Book a 20-min demo; your procurement lead will thank you.
                 </div>
               </div>
             </div>
@@ -3501,7 +3501,7 @@ export default function SpotRatePage() {
                   lineHeight: "1.5",
                 }}
               >
-                Same shipment, same email template, same follow-ups — every
+                Same shipment, same email template, same follow-ups; every
                 single week. No structure, no history, no leverage.
               </p>
             </div>
@@ -3791,8 +3791,8 @@ export default function SpotRatePage() {
                     ✕
                   </span>
                   <span>
-                    <b style={{ color: "var(--ink)" }}>Hunt surcharges</b> —
-                    BAF, THC, ISPS — buried in email footers
+                    <b style={{ color: "var(--ink)" }}>Hunt surcharges</b>:
+                    BAF, THC, ISPS, buried in email footers
                   </span>
                 </li>
                 <li
@@ -3860,7 +3860,7 @@ export default function SpotRatePage() {
                     <b style={{ color: "var(--ink)" }}>
                       No history, no leverage
                     </b>{" "}
-                    — every shipment starts from scratch
+                    , every shipment starts from scratch
                   </span>
                 </li>
               </ul>
@@ -3960,7 +3960,7 @@ export default function SpotRatePage() {
                   </span>
                   <span>
                     <b style={{ color: "var(--ink)" }}>Instant rates</b> from
-                    40+ carriers on any lane — one search
+                    40+ carriers on any lane: one search
                   </span>
                 </li>
                 <li
@@ -3993,7 +3993,7 @@ export default function SpotRatePage() {
                   </span>
                   <span>
                     <b style={{ color: "var(--ink)" }}>One RFQ</b> to your
-                    preferred providers — they respond in the same structured
+                    preferred providers; they respond in the same structured
                     format
                   </span>
                 </li>
@@ -4026,7 +4026,7 @@ export default function SpotRatePage() {
                     ✓
                   </span>
                   <span>
-                    <b style={{ color: "var(--ink)" }}>All-in pricing</b> —
+                    <b style={{ color: "var(--ink)" }}>All-in pricing</b>:
                     every surcharge, calculated and displayed up-front
                   </span>
                 </li>
@@ -4062,7 +4062,7 @@ export default function SpotRatePage() {
                     <b style={{ color: "var(--ink)" }}>
                       Side-by-side comparison
                     </b>{" "}
-                    — price, transit time, free time, validity
+                    : price, transit time, free time, validity
                   </span>
                 </li>
                 <li
@@ -4094,7 +4094,7 @@ export default function SpotRatePage() {
                     ✓
                   </span>
                   <span>
-                    <b style={{ color: "var(--ink)" }}>AI recommendations</b> —
+                    <b style={{ color: "var(--ink)" }}>AI recommendations</b>:
                     best rate, fastest transit, best free time
                   </span>
                 </li>
@@ -4130,7 +4130,7 @@ export default function SpotRatePage() {
                     <b style={{ color: "var(--ink)" }}>
                       Rate &amp; RFQ history
                     </b>{" "}
-                    — every shipment builds your leverage
+                    : every shipment builds your leverage
                   </span>
                 </li>
               </ul>
@@ -4215,7 +4215,7 @@ export default function SpotRatePage() {
                 textWrap: "balance",
               }}
             >
-              From cargo brief to booked container —{" "}
+              From cargo brief to booked container,{" "}
               <em style={{ fontStyle: "normal", color: "var(--blue-600)" }}>
                 in one afternoon
               </em>
@@ -4309,7 +4309,7 @@ export default function SpotRatePage() {
                 }}
               >
                 Search a lane, pick your container, get live rates from every
-                major carrier — with all-in pricing and free-time built in.
+                major carrier, with all-in pricing and free-time built in.
               </p>
               <ol
                 style={{
@@ -4410,7 +4410,7 @@ export default function SpotRatePage() {
                         marginTop: "2px",
                       }}
                     >
-                      All-in price, transit, free time, validity — no re-typing.
+                      All-in price, transit, free time, validity; no re-typing.
                     </div>
                   </div>
                 </li>
@@ -4566,7 +4566,7 @@ export default function SpotRatePage() {
                 }}
               >
                 Send one structured brief to every forwarder you work with.
-                Compare responses in one view, negotiate, award — with full
+                Compare responses in one view, negotiate, award, with full
                 audit trail.
               </p>
               <ol
@@ -4933,7 +4933,7 @@ export default function SpotRatePage() {
             </h2>
           </div>
 
-          {/* Desktop / tablet grid — cards mirror PROCUREMENT_FEATURES;
+          {/* Desktop / tablet grid: cards mirror PROCUREMENT_FEATURES;
               keep both in sync if copy changes. Hidden ≤768px in favor of
               the mobile slider below. */}
           <div
@@ -5039,7 +5039,7 @@ export default function SpotRatePage() {
                   lineHeight: "1.5",
                 }}
               >
-                All-in price, transit time, free time, validity — apples to
+                All-in price, transit time, free time, validity: apples to
                 apples.
               </p>
             </div>
@@ -5138,7 +5138,7 @@ export default function SpotRatePage() {
                   lineHeight: "1.5",
                 }}
               >
-                "Best rate", "fastest transit", "best free time" — surfaced
+                "Best rate", "fastest transit", "best free time": surfaced
                 automatically.
               </p>
             </div>
@@ -5235,7 +5235,7 @@ export default function SpotRatePage() {
                   lineHeight: "1.5",
                 }}
               >
-                BAF, THC, ISPS, LSS — calculated and audited. No margin leaks.
+                BAF, THC, ISPS, LSS: calculated and audited. No margin leaks.
               </p>
             </div>
             <div
@@ -5283,7 +5283,7 @@ export default function SpotRatePage() {
                   lineHeight: "1.5",
                 }}
               >
-                Every quote, every award — searchable. Real leverage on your
+                Every quote, every award: searchable. Real leverage on your
                 next lane.
               </p>
             </div>
@@ -5332,12 +5332,12 @@ export default function SpotRatePage() {
                   lineHeight: "1.5",
                 }}
               >
-                Buyers, ops, finance — everyone on the same shipment, same page.
+                Buyers, ops, finance: everyone on the same shipment, same page.
               </p>
             </div>
           </div>
 
-          {/* Mobile-only Embla slider (≤768px) — isolated component so its
+          {/* Mobile-only Embla slider (≤768px); isolated component so its
               state updates don't re-render this huge page (keeps it smooth) */}
           <ProcMobileSlider />
         </div>
@@ -5874,7 +5874,7 @@ export default function SpotRatePage() {
                 }}
               >
                 We hear these a lot. If your question isn't here, ask us on the
-                demo — the whole point is to make sure Susea actually fits your
+                demo; the whole point is to make sure Susea actually fits your
                 workflow.
               </p>
               <div style={{ marginTop: "22px" }}>
@@ -6002,7 +6002,7 @@ export default function SpotRatePage() {
                 <em style={{ fontStyle: "normal", color: "var(--blue-600)" }}>
                   20-minute demo
                 </em>{" "}
-                — tailored to your lanes
+                : tailored to your lanes
               </h2>
               <p
                 style={{
@@ -6014,7 +6014,7 @@ export default function SpotRatePage() {
                 }}
               >
                 We'll walk you through Susea on your actual lanes. Bring one
-                live shipment — we'll price it live and show your ROI in real
+                live shipment; we'll price it live and show your ROI in real
                 numbers.
               </p>
               <ul
@@ -6107,7 +6107,7 @@ export default function SpotRatePage() {
                       flex: "none",
                     }}
                   />
-                  <span>Priority onboarding — live in under 24 hours</span>
+                  <span>Priority onboarding: live in under 24 hours</span>
                 </li>
               </ul>
               <div
@@ -6865,7 +6865,7 @@ export default function SpotRatePage() {
               <ul>
                 <li><a href="#">Ocean freight pricing guide</a></li>
                 <li><a href="#">RFQ best-practices</a></li>
-                <li><a href="#">AI in freight — 2026 report</a></li>
+                <li><a href="#">AI in freight: 2026 report</a></li>
                 <li><a href="#faq">FAQ</a></li>
               </ul>
             </div>

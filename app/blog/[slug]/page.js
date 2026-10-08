@@ -137,7 +137,7 @@ export default async function BlogPost({ params }) {
               <div className="post-cta-card">
                 <div className="post-cta-icon">S</div>
                 <h4>Quote in 90 seconds</h4>
-                <p>Susea is the AI pricing OS for freight forwarders. Spot rates, RFQ auctions, and branded quotes — in one platform.</p>
+                <p>Susea is the AI pricing OS for freight forwarders. Spot rates, RFQ auctions, and branded quotes, in one platform.</p>
                 <Link href="/#waitlist" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }}>Join the waitlist</Link>
               </div>
               {related.length > 0 && (
