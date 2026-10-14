@@ -1,0 +1,12 @@
+/* Ocean CTA, "2b Lighthouse · Day cycle" (OceanCta.jsx) */
+@keyframes sail-across { 0% { transform: translateX(-420px); } 100% { transform: translateX(calc(100vw + 40px)); } }
+@keyframes ship-bob { 0%, 100% { transform: translateY(0) rotate(-0.8deg); } 50% { transform: translateY(-5px) rotate(0.8deg); } }
+@keyframes wvl { from { transform: translateX(0); } to { transform: translateX(-400px); } }
+@keyframes beam { 0% { transform: rotate(-22deg); } 50% { transform: rotate(10deg); } 100% { transform: rotate(-22deg); } }
+@keyframes twinkle { 0%, 100% { opacity: 0.25; } 50% { opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .ocean-cta *,
+  .ocean-cta *::before,
+  .ocean-cta *::after { animation: none !important; }
+}

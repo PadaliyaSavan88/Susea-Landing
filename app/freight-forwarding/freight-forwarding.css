@@ -972,3 +972,14 @@ body:has(.freight-forwarding-page) {
     font-size: 13px !important;
   }
 }
+
+/* Homepage FAQ: question list beside an answer panel (same layout as /free-tools) */
+.faq-split {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 24px;
+  align-items: stretch;
+}
+@media (max-width: 900px) {
+  .faq-split { grid-template-columns: 1fr; }
+}

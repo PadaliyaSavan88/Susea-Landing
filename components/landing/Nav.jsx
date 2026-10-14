@@ -3,6 +3,8 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { smoothScrollToId, smoothScrollToTop } from "@/lib/scroll";
+import { CALENDLY_URL } from "@/lib/booking";
+import FreeToolsPill from "@/components/free-tools/FreeToolsPill";
 
 /* Hover helper; mirrors the one in the homepage */
 function Hover({ as: Tag = "div", base, hover, children, ...rest }) {
@@ -33,8 +35,8 @@ export default function Nav({ onRequest }) {
     { label: "Automations", href: "/automations" },
     { label: "Pricing", href: "/pricing" },
     { label: "ROI calculator", id: "roi" },
-    { label: "Why Susea", id: "why-susea" },
     { label: "FAQ", id: "faq" },
+    { label: "Free tools", href: "/free-tools", pill: true },
   ];
 
   // Arriving from another page via /#section: smooth-scroll to the target, then
@@ -74,8 +76,10 @@ export default function Nav({ onRequest }) {
           </a>
         </div>
 
-        <nav style={{ flex: 1, display: "flex", gap: "22px", justifyContent: "center" }} className="hide-md">
-          {links.map(({ label, id, href }) => (
+        <nav style={{ flex: 1, display: "flex", alignItems: "center", gap: "22px", justifyContent: "center" }} className="hide-md">
+          {links.map(({ label, id, href, pill }) => pill ? (
+            <FreeToolsPill key={label} />
+          ) : (
             <Hover
               key={label}
               as="a"
@@ -101,8 +105,9 @@ export default function Nav({ onRequest }) {
           </Hover>
           <Hover
             as="a"
-            href={h("booking")}
-            onClick={onInternal("booking")}
+            href={CALENDLY_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             base={{ fontSize: "14px", color: "#fff", fontWeight: 600, padding: "10px 16px", borderRadius: "10px", background: "var(--blue-600)", boxShadow: "var(--shadow-blue)" }}
             hover={{ background: "var(--blue-700)", transform: "translateY(-1px)" }}
           >
@@ -130,7 +135,7 @@ export default function Nav({ onRequest }) {
 
       {menuOpen && (
         <div style={{ borderTop: "1px solid var(--line-soft)", background: "rgba(255,255,255,.98)", backdropFilter: "saturate(140%) blur(14px)", WebkitBackdropFilter: "saturate(140%) blur(14px)", padding: "10px 20px 18px", display: "flex", flexDirection: "column", gap: "2px" }}>
-          {links.map(({ label, id, href }) => (
+          {links.map(({ label, id, href, pill }) => (
             <a
               key={label}
               href={id ? h(id) : href}
@@ -140,7 +145,7 @@ export default function Nav({ onRequest }) {
                 if (id) onInternal(id)(e);
               }}
             >
-              <span>{label}</span>
+              {pill ? <FreeToolsPill as="span" /> : <span>{label}</span>}
               <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.85" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12h14M13 6l6 6-6 6" />
               </svg>
