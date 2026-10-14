@@ -60,6 +60,14 @@ export default function Nav({ onRequest }) {
     smoothScrollToId(id);
   };
 
+  // "Request beta access": pages with their own waitlist pass onRequest. Elsewhere
+  // (free tools, blog, pricing…) scroll to this page's #waitlist if it has one,
+  // otherwise go to the home page's waitlist form.
+  const requestAccess = onRequest ?? (() => {
+    if (document.getElementById("waitlist")) smoothScrollToId("waitlist");
+    else window.location.assign("/#waitlist");
+  });
+
   const onLogo = (e) => {
     if (!isHome) return;
     e.preventDefault();
@@ -96,7 +104,7 @@ export default function Nav({ onRequest }) {
         <div style={{ marginLeft: "auto", display: "flex", gap: "10px", alignItems: "center" }}>
           <Hover
             as="button"
-            onClick={onRequest}
+            onClick={requestAccess}
             className="hide-md"
             base={{ fontSize: "14px", color: "var(--ink)", fontWeight: 600, padding: "9px 14px", borderRadius: "10px", border: "1px solid var(--line-strong)", background: "#fff", cursor: "pointer" }}
             hover={{ background: "var(--paper-2)" }}
