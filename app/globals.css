@@ -1792,7 +1792,7 @@ footer {
 }
 .foot-grid {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
   gap: 40px;
 }
 .foot-grid h6 {
@@ -4592,4 +4592,70 @@ footer {
   .faq-chev {
     transition: none;
   }
+}
+
+/* ===== FREE TOOLS NAV PILL: used by FreeToolsPill.jsx in every site header ===== */
+@property --bang {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+@keyframes border-spin { to { --bang: 360deg; } }
+@keyframes ft-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.55); }
+  70% { box-shadow: 0 0 0 7px rgba(34, 197, 94, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+@keyframes ft-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+.ft-pill {
+  flex: none;
+  align-self: center;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 30px;
+  padding: 0 4px 0 11px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    conic-gradient(from var(--bang), var(--blue-500), var(--orange-500), var(--amber-500), var(--blue-500)) border-box;
+  animation: border-spin 3s linear infinite;
+  box-shadow: 0 1px 6px rgba(240, 112, 32, 0.14);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--ink);
+}
+/* Doubled class so page-level link colours (e.g. .freight-forwarding-page a) don't override it */
+.ft-pill.ft-pill,
+.ft-pill.ft-pill:hover { color: var(--ink); text-decoration: none; }
+.ft-pill-dot {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--good-500);
+  animation: ft-pulse 1.6s ease-out infinite;
+}
+.ft-pill-new {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  height: 20px;
+  padding: 0 7px;
+  border-radius: 999px;
+  background: var(--orange-500);
+  color: #fff;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  animation: ft-blink 1.2s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ft-pill,
+  .ft-pill-dot,
+  .ft-pill-new { animation: none; }
 }

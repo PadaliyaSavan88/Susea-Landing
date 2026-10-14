@@ -1,0 +1,59 @@
+/* ===== FREE TOOLS PAGES (/free-tools/*) =====
+   Ported from the Claude Design exports. Everything is scoped under
+   .ft-page so the design's base styles don't leak into the rest of the site. */
+
+.ft-page a { color: var(--blue-700); text-decoration: none; }
+.ft-page a:hover { color: var(--blue-600); }
+.ft-page button { font-family: inherit; cursor: pointer; border: 0; background: none; }
+.ft-page input,
+.ft-page select { font-family: inherit; color: var(--ink); }
+.ft-page input::placeholder { color: var(--ink-4); }
+.ft-page input:focus,
+.ft-page select:focus { outline: none; border-color: var(--blue-500) !important; box-shadow: 0 0 0 4px rgba(74, 130, 217, 0.15); }
+.ft-page img { display: inline-block; }
+
+.ft-page .ds-h2 { font-family: var(--font-sans); font-weight: 600; font-size: var(--fs-h2); line-height: var(--lh-snug); letter-spacing: var(--tracking-head); color: var(--ink); }
+.ft-page .ds-h3 { font-family: var(--font-sans); font-weight: 600; font-size: var(--fs-h3); line-height: var(--lh-snug); letter-spacing: -0.02em; color: var(--ink); }
+.ft-page .ds-eyebrow { font-family: var(--font-sans); font-weight: 700; font-size: var(--fs-xs); line-height: 1; letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--ink-3); }
+
+.ft-page .hero-glow-a { position: absolute; width: 640px; height: 640px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, rgba(74, 130, 217, 0.22), transparent 60%); top: -260px; left: -180px; pointer-events: none; }
+.ft-page .hero-glow-b { position: absolute; width: 520px; height: 520px; border-radius: 50%; background: radial-gradient(circle at 70% 30%, rgba(240, 112, 32, 0.16), transparent 60%); top: -160px; right: -120px; pointer-events: none; }
+.ft-page .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(14, 23, 38, 0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(14, 23, 38, 0.045) 1px, transparent 1px); background-size: 64px 64px; mask-image: radial-gradient(ellipse at 50% 30%, #000 30%, transparent 75%); -webkit-mask-image: radial-gradient(ellipse at 50% 30%, #000 30%, transparent 75%); pointer-events: none; }
+
+/* Container CTA (CBM: click to open, HSN: break the seal) */
+@keyframes handle-nudge { 0%, 80%, 100% { transform: rotate(0); } 85% { transform: rotate(-14deg); } 90% { transform: rotate(8deg); } 95% { transform: rotate(-4deg); } }
+@keyframes hint-pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 203, 107, 0.6); } 70% { box-shadow: 0 0 0 14px rgba(255, 203, 107, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 203, 107, 0); } }
+@keyframes seal-swing { 0%, 100% { transform: rotate(-6deg); } 50% { transform: rotate(6deg); } }
+@keyframes seal-drop { 0% { transform: rotate(0) translateY(0); opacity: 1; } 100% { transform: rotate(70deg) translateY(260px); opacity: 0; } }
+
+/* Hover states (from the design's style-hover attributes) */
+.ft-page .ft-hsn-h1:hover{background:var(--paper-3) !important;color:var(--ink) !important}
+.ft-page .ft-hsn-h2:hover{border-color:var(--blue-300) !important;color:var(--blue-700) !important}
+.ft-page .ft-hsn-h3:hover{border-color:var(--blue-300) !important;box-shadow:var(--shadow-md) !important;transform:translateY(-2px) !important}
+.ft-page .ft-hsn-h4:hover{background:var(--paper-2) !important}
+.ft-page .ft-hsn-h5:hover{border-color:var(--blue-300) !important;box-shadow:var(--shadow-sm) !important}
+.ft-page .ft-cbm-h1:hover{background:var(--paper-3) !important;color:var(--ink) !important}
+.ft-page .ft-cbm-h2:hover{background:var(--bad-50) !important;color:var(--bad-600) !important}
+.ft-page .ft-cbm-h3:hover{background:var(--blue-600) !important;color:#fff !important;border-style:solid !important;box-shadow:var(--shadow-blue) !important}
+.ft-page .ft-cbm-h4:hover{background:var(--paper-2) !important}
+
+@media (max-width: 1100px) {
+  .ft-page .hide-lg { display: none !important; }
+  .ft-page .grid-1-lg { grid-template-columns: 1fr !important; }
+}
+@media (max-width: 900px) {
+  .ft-page .hide-md { display: none !important; }
+  .ft-page .grid-1-md { grid-template-columns: 1fr !important; }
+  .ft-page .hero-h1 { font-size: 36px !important; }
+  .ft-page .section { padding: 56px 18px !important; }
+  .ft-page .calc-pad { padding: 18px !important; }
+  .ft-page .digits { grid-template-columns: repeat(2, 1fr) !important; }
+}
+@media (max-width: 700px) {
+  .ft-page .types-grid { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ft-page *,
+  .ft-page *::before,
+  .ft-page *::after { animation: none !important; transition: none !important; }
+}

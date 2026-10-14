@@ -4,6 +4,7 @@ import Script from "next/script";
 import useEmblaCarousel from "embla-carousel-react";
 import * as Lucide from "lucide-react";
 import { smoothScrollToId, smoothScrollToTop } from "@/lib/scroll";
+import FreeToolsPill from "@/components/free-tools/FreeToolsPill";
 import "./spot-rate.css";
 
 function I({ n, style }) {
@@ -1188,7 +1189,7 @@ export default function SpotRatePage() {
             />
             <span>Susea</span>
           </a>
-          <div data-su-nav-links style={{ display: "flex", gap: "26px" }}>
+          <div data-su-nav-links style={{ display: "flex", alignItems: "center", gap: "26px" }}>
             <a
               href="#how"
               style={{
@@ -1229,6 +1230,7 @@ export default function SpotRatePage() {
             >
               FAQ
             </a>
+            <FreeToolsPill />
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <a
@@ -1317,6 +1319,7 @@ export default function SpotRatePage() {
               ["#features", "Features"],
               ["#roi", "ROI"],
               ["#faq", "FAQ"],
+              ["/free-tools", "Free tools"],
             ].map(([href, label]) => (
               <a
                 key={href}
@@ -1330,7 +1333,7 @@ export default function SpotRatePage() {
                   borderBottom: "1px solid var(--line-soft)",
                 }}
               >
-                {label}
+                {href === "/free-tools" ? <FreeToolsPill as="span" /> : label}
               </a>
             ))}
             <a
@@ -6876,6 +6879,14 @@ export default function SpotRatePage() {
                 <li><a href="#demo">Book demo</a></li>
                 <li><a href="mailto:info@alphabitssolutions.com">Contact sales</a></li>
                 <li><a href="#">Privacy · Terms</a></li>
+              </ul>
+            </div>
+            <div>
+              <h6>Free tools</h6>
+              <ul>
+                <li><a href="/free-tools/cbm-calculator">CBM calculator</a></li>
+                <li><a href="/free-tools/hsn-code-checker">HSN code checker</a></li>
+                <li><a href="/free-tools">All free tools</a></li>
               </ul>
             </div>
           </div>

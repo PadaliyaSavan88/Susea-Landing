@@ -1,10 +1,13 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Script from "next/script";
 import useEmblaCarousel from "embla-carousel-react";
 import { smoothScrollToId, smoothScrollToTop } from "@/lib/scroll";
+import { CALENDLY_URL } from "@/lib/booking";
 import Footer from "@/components/landing/Footer";
+import FreeToolsPill from "@/components/free-tools/FreeToolsPill";
+import OceanCta from "@/components/free-tools/OceanCta";
 import WhySusea from "@/components/landing/WhySusea";
 import { PARTNER_LOGOS } from "@/components/landing/TestimonialsSlider";
 import "./freight-forwarding/freight-forwarding.css";
@@ -14,51 +17,6 @@ import "./freight-forwarding/freight-forwarding.css";
    Content, data and layout mirror the source. Forms/CTAs are
    visual-only in this pass (they don't submit anywhere).
    ============================================================ */
-
-/* ---- Calendly booking config ----
-   Flip USE_CALENDLY_EMBED to false to fall back to the custom mock grid,
-   whose day/time cells then open CALENDLY_URL in a new tab instead. ---- */
-const CALENDLY_URL = "https://calendly.com/darshit-alphabitssolutions/30min";
-const USE_CALENDLY_EMBED = true;
-
-/* ---- Calendly inline embed: loads widget.js and mounts the scheduler. ---- */
-function CalendlyEmbed({ url }) {
-  const mounted = useRef(false);
-  const init = () => {
-    if (typeof window === "undefined" || mounted.current) return;
-    const parent = document.getElementById("calendly-inline");
-    if (window.Calendly && parent) {
-      mounted.current = true;
-      window.Calendly.initInlineWidget({ url, parentElement: parent });
-    }
-  };
-  useEffect(() => {
-    init();
-  }, []); // in case the script was already cached/loaded
-  return (
-    <>
-      <div
-        id="calendly-inline"
-        style={{
-          minWidth: "320px",
-          width: "100%",
-          height: "820px",
-          maxWidth: "1080px",
-          margin: "0 auto",
-          borderRadius: "20px",
-          overflow: "hidden",
-          background: "#fff",
-          boxShadow: "var(--shadow-xl)",
-        }}
-      />
-      <Script
-        src="https://assets.calendly.com/assets/external/widget.js"
-        strategy="afterInteractive"
-        onLoad={init}
-      />
-    </>
-  );
-}
 
 /* ---- HubSpot beta-access form (same portal/form as the main landing page). ---- */
 const HS_PORTAL_ID = "246430647";
@@ -642,50 +600,6 @@ const INSIGHTS = [
     color: "var(--orange-600)",
   },
 ];
-
-const DAYS = [
-  {
-    day: "Mon",
-    date: "4",
-    slots: "3 open",
-    bg: "#fff",
-    border: "var(--line)",
-    textColor: "var(--ink)",
-  },
-  {
-    day: "Tue",
-    date: "5",
-    slots: "Full",
-    bg: "var(--paper-3)",
-    border: "var(--line-soft)",
-    textColor: "var(--ink-4)",
-  },
-  {
-    day: "Wed",
-    date: "6",
-    slots: "4 open",
-    bg: "#fff",
-    border: "var(--line)",
-    textColor: "var(--ink)",
-  },
-  {
-    day: "Thu",
-    date: "7",
-    slots: "2 open",
-    bg: "var(--blue-50)",
-    border: "var(--blue-500)",
-    textColor: "var(--blue-700)",
-  },
-  {
-    day: "Fri",
-    date: "8",
-    slots: "5 open",
-    bg: "#fff",
-    border: "var(--line)",
-    textColor: "var(--ink)",
-  },
-];
-const SLOTS = ["10:00", "11:30", "14:00", "16:30"];
 
 const FAQ_DATA = [
   {
@@ -1636,10 +1550,6 @@ export default function FreightForwardingPage() {
     smoothScrollToTop();
   };
   const inert = (e) => e.preventDefault(); // visual-only forms/CTAs
-  const openCalendly = (e) => {
-    e.preventDefault();
-    window.open(CALENDLY_URL, "_blank", "noopener");
-  };
 
   return (
     <div className="freight-forwarding-page">
@@ -1707,8 +1617,9 @@ export default function FreightForwardingPage() {
                 month.
               </span>
               <a
-                href="#booking"
-                onClick={jump("booking")}
+                href={CALENDLY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 style={{
                   marginLeft: "auto",
                   color: "#fff",
@@ -1792,6 +1703,7 @@ export default function FreightForwardingPage() {
               style={{
                 flex: 1,
                 display: "flex",
+                alignItems: "center",
                 gap: "22px",
                 justifyContent: "center",
               }}
@@ -1848,19 +1760,6 @@ export default function FreightForwardingPage() {
               </Hover>
               <Hover
                 as="a"
-                href="#why-susea"
-                onClick={jump("why-susea")}
-                base={{
-                  fontSize: "14px",
-                  color: "var(--ink-2)",
-                  fontWeight: 500,
-                }}
-                hover={{ color: "var(--ink)" }}
-              >
-                Why Susea
-              </Hover>
-              <Hover
-                as="a"
                 href="#faq"
                 onClick={jump("faq")}
                 base={{
@@ -1872,6 +1771,7 @@ export default function FreightForwardingPage() {
               >
                 FAQ
               </Hover>
+              <FreeToolsPill />
             </nav>
             <div
               style={{
@@ -1901,8 +1801,9 @@ export default function FreightForwardingPage() {
               </Hover>
               <Hover
                 as="a"
-                href="#booking"
-                onClick={jump("booking")}
+                href={CALENDLY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 base={{
                   fontSize: "14px",
                   color: "#fff",
@@ -1989,8 +1890,8 @@ export default function FreightForwardingPage() {
                 ["/automations", "Automations"],
                 ["/pricing", "Pricing"],
                 ["#roi", "ROI calculator"],
-                ["#why-susea", "Why Susea"],
                 ["#faq", "FAQ"],
+                ["/free-tools", "Free tools"],
               ].map(([href, label]) => (
                 <a
                   key={href}
@@ -2011,7 +1912,11 @@ export default function FreightForwardingPage() {
                     borderRadius: "12px",
                   }}
                 >
-                  <span>{label}</span>
+                  {href === "/free-tools" ? (
+                    <FreeToolsPill as="span" />
+                  ) : (
+                    <span>{label}</span>
+                  )}
                   <svg
                     width="17"
                     height="17"
@@ -2144,8 +2049,9 @@ export default function FreightForwardingPage() {
             >
               <Hover
                 as="a"
-                href="#booking"
-                onClick={jump("booking")}
+                href={CALENDLY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="hero-cta"
                 base={{
                   display: "inline-flex",
@@ -3672,8 +3578,9 @@ export default function FreightForwardingPage() {
               <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
                 <Hover
                   as="a"
-                  href="#booking"
-                  onClick={jump("booking")}
+                  href={CALENDLY_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   base={{
                     display: "inline-flex",
                     alignItems: "center",
@@ -4289,8 +4196,9 @@ export default function FreightForwardingPage() {
           <div style={{ textAlign: "center", marginTop: "32px" }}>
             <Hover
               as="a"
-              href="#booking"
-              onClick={jump("booking")}
+              href={CALENDLY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               base={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -4322,116 +4230,192 @@ export default function FreightForwardingPage() {
         className="section"
         style={{ padding: "72px 20px", background: "var(--paper-2)" }}
       >
-        <div style={{ maxWidth: "920px", margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: "28px" }}>
-            <div className="ds-eyebrow" style={{ marginBottom: "14px" }}>
+        <div
+          style={{
+            maxWidth: "1280px",
+            margin: "0 auto",
+            display: "flex",
+            flexDirection: "column",
+            gap: "32px",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "14px",
+              maxWidth: "720px",
+            }}
+          >
+            <div className="ds-eyebrow" style={{ alignSelf: "flex-start" }}>
               Objection handling · straight answers
             </div>
-            <h2
-              className="ds-h2"
-              style={{ margin: "0 0 12px", textWrap: "balance" }}
-            >
+            <h2 className="ds-h2" style={{ margin: 0, textWrap: "balance" }}>
               The questions every ops manager asks us.
             </h2>
           </div>
-          <div
-            style={{ display: "flex", flexDirection: "column", gap: "12px" }}
-          >
-            {FAQ_DATA.map((f, i) => {
-              const open = openFaq === i;
-              return (
-                <div
-                  key={f.q}
-                  style={{
-                    background: "#fff",
-                    border: "1px solid var(--line)",
-                    borderRadius: "14px",
-                    overflow: "hidden",
-                  }}
-                >
+          <div className="faq-split">
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "4px",
+                padding: "8px",
+                borderRadius: "16px",
+                background: "#EEF3FA",
+                maxHeight: "560px",
+                overflowY: "auto",
+              }}
+            >
+              {FAQ_DATA.map((f, i) => {
+                const on = openFaq === i;
+                return (
                   <button
-                    onClick={() => setOpenFaq(open ? -1 : i)}
+                    key={f.q}
+                    onClick={() => setOpenFaq(i)}
                     style={{
-                      width: "100%",
-                      padding: "20px 24px",
                       display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
+                      gap: "14px",
+                      alignItems: "baseline",
+                      width: "100%",
                       textAlign: "left",
-                      background: "none",
+                      padding: "14px 16px",
+                      borderRadius: "10px",
+                      fontSize: "15px",
+                      fontWeight: on ? 600 : 500,
+                      lineHeight: 1.4,
+                      background: on ? "#fff" : "transparent",
+                      color: on ? "var(--ink)" : "var(--ink-2)",
+                      boxShadow: on ? "var(--shadow-sm)" : "none",
+                      border: "1px solid " + (on ? "var(--line)" : "transparent"),
+                      cursor: "pointer",
+                      flexShrink: 0,
+                      fontFamily: "inherit",
                     }}
                   >
                     <span
                       style={{
-                        fontWeight: 600,
-                        fontSize: "16px",
-                        color: "var(--ink)",
-                        letterSpacing: "-.01em",
-                      }}
-                    >
-                      {f.q}
-                    </span>
-                    <span
-                      style={{
-                        width: "28px",
-                        height: "28px",
-                        borderRadius: "50%",
-                        background: "var(--paper-2)",
-                        color: "var(--ink-2)",
-                        display: "inline-flex",
-                        alignItems: "center",
-                        justifyContent: "center",
+                        fontFamily: "var(--font-mono)",
+                        fontSize: "12px",
+                        color: "#2F6BD8",
                         flexShrink: 0,
-                        transition: "transform .2s",
-                        transform: open ? "rotate(45deg)" : "rotate(0deg)",
                       }}
                     >
-                      <svg
-                        width="12"
-                        height="12"
-                        viewBox="0 0 12 12"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.8"
-                        strokeLinecap="round"
-                      >
-                        <path d="M6 1v10M1 6h10" />
-                      </svg>
+                      {String(i + 1).padStart(2, "0")}
                     </span>
+                    <span>{f.q}</span>
                   </button>
-                  <div
-                    className={`accordion-body${open ? " open" : ""}`}
-                    style={{ padding: "0 24px" }}
-                  >
-                    <div
+                );
+              })}
+            </div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "20px",
+                padding: "40px",
+                borderRadius: "18px",
+                background: "#fff",
+                border: "1px solid var(--line)",
+                boxShadow: "var(--shadow-md)",
+                position: "relative",
+                overflow: "hidden",
+              }}
+            >
+              <div
+                style={{
+                  position: "absolute",
+                  left: 0,
+                  right: 0,
+                  top: 0,
+                  height: "3px",
+                  background: "linear-gradient(90deg,#4A82D9,#F07020,#F5A000)",
+                }}
+              ></div>
+              <div
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "12px",
+                  fontWeight: 600,
+                  letterSpacing: ".08em",
+                  color: "#6B7A92",
+                }}
+              >
+                {String(openFaq + 1).padStart(2, "0")} /{" "}
+                {String(FAQ_DATA.length).padStart(2, "0")}
+              </div>
+              <h3
+                style={{
+                  margin: 0,
+                  fontSize: "28px",
+                  fontWeight: 600,
+                  letterSpacing: "-.025em",
+                  lineHeight: 1.15,
+                  color: "var(--ink)",
+                  textWrap: "balance",
+                }}
+              >
+                {FAQ_DATA[openFaq].q}
+              </h3>
+              <p
+                style={{
+                  margin: 0,
+                  fontSize: "17px",
+                  lineHeight: 1.7,
+                  color: "var(--ink-2)",
+                  textWrap: "pretty",
+                }}
+              >
+                {FAQ_DATA[openFaq].a}
+              </p>
+              <div
+                style={{
+                  marginTop: "auto",
+                  display: "flex",
+                  gap: "10px",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  flexWrap: "wrap",
+                  paddingTop: "20px",
+                  borderTop: "1px solid #EDF1F7",
+                }}
+              >
+                <a
+                  href={CALENDLY_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ fontSize: "14px", fontWeight: 600, color: "#1E5BC6" }}
+                >
+                  Still unsure? Book a demo →
+                </a>
+                <div style={{ display: "flex", gap: "8px" }}>
+                  {[
+                    ["Previous question", "←", FAQ_DATA.length - 1],
+                    ["Next question", "→", 1],
+                  ].map(([label, arrow, step]) => (
+                    <button
+                      key={label}
+                      onClick={() =>
+                        setOpenFaq((openFaq + step) % FAQ_DATA.length)
+                      }
+                      aria-label={label}
                       style={{
-                        padding: "0 0 20px",
-                        fontSize: "15px",
-                        lineHeight: 1.6,
-                        color: "var(--ink-2)",
+                        width: "44px",
+                        height: "44px",
+                        borderRadius: "10px",
+                        border: "1px solid var(--line)",
+                        background: "#fff",
+                        color: "var(--ink)",
+                        fontSize: "18px",
+                        cursor: "pointer",
                       }}
                     >
-                      {f.a}
-                      <div style={{ marginTop: "14px" }}>
-                        <a
-                          href="#booking"
-                          onClick={jump("booking")}
-                          style={{
-                            fontWeight: 600,
-                            color: "var(--blue-700)",
-                            display: "inline-flex",
-                            gap: "6px",
-                            alignItems: "center",
-                          }}
-                        >
-                          Book a demo to see this live <span>→</span>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
+                      {arrow}
+                    </button>
+                  ))}
                 </div>
-              );
-            })}
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -4692,302 +4676,6 @@ export default function FreightForwardingPage() {
         </div>
       </section>
 
-      {/* ============ 20. FINAL CTA + CALENDLY ============ */}
-      <section
-        id="booking"
-        className="section final-cta"
-        style={{
-          padding: "72px 20px",
-          background: "linear-gradient(180deg,var(--ink) 0%,#1a2540 100%)",
-          color: "#fff",
-          position: "relative",
-          overflow: "hidden",
-        }}
-      >
-        <div
-          style={{
-            position: "absolute",
-            top: "-100px",
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: "800px",
-            height: "600px",
-            borderRadius: "50%",
-            background:
-              "radial-gradient(circle,rgba(74,130,217,.25),transparent 60%)",
-            pointerEvents: "none",
-          }}
-        />
-        <div
-          style={{
-            maxWidth: "1080px",
-            margin: "0 auto",
-            position: "relative",
-            textAlign: "center",
-          }}
-        >
-          <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "8px",
-              padding: "6px 14px",
-              borderRadius: "999px",
-              background: "rgba(245,160,0,.15)",
-              color: "#F5A000",
-              border: "1px solid rgba(245,160,0,.3)",
-              fontSize: "11px",
-              fontWeight: 700,
-              letterSpacing: ".1em",
-              textTransform: "uppercase",
-              marginBottom: "24px",
-            }}
-          >
-            <span
-              className="live-dot"
-              style={{
-                background: "#F5A000",
-                boxShadow: "0 0 0 4px rgba(245,160,0,.25)",
-              }}
-            />
-            4 onboarding slots left this month
-          </div>
-          <h2
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontWeight: 600,
-              fontSize: "clamp(38px,4.6vw,60px)",
-              lineHeight: 1.05,
-              letterSpacing: "-.035em",
-              margin: "0 0 20px",
-              textWrap: "balance",
-              color: "#fff",
-            }}
-          >
-            Talk to a founder.
-            <br />
-            <span
-              style={{
-                background:
-                  "linear-gradient(120deg,var(--blue-500),var(--amber-500))",
-                WebkitBackgroundClip: "text",
-                backgroundClip: "text",
-                color: "transparent",
-              }}
-            >
-              See Susea running on your own numbers.
-            </span>
-          </h2>
-          <p
-            style={{
-              fontSize: "18px",
-              lineHeight: 1.55,
-              color: "rgba(255,255,255,.75)",
-              margin: "0 auto 40px",
-              maxWidth: "640px",
-            }}
-          >
-            20 minutes. We come with your carrier list, your lanes, and a live
-            draft of what Susea would look like on your desk by Friday.
-          </p>
-
-          {/* Calendly booking: live embed, or the custom mock grid as a fallback */}
-          {USE_CALENDLY_EMBED ? (
-            <CalendlyEmbed url={CALENDLY_URL} />
-          ) : (
-            <div
-              style={{
-                background: "#fff",
-                borderRadius: "20px",
-                padding: "32px",
-                boxShadow: "var(--shadow-xl)",
-                color: "var(--ink)",
-                textAlign: "left",
-                maxWidth: "820px",
-                margin: "0 auto",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  marginBottom: "20px",
-                  paddingBottom: "16px",
-                  borderBottom: "1px solid var(--line-soft)",
-                }}
-              >
-                <div>
-                  <div
-                    style={{
-                      fontSize: "11px",
-                      fontWeight: 700,
-                      letterSpacing: ".08em",
-                      textTransform: "uppercase",
-                      color: "var(--ink-3)",
-                      marginBottom: "4px",
-                    }}
-                  >
-                    Calendly · 20 min · Google Meet
-                  </div>
-                  <div
-                    style={{
-                      fontSize: "20px",
-                      fontWeight: 600,
-                      letterSpacing: "-.02em",
-                    }}
-                  >
-                    Susea demo with a founder
-                  </div>
-                </div>
-                <div style={{ textAlign: "right" }}>
-                  <div
-                    style={{
-                      fontSize: "11px",
-                      color: "var(--ink-3)",
-                      textTransform: "uppercase",
-                      letterSpacing: ".08em",
-                    }}
-                  >
-                    This week · IST
-                  </div>
-                </div>
-              </div>
-              <div
-                className="day-grid"
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(5,1fr)",
-                  gap: "8px",
-                  marginBottom: "20px",
-                }}
-              >
-                {DAYS.map((d) => (
-                  <Hover
-                    key={d.day}
-                    as="button"
-                    onClick={openCalendly}
-                    base={{
-                      background: d.bg,
-                      border: `1px solid ${d.border}`,
-                      borderRadius: "10px",
-                      padding: "12px",
-                      textAlign: "center",
-                      cursor: "pointer",
-                      transition: "transform .15s",
-                      width: "100%",
-                      font: "inherit",
-                    }}
-                    hover={{
-                      transform: "translateY(-2px)",
-                      borderColor: "var(--blue-500)",
-                    }}
-                  >
-                    <div
-                      style={{
-                        fontSize: "11px",
-                        fontWeight: 700,
-                        letterSpacing: ".08em",
-                        textTransform: "uppercase",
-                        color: "var(--ink-3)",
-                      }}
-                    >
-                      {d.day}
-                    </div>
-                    <div
-                      className="ds-mono"
-                      style={{
-                        fontSize: "20px",
-                        fontWeight: 600,
-                        color: d.textColor,
-                        marginTop: "2px",
-                      }}
-                    >
-                      {d.date}
-                    </div>
-                    <div
-                      style={{
-                        fontSize: "11px",
-                        color: "var(--ink-3)",
-                        marginTop: "4px",
-                      }}
-                    >
-                      {d.slots}
-                    </div>
-                  </Hover>
-                ))}
-              </div>
-              <div
-                className="slot-grid"
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(4,1fr)",
-                  gap: "8px",
-                }}
-              >
-                {SLOTS.map((time) => (
-                  <Hover
-                    key={time}
-                    as="button"
-                    onClick={openCalendly}
-                    base={{
-                      padding: "14px",
-                      borderRadius: "10px",
-                      border: "1px solid var(--line-strong)",
-                      background: "#fff",
-                      color: "var(--ink)",
-                      fontWeight: 600,
-                      fontSize: "14px",
-                      fontFamily: "var(--font-mono)",
-                    }}
-                    hover={{
-                      background: "var(--blue-600)",
-                      color: "#fff",
-                      borderColor: "var(--blue-600)",
-                    }}
-                  >
-                    {time}
-                  </Hover>
-                ))}
-              </div>
-              <div
-                style={{
-                  marginTop: "20px",
-                  paddingTop: "20px",
-                  borderTop: "1px solid var(--line-soft)",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  flexWrap: "wrap",
-                  gap: "12px",
-                }}
-              >
-                <div style={{ fontSize: "13px", color: "var(--ink-3)" }}>
-                  Don't see a time?{" "}
-                  <a
-                    href="#waitlist"
-                    onClick={jump("waitlist")}
-                    style={{ fontWeight: 600 }}
-                  >
-                    Request beta access
-                  </a>{" "}
-                  and we'll book you.
-                </div>
-                <div
-                  style={{
-                    fontSize: "11px",
-                    color: "var(--ink-4)",
-                    fontFamily: "var(--font-mono)",
-                  }}
-                >
-                  calendly.com/susea/demo
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      </section>
-
       {/* ============ 21. FALLBACK WAITLIST FORM ============ */}
       <section
         id="waitlist"
@@ -5047,6 +4735,16 @@ export default function FreightForwardingPage() {
         </div>
       </section>
 
+      {/* ============ 21b. LIGHTHOUSE CTA ("2b Lighthouse · Day cycle") ============ */}
+      <OceanCta
+        headline="See Susea on your own numbers."
+        primaryLabel="Book a demo →"
+        primaryHref={CALENDLY_URL}
+        primaryNewTab
+        secondaryLabel="Try the free tools"
+        secondaryHref="/free-tools"
+      />
+
       {/* ============ 22. FOOTER (shared site footer, matches all pages) ============ */}
       <Footer />
 
@@ -5086,8 +4784,9 @@ export default function FreightForwardingPage() {
           Beta access
         </a>
         <a
-          href="#booking"
-          onClick={jump("booking")}
+          href={CALENDLY_URL}
+          target="_blank"
+          rel="noopener noreferrer"
           style={{
             flex: 1.2,
             padding: "14px",

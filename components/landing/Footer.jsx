@@ -21,6 +21,11 @@ const COLS = [
     { label: 'Privacy Policy', href: '/privacy' },
     { label: 'Terms of Use', href: '/terms' },
   ]],
+  ['Free tools', [
+    { label: 'CBM calculator', href: '/free-tools/cbm-calculator' },
+    { label: 'HSN code checker', href: '/free-tools/hsn-code-checker' },
+    { label: 'All free tools', href: '/free-tools' },
+  ]],
 ]
 
 export default function Footer() {

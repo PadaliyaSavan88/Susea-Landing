@@ -4,7 +4,9 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import Script from "next/script";
 import useEmblaCarousel from "embla-carousel-react";
 import { smoothScrollToId, smoothScrollToTop } from "@/lib/scroll";
+import { CALENDLY_URL } from "@/lib/booking";
 import Footer from "@/components/landing/Footer";
+import FreeToolsPill from "@/components/free-tools/FreeToolsPill";
 import "./freight-forwarding.css";
 
 /* ============================================================
@@ -16,7 +18,6 @@ import "./freight-forwarding.css";
 /* ---- Calendly booking config ----
    Flip USE_CALENDLY_EMBED to false to fall back to the custom mock grid,
    whose day/time cells then open CALENDLY_URL in a new tab instead. ---- */
-const CALENDLY_URL = "https://calendly.com/darshit-alphabitssolutions/30min";
 const USE_CALENDLY_EMBED = true;
 
 /* ---- Calendly inline embed: loads widget.js and mounts the scheduler. ---- */
@@ -622,12 +623,13 @@ export default function FreightForwardingPage() {
                 <span style={{ fontWeight: 700, fontSize: "20px", letterSpacing: "-.02em", color: "var(--ink)" }}>Susea</span>
               </a>
             </div>
-            <nav style={{ flex: 1, display: "flex", gap: "22px", justifyContent: "center" }} className="hide-md">
+            <nav style={{ flex: 1, display: "flex", alignItems: "center", gap: "22px", justifyContent: "center" }} className="hide-md">
               <Hover as="a" href="#product" onClick={jump("product")} base={{ fontSize: "14px", color: "var(--ink-2)", fontWeight: 500 }} hover={{ color: "var(--ink)" }}>Product</Hover>
               <Hover as="a" href="#automations" onClick={jump("automations")} base={{ fontSize: "14px", color: "var(--ink-2)", fontWeight: 500 }} hover={{ color: "var(--ink)" }}>Automations</Hover>
               <Hover as="a" href="#roi" onClick={jump("roi")} base={{ fontSize: "14px", color: "var(--ink-2)", fontWeight: 500 }} hover={{ color: "var(--ink)" }}>ROI calculator</Hover>
               <Hover as="a" href="#customers" onClick={jump("customers")} base={{ fontSize: "14px", color: "var(--ink-2)", fontWeight: 500 }} hover={{ color: "var(--ink)" }}>Customers</Hover>
               <Hover as="a" href="#faq" onClick={jump("faq")} base={{ fontSize: "14px", color: "var(--ink-2)", fontWeight: 500 }} hover={{ color: "var(--ink)" }}>FAQ</Hover>
+              <FreeToolsPill />
             </nav>
             <div style={{ marginLeft: "auto", display: "flex", gap: "10px", alignItems: "center" }}>
               <Hover as="a" href="#waitlist" onClick={jump("waitlist")} className="hide-md" base={{ fontSize: "14px", color: "var(--ink)", fontWeight: 600, padding: "9px 14px", borderRadius: "10px", border: "1px solid var(--line-strong)", background: "#fff" }} hover={{ background: "var(--paper-2)" }}>Request beta access</Hover>
@@ -672,6 +674,15 @@ export default function FreightForwardingPage() {
                   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.85" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
                 </a>
               ))}
+              <a
+                href="/free-tools"
+                className="ff-menu-link"
+                onClick={() => setMenuOpen(false)}
+                style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 14px", fontSize: "16px", fontWeight: 600, color: "var(--ink)", borderRadius: "12px" }}
+              >
+                <FreeToolsPill as="span" />
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.85" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </a>
             </div>
           )}
         </header>
