@@ -132,6 +132,25 @@
 * {
   box-sizing: border-box;
 }
+
+/* Only show a focus ring for keyboard users. Mouse/touch interaction must not
+   leave a lingering black outline on buttons, links or cards after click. */
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Automation cards: CSS-only hover so it can never stick, and the border never
+   changes colour on hover (lift + shadow only). */
+.auto-card {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+@media (hover: hover) {
+  .auto-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+}
+
 html,
 body {
   margin: 0;

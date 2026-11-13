@@ -644,6 +644,7 @@ function renderAutomationCard(a, flat = false) {
     position: "relative",
     transition: "transform .2s,box-shadow .2s",
     height: "100%",
+    width: "100%",
     display: "flex",
     flexDirection: "column",
   };
@@ -755,18 +756,13 @@ function renderAutomationCard(a, flat = false) {
       </div>
     );
   }
+  // CSS-driven hover (see .auto-card in globals.css). Using :hover instead of JS
+  // state means the hover styles can never "stick" after the pointer leaves, and
+  // the border never changes colour on hover.
   return (
-    <Hover
-      key={a.id}
-      base={cardBase}
-      hover={{
-        transform: "translateY(-4px)",
-        boxShadow: "var(--shadow-lg)",
-        borderColor: "var(--blue-300)",
-      }}
-    >
+    <div key={a.id} className="auto-card" style={cardBase}>
       {body}
-    </Hover>
+    </div>
   );
 }
 
@@ -3438,13 +3434,26 @@ export default function FreightForwardingPage() {
 
           <div
             style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(4,minmax(0,1fr))",
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "center",
               gap: "16px",
             }}
-            className="grid-4-md auto-grid"
+            className="auto-grid"
           >
-            {AUTOMATIONS.map((a) => renderAutomationCard(a))}
+            {AUTOMATIONS.map((a) => (
+              <div
+                key={a.id}
+                style={{
+                  display: "flex",
+                  flex: "1 1 260px",
+                  maxWidth: "calc((100% - 32px) / 3)",
+                  minWidth: "240px",
+                }}
+              >
+                {renderAutomationCard(a)}
+              </div>
+            ))}
           </div>
 
           {/* ≤768px: grid hidden, swipe slider shown (see freight-forwarding.css) */}
@@ -3459,9 +3468,7 @@ export default function FreightForwardingPage() {
           >
             <Hover
               as="a"
-              href="https://susea.ai/automations"
-              target="_blank"
-              rel="noopener"
+              href="/automations"
               base={{
                 display: "inline-flex",
                 alignItems: "center",
