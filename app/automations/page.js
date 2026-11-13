@@ -107,7 +107,7 @@ const CLUSTERS = [
 // ─── Workflow diagram ──────────────────────────────────────────────────────────
 const NODE_W_MAX = 220;
 const PAD = 16;
-const COL_GAP = 16; // horizontal gap between the two branch columns
+const COL_GAP = 40; // horizontal gap between the two branch columns
 
 function nodeStyle(type, accent) {
   if (type === "trigger")
@@ -126,6 +126,7 @@ function nodeIconName(type) {
   if (type === "human") return "check";
   if (type === "ai") return "sparkles";
   if (type === "output") return "arrow-right";
+  if (type === "decision") return "git-branch";
   return null;
 }
 
@@ -378,10 +379,15 @@ function SvgWorkflowDiagram({ spec, resetKey }) {
     : 0;
   const totalRows = spec.pre.length + branchRows;
   const usable = Math.max(dims.h - PAD * 2 - 14, 280);
-  const GAP_Y = usable / totalRows;
-  // Keep a real gap between stacked boxes: cap box height and let spacing grow,
-  // so wrapped text on narrow screens never makes neighbours touch.
-  const NODE_H = Math.max(40, Math.min(64, GAP_Y - 20));
+  // Every node is the SAME fixed height and sits on a uniform pitch, so the gap
+  // between consecutive boxes is identical within a workflow. The pitch fills
+  // the panel evenly but never drops below the box height, so boxes can't touch.
+  // (Sub labels are clamped to one line below, so a node never outgrows NODE_H.)
+  const NODE_H = 84;
+  // Branched flows get extra breathing room below the decision node so its two
+  // columns read as distinct parts instead of cramped text under the question.
+  const BRANCH_GAP = hasBranch ? 28 : 0;
+  const GAP_Y = Math.max((usable - BRANCH_GAP) / totalRows, NODE_H + 16);
 
   // Pre column is always centred; the branch pair below is centred as a unit.
   const preX = (dims.w - NODE_W) / 2;
@@ -401,7 +407,7 @@ function SvgWorkflowDiagram({ spec, resetKey }) {
   });
 
   if (hasBranch) {
-    const startY = PAD + spec.pre.length * GAP_Y;
+    const startY = PAD + spec.pre.length * GAP_Y + BRANCH_GAP;
     const decisionNode = prev;
     const colA = (dims.w - NODE_W * 2 - COL_GAP) / 2;
     const colB = colA + NODE_W + COL_GAP;
@@ -520,7 +526,7 @@ function SvgWorkflowDiagram({ spec, resetKey }) {
                 left: n.x,
                 top: n.y,
                 width: NODE_W,
-                minHeight: n.h,
+                height: n.h,
                 border: s.dashed
                   ? `1px dashed ${s.border}`
                   : `1px solid ${s.border}`,
@@ -593,7 +599,7 @@ function SvgWorkflowDiagram({ spec, resetKey }) {
                 {n.sub && (
                   <div
                     className="mono"
-                    style={{ fontSize: 10.5, color: "#9aa8be", marginTop: 2, lineHeight: 1.3 }}
+                    style={{ fontSize: 10.5, color: "#9aa8be", marginTop: 2, lineHeight: 1.3, maxWidth: NODE_W - 24, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}
                   >
                     {n.sub}
                   </div>
@@ -915,7 +921,7 @@ export default function AutomationsPage() {
                 boxShadow: "var(--shadow-md)",
                 display: "flex",
                 flexDirection: "column",
-                minHeight: 520,
+                minHeight: 700,
               }}
             >
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14, flexWrap: "wrap", gap: 8 }}>

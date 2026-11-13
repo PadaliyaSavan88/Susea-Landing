@@ -1,26 +1,480 @@
 # Susea
 
-> Susea is the AI pricing and procurement operating system for ocean freight forwarders. Instant spot rates across 200+ carriers, live RFQ auctions, and branded customer quotes in under 90 seconds.
+> Susea is an AI pricing, quoting and procurement platform — a Freight Forwarding CRM — for ocean freight forwarders, NVOCCs and CHAs. It prices every customer inquiry directly from your own carrier rate sheets, compares 200+ carriers, runs live RFQ auctions with your agents, and drafts branded, customer-ready quotes in under 90 seconds. Every quote, re-price and follow-up is drafted for a human to approve — Susea never auto-sends and never changes your prices or margins on its own.
 
-## Blog
+Susea is in beta. Access is via waitlist and a founder-led onboarding on your live quotes. Contact: getstarted@susea.ai. Book a demo: https://calendly.com/darshit-alphabitssolutions/30min.
 
-- [Spot Rate vs Contract Rate in Ocean Freight: When to Use Each](https://susea.ai/blog/spot-rate-vs-contract-rate): Spot rates vs contract rates in ocean freight — what the difference is, when to quote each, and how to manage both on your pricing desk.
-- [Building a Pricing Desk from Scratch: The Modern Freight Forwarder's Guide](https://susea.ai/blog/building-pricing-desk-freight-forwarder): How to build a freight pricing desk that scales — roles, tooling, rate management, margin controls, and the playbook from 0 to 500 TEU per month.
-- [How to Automate Freight Surcharge Calculations Without Excel](https://susea.ai/blog/automate-freight-surcharge-calculations): Freight surcharge calculations are still done manually in Excel at most forwarders. Here is a step-by-step approach to automating them correctly.
-- [Why Your Freight Quotes Take 18 Minutes — and How to Fix It](https://susea.ai/blog/why-freight-quotes-take-18-minutes): 18 minutes is the industry average for a manually assembled freight quote. Here is exactly where the time goes and how to cut it to 90 seconds.
-- [The Ocean Freight Quotation Workflow: Enquiry to Customer Quote](https://susea.ai/blog/ocean-freight-quotation-workflow): From the moment a cargo enquiry arrives to the moment a customer quote goes out — the exact steps, the time each takes, and where the workflow breaks.
-- [The India EXIM Freight Forwarder's Pricing Stack: Tools, Workflow and Best Practices](https://susea.ai/blog/india-freight-forwarding-software): The tools, workflow, and best practices for a modern India EXIM freight forwarder's pricing desk — from rate ingestion to customer quote delivery.
-- [How Freight Rate Volatility Kills Your Pricing Desk's Margins](https://susea.ai/blog/freight-rate-volatility): Ocean freight rates can move by 30–50% in a quarter. Here is how rate volatility directly compresses margins on your pricing desk — and what to do about it.
-- [Top Ocean Carriers on India Trade Lanes: MSC, Maersk, CMA CGM, Evergreen Compared](https://susea.ai/blog/ocean-carriers-india): Comparing the top ocean carriers on India trade lanes — MSC, Maersk, CMA CGM, Hapag-Lloyd, Evergreen — on rates, transit times, free time, and reliability.
-- [India to Europe Freight: INNSA / INMUN → NLRTM Trade Lane Deep Dive](https://susea.ai/blog/india-europe-ocean-freight): Complete trade lane guide for India–Europe ocean freight: rates, transit times, carriers, Suez vs Cape routing, and how to quote this corridor correctly.
-- [India to UAE Ocean Freight: INNSA → AEJEA Rates, Carriers & Transit](https://susea.ai/blog/india-uae-freight-rates): Complete guide to India–UAE ocean freight: current rates, top carriers, transit times, surcharges, and how to get the best FCL quote on INNSA → AEJEA.
-- [Why Ocean Freight Pricing Still Lives in Email (And the Fix)](https://susea.ai/blog/ocean-freight-pricing-email): Freight pricing runs on email threads, Excel attachments, and WhatsApp groups. Here is why the problem persists and what a modern stack looks like.
-- [Generative AI for Freight Forwarders: 5 Use Cases in 2026](https://susea.ai/blog/generative-ai-freight-forwarders): Generative AI is useful in exactly five places for a freight forwarder's pricing desk. Here is what works, with specific examples.
-- [From WhatsApp to Customer Quote: AI Freight Rate Extraction](https://susea.ai/blog/whatsapp-to-customer-quote): Carrier rates arrive on WhatsApp. AI reads them, applies surcharges, and generates a branded customer quote in 90 seconds. Here is the exact workflow.
-- [GRI, PSS, EBS: How Surcharge Announcements Affect Your Margins](https://susea.ai/blog/gri-pss-ebs-surcharge-announcements): GRI, PSS, and EBS announcements move freight costs by $100–$500/TEU overnight. Here is how to track them and protect your pricing desk's margins.
-- [How AI Reads Carrier Rate Sheets Better Than Your Pricing Team](https://susea.ai/blog/ai-reads-carrier-rate-sheets): AI tariff extraction processes PDF, Excel, email, and WhatsApp rate sheets in under 30 seconds. Here is how it works and what it gets right.
-- [How to Read a Carrier Rate Sheet — and Why It's Hard](https://susea.ai/blog/how-to-read-carrier-rate-sheet): Carrier rate sheets arrive as PDFs, Excel files, and WhatsApp forwards. Here is how to parse them correctly before you quote a customer.
-- [AI in Ocean Freight Pricing: What's Real and What Actually Works](https://susea.ai/blog/ai-ocean-freight-pricing): AI promises to transform freight pricing. Here is what is actually working for freight forwarders in 2026 — and what is still hype.
-- [What is a NVOCC? How They Differ from Freight Forwarders](https://susea.ai/blog/what-is-nvocc): NVOCC vs freight forwarder — the legal distinction, how each prices freight, and why it matters for your margins and compliance.
-- [FCL vs LCL: How to Choose, Quote and Price the Right Mode](https://susea.ai/blog/fcl-vs-lcl): FCL or LCL? The decision affects transit time, cost, and quoting complexity. Here is how to evaluate and price both correctly.
-- [Ocean Freight Surcharges Explained: BAF, CAF, THC and More](https://susea.ai/blog/ocean-freight-surcharges-explained): BAF, CAF, THC, LSS, ISPS — what every surcharge means, how it is calculated, and why most freight quotes get them wrong.
+## Quick links
+
+- [Instant Rates](https://susea.ai/instant-rates): Turn a cargo inquiry into a priced, branded, customer-ready quote in under 90 seconds.
+- [RFQ Auctions](https://susea.ai/rfq): Float multi-lane RFQs to your own carrier agents, collect competitive bids, and award with a documented, audit-ready approval trail.
+- [Automations](https://susea.ai/automations): Five pricing-desk automations that draft routine work for a human to approve. AI drafts and routes; it never touches price or margin, and nothing is sent without a click. Every draft, approval and send is audit-ready by default.
+- [Freight Forwarding overview](https://susea.ai/freight-forwarding): How Susea replaces manual pricing-desk work end to end, with an ROI calculator based on your own numbers.
+- [Pricing](https://susea.ai/pricing): Starter $19/mo, Pro $49/mo (Most Popular), and custom Enterprise plans.
+- [CBM & Cargo Calculator](https://susea.ai/free-tools/cbm-calculator): Enter cargo dimensions, weight and quantity to get total cubic metres (CBM), chargeable weight / measure (W/M) for LCL, and a container recommendation for FCL. Free, no sign-up.
+- [HSN Code Checker](https://susea.ai/free-tools/hsn-code-checker): Search HS / HSN classifications by product description or code and see the section, chapter, heading and subheading, including India's 8-digit codes. Free, no sign-up.
+- [Blog / knowledge base](https://susea.ai/blog)
+- [Privacy Policy](https://susea.ai/privacy) · [Terms of Use](https://susea.ai/terms)
+
+## About
+Susea (susea.ai) is a software platform for the ocean freight industry. It is built for freight forwarders, NVOCCs (Non-Vessel Operating Common Carriers) and CHAs (Customs House Agents) who run a pricing desk — the team that turns incoming cargo inquiries into priced customer quotes.
+
+The core idea: a forwarder's competitive edge is answering a customer first with an accurate, all-in price. Manually, that means reading carrier rate sheets, looking up surcharges, calculating landed cost in Excel and formatting an email — often 15–20 minutes per quote. Susea compresses that to under 90 seconds by pricing each inquiry directly from the forwarder's own rate sheets and drafting a branded quote for a human to approve.
+
+Product status: Susea is in beta, onboarding forwarders via a waitlist and a founder-led setup on the customer's live quotes.
+
+## Who it is for
+
+- Ocean freight forwarders running a pricing/quoting desk.
+- NVOCCs issuing their own bills of lading.
+- CHAs and logistics teams handling EXIM (export/import) shipments.
+- India EXIM forwarders and teams quoting major trade lanes (e.g. India–Europe, India–UAE).
+
+## Core principles
+
+- Human-approved: every draft waits for a click. Susea never auto-sends.
+- Pricing stays yours: AI drafts and routes work but never changes your price or margin.
+- Your rates, not a marketplace: pricing comes from the rate sheets you already receive, so buy rates and margins stay confidential.
+- Audit-ready: every draft, approval, award and send is logged by default.
+
+## Products and features
+
+### Instant Rates — https://susea.ai/instant-rates
+
+Turn a cargo inquiry into a priced, branded, customer-ready quote in under 90 seconds.
+
+- Prices each inquiry from your own carrier rate sheets, not a public spot marketplace — your buy rates and margins stay confidential.
+- Compares 200+ shipping lines, normalised into one side-by-side view of all-in cost, transit time and validity.
+- AI Tariff Extraction reads carrier rates from PDF, Excel, email and forwarded WhatsApp messages and turns them into one comparable rate table.
+- Surcharges (BAF, CAF, THC, LSS, ISPS) are modelled and applied automatically so the all-in price is right the first time.
+- Live rate visibility: rates refresh frequently so you never quote off a stale sheet.
+- You set margins, taxes, terms and rounding once; every quote follows them. A human approves before anything is sent.
+
+### RFQ Auctions — https://susea.ai/rfq
+
+Float multi-lane RFQs to your own carrier agents, collect competitive bids, and award with a documented, audit-ready approval trail.
+
+- Upload many lanes at once and launch an RFQ to your invited agents in a single click.
+- Agents bid live and can re-bid down to climb the ranking.
+- Four visibility modes control how much bidders see: Sealed (nothing until close), Rank-only (their own rank, never competitors' prices), Best-price (the lowest price but not who quoted it), and Open (all prices and rankings).
+- AI normalises and sanity-checks every bid and recommends the best agent by cost, transit or schedule.
+- Route the winner through your approval matrix with documented justification.
+- Awarded rates become digital contracts; Susea tracks utilisation so negotiated savings actually land.
+
+### Automations — https://susea.ai/automations
+
+Five pricing-desk automations that draft routine work for a human to approve. AI drafts and routes; it never touches price or margin, and nothing is sent without a click. Every draft, approval and send is audit-ready by default.
+
+- Inquiry Intake — reads an inbound request, extracts cargo details and drafts an all-in rate from your rate sheets, ready for your tap.
+- Rate Sheet Extraction — auto-parses carrier PDFs, XLS, emails and WhatsApp forwards into your rate table, with every option priced on arrival.
+- Quote Follow-up — quotes with no reply after 48 hours get a personalised follow-up, drafted for you before validity expires.
+- Expiry Re-price — lapsing quotes are caught, re-priced against current rates, and the re-send is drafted before the customer notices.
+- RFQ Bid Chasing — agents who haven't bid are nudged with time-left and ranking context so the RFQ closes on time.
+
+### Instant Rates workflow
+
+1. Search — enter origin, destination, container type and cargo; Susea checks 200+ carriers at once.
+2. Compare — see all-in cost, transit time and validity side by side, with AI flagging cheaper or faster routings.
+3. Quote — Susea builds the full landed cost automatically (ocean freight, BAF, THC, documentation, your margin).
+4. Send — push a branded quote to the customer over WhatsApp or email with one-tap acceptance.
+5. Follow up — if the quote goes quiet or is about to expire, Susea drafts the nudge or re-price for your approval.
+
+## Free tools
+
+### CBM & Cargo Calculator — https://susea.ai/free-tools/cbm-calculator
+
+Enter cargo dimensions, weight and quantity to get total cubic metres (CBM), chargeable weight / measure (W/M) for LCL, and a container recommendation for FCL. Free, no sign-up; every calculation runs in your browser.
+
+### HSN Code Checker — https://susea.ai/free-tools/hsn-code-checker
+
+Search HS / HSN classifications by product description or code and see the section, chapter, heading and subheading, including India's 8-digit codes. Free, no sign-up; results are guidance to confirm against the official tariff or your customs broker.
+
+## Pricing
+
+Plans are billed monthly or annually (annual billing is discounted). Figures below are current as published on the pricing page; confirm live details at https://susea.ai/pricing.
+
+### Starter — $19 / month (or $15 / month billed annually)
+Small freight forwarders getting started.
+- 50 RFQs / month
+- 50 Quotes / month
+- Up to 20 Carrier Agents
+- Instant Ocean Freight Rates
+- RFQ Auctions
+- Quote Generator
+
+### Pro (Most Popular) — $49 / month (or $35 / month billed annually)
+Growing freight teams with higher quote volumes.
+- 150 RFQs / month
+- 150 Quotes / month
+- Up to 50 Carrier Agents
+- Instant Ocean Freight Rates, RFQ Auctions, Quote Generator
+- Priority Support
+
+### Enterprise — Custom pricing — contact sales
+Large logistics companies with custom workflows and unlimited scale.
+- Unlimited RFQs and Quotes
+- Unlimited Carrier Agents
+- Analytics Dashboard
+- Custom Workflows
+- Dedicated Success Manager
+
+## Freight Forwarding overview
+
+https://susea.ai/freight-forwarding explains the manual pricing-desk problems Susea removes — requests scattered across inboxes, forgotten follow-ups, agents chased one at a time, bad bids reaching the award screen, and unread tariff sheets — and includes an ROI calculator that estimates annual savings from operator hours, quote-volume capacity and faster-response revenue lift based on your own numbers.
+
+## Glossary
+
+- FCL: Full Container Load — the shipper uses an entire container, priced per container.
+- LCL: Less than Container Load — multiple shippers share one container, priced per revenue ton (1 ton or 1 CBM, whichever is greater).
+- CBM: Cubic metre — the volume cargo occupies; drives LCL pricing and container selection.
+- NVOCC: Non-Vessel Operating Common Carrier — issues its own bills of lading without operating ships.
+- CHA: Customs House Agent — handles customs clearance on behalf of importers/exporters.
+- HS / HSN code: Harmonized System code for classifying traded goods; India uses 8-digit HSN codes (first 6 digits are the global HS code).
+- BAF / CAF: Bunker / Currency Adjustment Factor — fuel-cost and currency surcharges on ocean freight.
+- THC: Terminal Handling Charge — port handling cost at origin or destination.
+- LSS / ISPS: Low Sulphur Surcharge / International Ship and Port Facility Security charge.
+- GRI / PSS / EBS: General Rate Increase / Peak Season Surcharge / Emergency Bunker Surcharge — carrier-announced rate changes.
+- Spot vs contract rate: A spot rate is a short-validity market price; a contract rate is a negotiated rate fixed for a period.
+
+## Knowledge base (blog)
+
+Susea publishes practical guides for freight pricing desks. Full index: https://susea.ai/blog. Each entry below links to the authoritative article.
+
+### Pricing & Quotation
+
+#### Spot Rate vs Contract Rate in Ocean Freight: When to Use Each
+https://susea.ai/blog/spot-rate-vs-contract-rate (by Kiran Patel, 2026-07-17)
+Spot rates vs contract rates in ocean freight — what the difference is, when to quote each, and how to manage both on your pricing desk.
+
+FAQ:
+- Q: What is the difference between a spot rate and a contract rate in ocean freight?
+  A: A spot rate is a one-time rate quoted for a specific shipment, valid for 7–30 days. It reflects current market conditions and carrier capacity. A contract rate is a negotiated rate valid for a fixed period (typically 3–12 months), giving the shipper rate certainty in exchange for a volume commitment. Spot rates are more flexible but variable; contract rates are predictable but require committed volume.
+- Q: When should a freight forwarder quote a spot rate vs a contract rate?
+  A: Quote a spot rate for: one-off or occasional shipments, customers without committed volume, cargo with uncertain timing, or when market rates are likely to fall (locking in a contract at high rates harms the customer). Quote a contract rate for: customers with predictable monthly volume (3+ FCL/month), customers who need price stability for budget planning, and when market rates are likely to rise (a fixed contract rate protects the shipper).
+- Q: How long is an ocean freight spot rate valid?
+  A: Ocean freight spot rates are typically valid for 7–30 days. The standard for most forwarders is 7–14 days — short enough to avoid exposure to GRI and BAF changes, long enough for the customer to confirm and book. During volatile markets (frequent GRI cycles or rapid BAF movements), shortening validity to 7 days is prudent. During stable markets, 30-day validity can be offered for operational convenience.
+- Q: What is a freight contract rate agreement?
+  A: A freight contract rate agreement (also called a Service Contract or Rate Agreement) is a signed document between a freight forwarder (or NVOCC) and a customer that fixes the ocean freight rate for a specific trade lane, container type, and validity period — typically 3 to 12 months — in exchange for a minimum volume commitment. The agreement typically specifies the base rate, which surcharges are fixed vs variable, the volume commitment (MQC — minimum quantity commitment), and consequences for shortfall.
+- Q: What happens if freight market rates fall below a contract rate?
+  A: If spot market rates fall significantly below a contracted rate, the customer may request renegotiation. A forwarder who insists on the contracted rate risks losing the customer relationship. In practice, most long-term freight relationships involve informal renegotiation when the market moves against the customer significantly. Structuring contracts with a quarterly rate review clause protects both sides — rates are adjusted if the market moves more than X% in either direction.
+
+#### Building a Pricing Desk from Scratch: The Modern Freight Forwarder's Guide
+https://susea.ai/blog/building-pricing-desk-freight-forwarder (by Kiran Patel, 2026-07-14)
+How to build a freight pricing desk that scales — roles, tooling, rate management, margin controls, and the playbook from 0 to 500 TEU per month.
+
+FAQ:
+- Q: What is a freight pricing desk?
+  A: A freight pricing desk is the team and process responsible for retrieving carrier rates, calculating surcharges, applying margins, building customer quotes, and tracking quote outcomes. In small freight forwarders, pricing may be done by 1–2 people handling all trade lanes. In larger NVOCCs, the pricing desk is a dedicated function with specialization by trade lane, carrier type, and cargo category. The pricing desk's output — accurate, fast, profitable quotes — directly determines the forwarder's revenue and margin.
+- Q: How many people do you need for a freight pricing desk?
+  A: A pricing desk managing 100–200 quotes per month can operate with 1 experienced pricing analyst. At 300–600 quotes per month, a team of 2–3 analysts is typical. Above 600 quotes per month, specialization by trade lane or carrier group becomes important. A pricing desk lead or manager is needed at any size to own carrier relationships, margin policies, and rate strategy. AI-assisted quote assembly can roughly double the quote throughput of each analyst.
+- Q: What does a freight pricing desk need to function?
+  A: A freight pricing desk needs: (1) a current, organized rate database — carrier rates by trade lane, container type, and validity date; (2) a surcharge management system — BAF, THC, LSS, ISPS updated regularly; (3) a quoting tool — to assemble, format, and send quotes; (4) customer and margin records — to apply the right margin for each customer; and (5) win/loss tracking — to measure quote outcomes and refine pricing strategy. These can start in spreadsheets but benefit enormously from dedicated pricing software.
+- Q: How should a pricing desk manage carrier rate sheets?
+  A: Carrier rate sheets should be stored centrally (not in individual email folders), versioned by receive date and validity period, and organized by carrier + trade lane + container type. When a new rate sheet arrives, it replaces the previous one for that carrier/lane but the old version is retained for historical reference. Critically: surcharge tables (BAF, THC, LSS) should be maintained separately from base rates, since they update on different cycles.
+- Q: What metrics should a freight pricing desk track?
+  A: A freight pricing desk should track: quotes sent per day/week/month; quote-to-booking conversion rate (win rate); average margin per quote, per lane, and per customer; time-to-quote (from enquiry to quote sent); surcharge error rate (quotes requiring correction after issue); and rate coverage (what percentage of incoming enquiries can be quoted without going back to a carrier). These metrics tell you whether the desk is profitable, fast, and well-stocked with rates.
+
+#### How to Automate Freight Surcharge Calculations Without Excel
+https://susea.ai/blog/automate-freight-surcharge-calculations (by Kiran Patel, 2026-07-10)
+Freight surcharge calculations are still done manually in Excel at most forwarders. Here is a step-by-step approach to automating them correctly.
+
+FAQ:
+- Q: What surcharges need to be calculated for an ocean freight quote?
+  A: A complete ocean freight quote requires calculating: BAF (Bunker Adjustment Factor), LSS (Low Sulphur Surcharge), THC at origin and destination (port-specific), ISPS security levy, ODF or documentation fee, and any active trade-lane surcharges such as GRI (General Rate Increase), PSS (Peak Season Surcharge), or WRS (War Risk Surcharge). Each has a different calculation basis and update frequency.
+- Q: Why is manual surcharge calculation error-prone?
+  A: Manual surcharge calculations fail for three reasons: (1) surcharges come from different source documents — carrier BAF tables, port THC schedules, and carrier circulars — which can be out of sync; (2) some surcharges are included in the base rate and must not be double-counted; (3) update timing varies — BAF updates monthly, GRIs take effect on the 1st, PSS has a specific start date — and a single missed update corrupts all quotes until discovered.
+- Q: What is a surcharge engine in freight software?
+  A: A surcharge engine is a component of freight pricing software that automatically applies the correct charges for a given carrier, trade lane, container type, and date. It holds structured surcharge tables (BAF by carrier, THC by port, LSS, ISPS), applies the correct row based on query parameters, checks whether each surcharge is already included in the base rate, and outputs a complete, itemised surcharge stack with no manual input.
+- Q: How do you handle surcharges included in the base freight rate?
+  A: Some carriers quote rates with certain surcharges already bundled — for example, 'all-in ex-THC destination' means BAF and LSS are included in the quoted base. When building a surcharge engine, each rate record must flag which surcharges are included (bundled) vs. additional. The engine then skips bundled surcharges to avoid double-counting. This is the most common source of quoting errors when transitioning from manual to automated surcharge calculation.
+- Q: Can I automate surcharge calculation without a full TMS?
+  A: Yes — many forwarders start with a structured surcharge database in a spreadsheet before moving to dedicated software. The key is converting surcharge tables to structured data: carrier, effective-from date, effective-to date, container type, amount per TEU. Once in this format, VLOOKUP or INDEX/MATCH can pull the correct value. The limitation of the spreadsheet approach is manual maintenance — the structured database still needs to be updated when new carrier bulletins arrive.
+
+#### Why Your Freight Quotes Take 18 Minutes — and How to Fix It
+https://susea.ai/blog/why-freight-quotes-take-18-minutes (by Kiran Patel, 2026-07-07)
+18 minutes is the industry average for a manually assembled freight quote. Here is exactly where the time goes and how to cut it to 90 seconds.
+
+FAQ:
+- Q: How long does it take to create a freight quote manually?
+  A: Industry average for a manually assembled FCL ocean freight quote is 15–25 minutes for an experienced pricing analyst. This includes finding the correct carrier rate (3–5 min), applying surcharges (5–8 min), applying margin (1–2 min), and building and formatting the quote document (5–8 min). Junior staff take 30–45 minutes per quote.
+- Q: What makes freight quotes take so long?
+  A: Freight quotes take long for four reasons: (1) rate retrieval from scattered email/spreadsheet sources, (2) manual surcharge calculation from separate surcharge tables, (3) margin application that may require manager approval, and (4) manual document assembly in Word/Excel/PDF templates. Each step involves context switching between tools.
+- Q: How does automation reduce freight quote time?
+  A: Freight quote automation eliminates all four manual steps: a centralized rate database makes retrieval instant, a surcharge engine applies all charges automatically, margin rules are pre-configured per customer, and the quote document is generated and formatted automatically. End-to-end time drops from 18 minutes to 60–90 seconds.
+- Q: Does faster quoting actually improve win rate?
+  A: Yes — significantly. Analysis of forwarder booking data shows quote conversion rates of 68–74% when responding in under 5 minutes, dropping to 28–38% at 30–120 minutes and 12–18% for same-day responses. Most customers send the same enquiry to 3–5 forwarders. The first to respond with a complete quote wins the majority of the time.
+- Q: What is the cost of slow quoting at scale?
+  A: A pricing desk processing 400 quotes/month with a 25% win rate books 100 shipments. If faster quoting improves win rate by 15 percentage points (to 40%), that's 60 additional bookings per month. At an average gross margin of $180/booking, that is $10,800/month in additional gross margin — without any additional headcount or rate negotiations.
+
+#### The Ocean Freight Quotation Workflow: Enquiry to Customer Quote
+https://susea.ai/blog/ocean-freight-quotation-workflow (by Kiran Patel, 2026-07-03)
+From the moment a cargo enquiry arrives to the moment a customer quote goes out — the exact steps, the time each takes, and where the workflow breaks.
+
+FAQ:
+- Q: What is the ocean freight quotation process?
+  A: The ocean freight quotation process starts when a shipper or forwarder submits a cargo enquiry (origin, destination, container type, cargo details, incoterms). The pricing desk retrieves applicable carrier rates, applies surcharges (BAF, THC, LSS, ISPS), adds a margin, assembles a quote document, and sends it to the customer. The process typically takes 15–25 minutes manually and under 90 seconds with automated systems.
+- Q: What information is needed to quote ocean freight?
+  A: To accurately quote ocean freight, you need: origin port (POL) and destination port (POD), container type (20', 40', 40'HC), cargo type and commodity, cargo weight (for weight limits), incoterms (who pays for what), required shipment date (to confirm rate validity), and any special requirements (DG cargo, temperature control, OOG dimensions).
+- Q: What is a freight quote validity period?
+  A: A freight quote validity period is the number of days a quoted rate remains firm. Standard validity is 7–14 days for spot rates, though some forwarders offer 30-day validity. Carrier rate sheets that underpin the quote typically have 30-day validity, but BAF and surcharges can change monthly. Shortening quote validity protects forwarders from absorbing GRI or BAF increases on open quotes.
+- Q: What surcharges should be included in a freight quote?
+  A: A complete freight quote should include: base ocean freight (OF), BAF (Bunker Adjustment Factor), THC at origin and destination (Terminal Handling Charges), LSS (Low Sulphur Surcharge), ISPS security levy, ODF/documentation fee, and any applicable surcharges for the specific trade lane (GRI if active, PSS if peak season, WRS if war risk zone). Quotes missing any of these expose the forwarder to absorbing the difference.
+- Q: How long does it take to generate a freight quote?
+  A: Manual freight quotation takes 15–25 minutes for an experienced pricing analyst: 3–5 minutes finding the correct rate sheet, 5–8 minutes calculating surcharges, 5–8 minutes building the quote document. With AI-assisted quote assembly on a platform like Susea, the same process takes 60–90 seconds from enquiry to branded customer quote.
+
+### Trade Lane Intelligence
+
+#### The India EXIM Freight Forwarder's Pricing Stack: Tools, Workflow and Best Practices
+https://susea.ai/blog/india-freight-forwarding-software (by Kiran Patel, 2026-06-30)
+The tools, workflow, and best practices for a modern India EXIM freight forwarder's pricing desk — from rate ingestion to customer quote delivery.
+
+FAQ:
+- Q: What software do freight forwarders in India use for pricing?
+  A: Most small and mid-size freight forwarders in India use a combination of email, WhatsApp, and Excel for pricing. Microsoft Excel is the dominant tool for rate management and quote calculation. Some use TMS (Transportation Management Systems) like Softlink, CargoWise, or Freightify for broader operations, but TMS pricing modules often don't handle the informal rate formats (WhatsApp, PDFs) common on Indian trade lanes. Purpose-built pricing platforms like Susea are purpose-designed for the India EXIM pricing workflow.
+- Q: What is ICEGATE and how does it affect freight pricing?
+  A: ICEGATE is India's customs electronic data interchange gateway — the platform through which all Indian exporters and importers file customs declarations (shipping bills for export, bills of entry for import). ICEGATE does not directly affect freight pricing, but the shipping bill data filed through ICEGATE determines which EXIM incentives (RoDTEP, duty drawback) the shipper can claim. A correctly declared HS code and FOB value in the shipping bill is required to claim these benefits, which affect the shipper's effective landed cost calculations.
+- Q: What are the main pricing challenges for India EXIM freight forwarders?
+  A: The main pricing challenges for India EXIM freight forwarders are: (1) rate data scattered across email, WhatsApp, and carrier portals in inconsistent formats; (2) managing BAF updates across 8–15 carriers monthly; (3) quoting both FCL and LCL correctly with different surcharge structures; (4) co-loading pricing (consolidating LCL cargo via an MTO); (5) managing seasonal PSS and GRI cycles without margin exposure; and (6) responding to customer enquiries faster than competing forwarders.
+- Q: How is LCL pricing different from FCL pricing for India exporters?
+  A: LCL (Less than Container Load) pricing is calculated per CBM (cubic meter) or per ton (whichever is higher, on a revenue ton basis). The freight rate is quoted per W/M (weight or measurement ton). LCL cargo also incurs CFS (Container Freight Station) handling charges at origin and destination, plus a stuffing fee. LCL surcharges (BAF, LSS) are also calculated per W/M rather than per container. The LCL quote must be based on the cargo's volume and weight, making it more complex to calculate than FCL.
+- Q: What is RoDTEP and how does it interact with freight costs?
+  A: RoDTEP (Remission of Duties and Taxes on Exported Products) is an Indian government scheme that provides exporters with a scrip (credit) representing taxes embedded in the exported product that cannot be refunded via other mechanisms. RoDTEP rates range from 0.5% to 4.3% of the FOB value depending on HS code. For a freight forwarder, understanding RoDTEP helps customers calculate their effective export profitability — the freight cost as a percentage of FOB value must be considered against the RoDTEP scrip to determine real margin.
+
+#### How Freight Rate Volatility Kills Your Pricing Desk's Margins
+https://susea.ai/blog/freight-rate-volatility (by Kiran Patel, 2026-06-26)
+Ocean freight rates can move by 30–50% in a quarter. Here is how rate volatility directly compresses margins on your pricing desk — and what to do about it.
+
+FAQ:
+- Q: What causes ocean freight rate volatility?
+  A: Ocean freight rate volatility is driven by: vessel capacity vs demand imbalance (the primary driver), fuel price movements (which flow through BAF), geopolitical events (Red Sea disruption, Panama Canal restrictions), seasonal demand peaks (pre-holiday, post-Chinese New Year restocking), port congestion creating equipment shortages, and carrier GRI and PSS announcements. Rates can move 20–50% in a single quarter when multiple factors align.
+- Q: How does freight rate volatility hurt a freight forwarder's margin?
+  A: Rate volatility hurts in three ways: (1) open quotes — a quote issued at pre-GRI rates that a customer accepts post-GRI means the forwarder absorbs the rate increase; (2) contracted rates with variable surcharges — BAF movements on multi-month contracts affect the all-in cost but not the base rate, compressing margin if not structured correctly; (3) stale rate sheets — working from an outdated carrier rate causes underquoting, which is discovered only when the carrier invoice arrives.
+- Q: What is the Freightos Baltic Index?
+  A: The Freightos Baltic Index (FBX) is a composite real-time freight rate index covering 12 major global trade lanes. It is published daily and tracks actual transaction rates (not carrier list rates). The FBX is widely used by freight forwarders to benchmark carrier rates, monitor GRI adherence, and assess market direction. The FBX Global Composite (FBX-G) tracks overall market rate movement; individual lane indices (FBX11 for Trans-Pacific, FBX23 for Asia-Europe) track specific corridors.
+- Q: How should a pricing desk protect margins during volatile rate periods?
+  A: During volatile rate periods: shorten quote validity to 7 days (reduces exposure to rate changes between quote and booking); add explicit surcharge conditionality ('subject to BAF applicable at time of B/L issuance'); update rate sheets more frequently — weekly during GRI cycles instead of monthly; track open quotes and their exposure to announced GRIs; and avoid 30-day validity quotes when a GRI is announced for the same period.
+- Q: What is the rate cycle on the India–Gulf trade lane?
+  A: The India–Gulf trade lane has historically seen 4–6 GRI cycles per year, with most GRIs announced for the 1st of each month. BAF updates monthly based on VLSFO price indices. PSS is active from approximately June–August. The rate cycle is relatively predictable: Q1 tends to be softer after Chinese New Year restocking, Q2–Q3 firms up through the peak season, Q4 has GRI pressure ahead of year-end inventory. Tracking the Freightos Baltic FBX21 (Middle East-South Asia) gives real-time context for India–Gulf rate direction.
+
+#### Top Ocean Carriers on India Trade Lanes: MSC, Maersk, CMA CGM, Evergreen Compared
+https://susea.ai/blog/ocean-carriers-india (by Kiran Patel, 2026-06-23)
+Comparing the top ocean carriers on India trade lanes — MSC, Maersk, CMA CGM, Hapag-Lloyd, Evergreen — on rates, transit times, free time, and reliability.
+
+FAQ:
+- Q: Which is the best ocean carrier for shipping from India?
+  A: There is no single best carrier from India — the right choice depends on the trade lane, cargo type, and priority. For India–Gulf, MSC and CMA CGM have the highest frequency and most competitive rates. For India–Europe, Maersk is preferred for reliability while MSC wins on volume and frequency. For India–North America, CMA CGM and Hapag-Lloyd are strong. For DG or specialized cargo, Hapag-Lloyd's handling reputation is highest across all India lanes.
+- Q: How does MSC compare to Maersk on India trade lanes?
+  A: MSC is the largest carrier by volume on most India trade lanes with more frequent sailings and generally more competitive spot rates. Maersk operates with fewer but more tightly scheduled services, higher base rates, and better-integrated logistics (Maersk offers end-to-end services including customs, trucking, and warehousing). For pure FCL freight forwarding, MSC is often preferred on price; for shippers wanting an integrated logistics partner, Maersk is stronger.
+- Q: What free time do carriers offer on India shipments?
+  A: Standard free time at Indian origin ports is 3–5 days detention (container outside port) and 3–7 days demurrage (container inside port). At Gulf destination ports, standard free time is 7–14 days. European destination ports vary: Rotterdam offers 7–10 days standard; Hamburg 5–7 days. Carriers negotiate extended free time for high-volume shippers — common to get 10–14 days destination free time with a volume commitment.
+- Q: Which carriers are best for DG cargo from India?
+  A: For DG (Dangerous Goods) cargo from India, Hapag-Lloyd and CMA CGM have the strongest DG handling capabilities and widest DG acceptance across India ports. Maersk accepts DG on most trade lanes but has stricter commodity restrictions. MSC has broad DG capacity but acceptance depends on the DG class, vessel, and specific sailing. Evergreen has more limited DG acceptance on India trade lanes. Always confirm DG acceptance per carrier, class, and sailing before quoting.
+- Q: What is the difference between carrier and NVOCC rates from India?
+  A: A carrier (MSC, CMA CGM, etc.) is the vessel operator who issues the bill of lading and takes physical responsibility for the cargo at sea. An NVOCC (Non-Vessel Operating Common Carrier) contracts with carriers for volume and re-sells capacity to freight forwarders and shippers at a margin. NVOCC rates can be lower than carrier rates for small shippers who lack volume to negotiate direct carrier rates. However, NVOCCs may have less flexibility on special cargo, DG, or equipment issues than direct carrier bookings.
+
+#### India to Europe Freight: INNSA / INMUN → NLRTM Trade Lane Deep Dive
+https://susea.ai/blog/india-europe-ocean-freight (by Kiran Patel, 2026-06-19)
+Complete trade lane guide for India–Europe ocean freight: rates, transit times, carriers, Suez vs Cape routing, and how to quote this corridor correctly.
+
+FAQ:
+- Q: What is the current ocean freight rate from India to Europe?
+  A: India to Europe (INNSA → NLRTM) ocean freight rates in mid-2026 range from $1,200 to $2,200 per 40'HC all-in, depending on the carrier, routing (Suez vs Cape), and GRI cycle. Base ocean freight is $900–$1,600 per 40'HC. Surcharges (BAF, THC, LSS, ISPS) add $450–$600 per container. The Suez routing disruption since late 2023 has added both transit time and cost via Cape of Good Hope diversions.
+- Q: How long does ocean freight from India to Europe take?
+  A: Transit time from India to Europe depends on routing: via Suez Canal (when available) is 20–25 days INNSA to NLRTM. Via Cape of Good Hope (used since Houthi disruptions from late 2023), transit is 30–38 days. Most services in mid-2026 continue to use Cape routing, adding 8–14 days and significant additional fuel costs compared to pre-2024 Suez routes.
+- Q: Which carriers serve the India to Europe trade lane?
+  A: The major carriers on India–Europe are MSC, CMA CGM, Maersk, Hapag-Lloyd, and Evergreen. MSC and CMA CGM have the largest capacity and most frequent sailings. Many operate in alliances: MSC partners with various independents, CMA CGM operates within the Ocean Alliance with COSCO and Evergreen. Weekly sailings from INNSA to NLRTM range from 3–5 across all carriers.
+- Q: What is the impact of Suez Canal disruptions on India–Europe freight?
+  A: Since late 2023, Houthi attacks in the Red Sea have pushed most carriers to reroute via the Cape of Good Hope. The Cape routing adds 8–14 days in transit and 3,000–4,000 additional nautical miles per voyage. This increased fuel consumption has raised BAF on the India–Europe trade by $150–$300/TEU vs pre-disruption levels. It has also tightened equipment and capacity availability, supporting elevated rate levels through 2025 and into 2026.
+- Q: How are India–Europe freight rates structured compared to India–Gulf?
+  A: India–Europe rates have a significantly higher base ocean freight ($900–$1,600 vs $700–$950 for India–Gulf) due to the much longer voyage. BAF is also higher due to greater fuel consumption on the longer route, especially via Cape. THC at European ports (NLRTM, DEHAM) is typically higher than Gulf ports. The overall all-in cost per 40'HC is roughly 50–70% higher on India–Europe vs India–Gulf.
+
+#### India to UAE Ocean Freight: INNSA → AEJEA Rates, Carriers & Transit
+https://susea.ai/blog/india-uae-freight-rates (by Kiran Patel, 2026-06-16)
+Complete guide to India–UAE ocean freight: current rates, top carriers, transit times, surcharges, and how to get the best FCL quote on INNSA → AEJEA.
+
+FAQ:
+- Q: What is the current ocean freight rate from India to UAE?
+  A: India to UAE ocean freight rates (INNSA → AEJEA) in mid-2026 range from $900 to $1,400 per 40'HC all-in, depending on the carrier, shipment date, and cargo type. Base ocean freight is $700–$950 per 40'HC, with surcharges (BAF ~$115, THC ~$266 combined, LSS ~$52, ISPS ~$22, ODF ~$45) adding $450–$550 per container. Rates vary with GRI cycles — typically quarterly on the India–Gulf trade lane.
+- Q: What carriers operate on the India to UAE trade lane?
+  A: The major carriers on India–UAE (INNSA/INMUN → AEJEA/AEDXB) are MSC, CMA CGM, Hapag-Lloyd, Evergreen, and COSCO. MSC and CMA CGM have the most frequent sailings — 3–5 per week from Nhava Sheva. Emirates Shipping Line (regional NVO) and Transworld Group also serve this corridor. Direct services from INNSA to AEJEA transit in 8–10 days; services via Colombo take 12–16 days.
+- Q: What is the transit time from Nhava Sheva to Jebel Ali?
+  A: Direct services from Nhava Sheva (INNSA) to Jebel Ali (AEJEA) take 8–10 days. Via-Colombo routing (used by some services to consolidate volume) takes 12–16 days. The fastest services operate with MSC's weekly India–Gulf express loop. If cargo needs to connect onward from Jebel Ali to another Gulf port (Salalah, Hamad, Dammam), add 2–5 days for the feeder leg.
+- Q: What documents are required for ocean freight from India to UAE?
+  A: For ocean freight from India to UAE, the standard export documents are: shipping bill (filed via ICEGATE), commercial invoice, packing list, bill of lading (original or telex release), certificate of origin (preferably UAE–India CEPA Form), and any product-specific certificates (phytosanitary, FSSAI, lab reports for food). UAE customs may require a legalized certificate of origin for certain HS codes. DG cargo needs IMO Dangerous Goods Declaration.
+- Q: How does the UAE–India CEPA affect ocean freight costs?
+  A: The UAE–India Comprehensive Economic Partnership Agreement (CEPA), effective since 2022, reduces or eliminates customs duties on goods traded between the two countries. While CEPA does not directly reduce ocean freight rates, it makes the cost of shipping more attractive by lowering the total landed cost — import duties in the UAE on Indian goods can drop from 4–5% to 0% on qualifying HS codes. Shippers need a UAE–India CEPA certificate of origin to claim the preference.
+
+### AI & Automation
+
+#### Why Ocean Freight Pricing Still Lives in Email (And the Fix)
+https://susea.ai/blog/ocean-freight-pricing-email (by Kiran Patel, 2026-06-12)
+Freight pricing runs on email threads, Excel attachments, and WhatsApp groups. Here is why the problem persists and what a modern stack looks like.
+
+FAQ:
+- Q: Why do freight forwarders still use email and Excel for pricing?
+  A: The primary reasons are inertia, carrier behaviour, and inadequate software. Carriers send rate sheets as email attachments. Customer enquiries arrive as emails. The tools that most TMS vendors offer for pricing are rigid and don't handle the informal formats (WhatsApp, forwarded PDFs) that carry most rate data in emerging markets. Excel fills the gap because it is flexible — but at the cost of errors, version control failures, and slow quote turnaround.
+- Q: What problems does email-based freight pricing cause?
+  A: Email-based freight pricing causes: slow quote turnaround (15–30 minutes per quote), surcharge errors from stale or misread rate sheets, no version control on carrier rates, inability to track quote win/loss, no audit trail on margin decisions, and knowledge silos when pricing staff leave. Each of these has a direct impact on revenue and margin.
+- Q: What is a modern freight pricing stack?
+  A: A modern freight pricing stack has four layers: (1) rate ingestion — automatically reading carrier rate sheets from any format into a structured database; (2) quote engine — assembling all-in quotes from rates, surcharges, and margin rules; (3) customer delivery — sending branded quotes via WhatsApp or email with acceptance tracking; and (4) analytics — per-quote, per-lane, per-customer margin visibility.
+- Q: How long does it take to implement a freight pricing software?
+  A: Implementation time depends heavily on the number of carriers and trade lanes. A pricing desk with 5–10 carriers and 10–15 lanes can typically be onboarded in 2–4 weeks: loading carrier rate sheets, configuring surcharge rules, setting customer margin profiles, and training staff. The main time investment is the initial rate sheet loading, which AI extraction significantly accelerates.
+- Q: What is the ROI of replacing email-based pricing with software?
+  A: The measurable ROI comes from four sources: faster quotes (win rate improvement from speed-to-respond), fewer underquoting errors (surcharge automation), more quotes per analyst per day (throughput), and margin visibility (knowing per-lane and per-customer profitability). Forwarders who've moved from email/Excel to a pricing platform typically report 15–25% improvement in quote-to-booking conversion within 90 days.
+
+#### Generative AI for Freight Forwarders: 5 Use Cases in 2026
+https://susea.ai/blog/generative-ai-freight-forwarders (by Kiran Patel, 2026-06-09)
+Generative AI is useful in exactly five places for a freight forwarder's pricing desk. Here is what works, with specific examples.
+
+FAQ:
+- Q: What is generative AI in freight forwarding?
+  A: Generative AI in freight forwarding refers to the use of large language models (LLMs) like those underlying ChatGPT, Claude, or Gemini to perform tasks that previously required human text interpretation: reading unstructured rate sheets, drafting customer quotes, responding to cargo enquiries, summarizing tender bids, and extracting information from shipping documents.
+- Q: Which AI use cases deliver real ROI for freight forwarders in 2026?
+  A: The five use cases delivering measurable ROI in 2026 are: (1) tariff extraction from unstructured documents, (2) automated customer quote generation, (3) RFQ response drafting and bid summarization, (4) shipping document verification (B/L, invoice checks), and (5) customer enquiry handling and routing. Predictive rate analytics and autonomous freight booking are still maturing.
+- Q: Can generative AI handle customs documentation for freight forwarders?
+  A: Generative AI can assist with customs documentation by extracting HS codes from cargo descriptions, checking commercial invoices against B/L data, and flagging discrepancies. It cannot make binding customs classification decisions autonomously — those require human verification against the customs authority's official tariff schedule.
+- Q: What is the risk of using generative AI in freight pricing?
+  A: The primary risks are: hallucination (the AI generates a plausible but wrong rate or surcharge value), over-reliance (removing human checks that would catch edge cases), and data leakage (sharing customer or carrier data with public AI services). These risks are manageable with proper architecture: AI generates, humans verify, and all data stays on your own infrastructure.
+- Q: How does Susea use generative AI in its freight pricing platform?
+  A: Susea uses generative AI for tariff extraction (reading rate sheets in any format), automated quote assembly (applying surcharges and margin to generate customer quotes), and bid normalization in RFQ events (parsing and comparing carrier bids submitted in different formats). The generative AI layer runs on Susea's infrastructure — no customer or carrier data is shared with third-party AI services.
+
+#### From WhatsApp to Customer Quote: AI Freight Rate Extraction
+https://susea.ai/blog/whatsapp-to-customer-quote (by Kiran Patel, 2026-06-05)
+Carrier rates arrive on WhatsApp. AI reads them, applies surcharges, and generates a branded customer quote in 90 seconds. Here is the exact workflow.
+
+FAQ:
+- Q: Do freight forwarders actually use WhatsApp for rates?
+  A: Yes — WhatsApp is the dominant communication channel for carrier rates in South Asia, Southeast Asia, the Middle East, and Africa. Carrier agents send rate updates, spot rates, and GRI notifications via WhatsApp groups. Many pricing desks in India and the Gulf manage 5–15 active WhatsApp rate groups.
+- Q: How does AI extract freight rates from WhatsApp?
+  A: AI rate extraction reads WhatsApp messages (text and images) and identifies rate data: port pairs, container types, base rates, surcharges, and validity dates. The AI uses natural language understanding to parse informal message formats like 'INNSA/AEJEA 40HC USD780 ex-THC vldt 30 Jun BAF 120' into structured records ready for the pricing database.
+- Q: Can AI read photographed rate sheets shared on WhatsApp?
+  A: Yes. Modern vision-capable AI models combine OCR and document understanding to process photographed rate sheets — printed tables, PDFs opened and photographed, or handwritten notes. Accuracy on clear photographs is 90–95% at field level, with low-confidence extractions flagged for review.
+- Q: How long does it take to go from a WhatsApp rate to a customer quote with AI?
+  A: With AI rate extraction and automated quote assembly: 60–90 seconds from receiving the WhatsApp rate to a branded, all-in customer quote ready to send. The manual equivalent — reading the message, logging the rate, applying surcharges, building the quote, formatting the PDF — takes 15–25 minutes.
+- Q: What does a customer quote generated by AI look like?
+  A: A customer quote generated by Susea includes: the customer's company name, the forwarder's branding and contact details, all-in freight cost broken down by line item (OF, BAF, THC, LSS, etc.), quote validity date, transit time, and a one-tap acceptance mechanism. It is sent via WhatsApp or email depending on the customer's preference.
+
+#### How AI Reads Carrier Rate Sheets Better Than Your Pricing Team
+https://susea.ai/blog/ai-reads-carrier-rate-sheets (by Kiran Patel, 2026-05-29)
+AI tariff extraction processes PDF, Excel, email, and WhatsApp rate sheets in under 30 seconds. Here is how it works and what it gets right.
+
+FAQ:
+- Q: What is AI tariff extraction?
+  A: AI tariff extraction is the use of machine learning models (large language models and document AI) to automatically read carrier rate sheets in any format — PDF, Excel spreadsheets, forwarded emails, or WhatsApp photographs — and extract structured rate data: port pairs, container types, base rates, surcharges, validity dates, and commodity restrictions.
+- Q: What file formats can AI tariff extraction handle?
+  A: Advanced AI tariff extraction systems like Susea handle PDF (both text and scanned/photographed), Excel and CSV, email body text (forwarded rate sheets pasted inline), and WhatsApp messages including images of printed rate sheets. The AI identifies the document structure automatically regardless of format.
+- Q: How accurate is AI tariff extraction?
+  A: Modern LLM-based tariff extraction achieves 94–97% field-level accuracy on clean document formats (text PDFs, structured Excel). On scanned documents or WhatsApp photographs, accuracy is 88–93% with flagging of low-confidence extractions for human review. This compares to a ~92% accuracy rate for human analysts, who have similar error rates under time pressure.
+- Q: How does AI tariff extraction handle surcharge tables?
+  A: AI models are specifically trained to recognize surcharge tables — identifying BAF, THC, LSS, ISPS, GRI entries and parsing whether each surcharge is included in the base rate or additional. The system also detects when a rate sheet uses 'all-in' pricing vs. separate surcharge tables, and flags the pattern explicitly.
+- Q: What happens when AI cannot confidently extract a rate?
+  A: Well-designed AI extraction systems include a confidence score for each extracted field. Fields below a confidence threshold are flagged for human review rather than silently included in the database with a potentially wrong value. This 'AI + human review' pattern achieves higher accuracy than either AI or human alone.
+
+#### AI in Ocean Freight Pricing: What's Real and What Actually Works
+https://susea.ai/blog/ai-ocean-freight-pricing (by Kiran Patel, 2026-05-22)
+AI promises to transform freight pricing. Here is what is actually working for freight forwarders in 2026 — and what is still hype.
+
+FAQ:
+- Q: How is AI used in ocean freight pricing?
+  A: In 2026, AI is being applied in freight pricing for three practical use cases: tariff extraction (reading carrier rate sheets in any format and converting them to structured data), quote generation (assembling all-in customer quotes automatically from carrier rates, surcharges, and margin rules), and rate benchmarking (comparing submitted bids in real time during RFQ events). Predictive rate forecasting exists but is still early-stage.
+- Q: Can AI predict ocean freight rates?
+  A: AI-based rate prediction models exist and use inputs like vessel capacity utilization, port congestion data, fuel prices, and seasonal demand patterns. However, ocean freight rates are highly sensitive to geopolitical events and carrier decisions that models cannot predict. Most practitioners use AI prediction as a directional signal, not as a trading-grade forecast.
+- Q: What is AI tariff extraction in freight forwarding?
+  A: AI tariff extraction is the use of machine learning models (typically large language models or document AI) to read carrier rate sheets in any format — PDF, Excel, email, WhatsApp photograph — and extract structured rate data: port pairs, container types, rates, surcharges, validity dates. This eliminates manual data entry and the errors that come with it.
+- Q: Does AI replace pricing analysts in freight forwarding?
+  A: No — AI augments pricing analysts by eliminating high-volume, low-judgment tasks like rate sheet parsing, surcharge calculation, and quote assembly. It frees pricing staff to focus on relationship management, exception handling, and commercial decisions. The freight forwarders seeing the most productivity gains treat AI as a tool that eliminates grunt work, not headcount.
+- Q: What is the ROI of AI in freight pricing?
+  A: Quantifiable ROI from AI in freight pricing comes from three sources: speed (quotes in 90 seconds vs 18 minutes means more quotes per pricing analyst per day), accuracy (automated surcharge calculation eliminates underquoting errors), and win rate (faster quotes correlate strongly with higher customer win rates — most customers book with the first forwarder who responds).
+
+### Freight Education
+
+#### GRI, PSS, EBS: How Surcharge Announcements Affect Your Margins
+https://susea.ai/blog/gri-pss-ebs-surcharge-announcements (by Kiran Patel, 2026-06-02)
+GRI, PSS, and EBS announcements move freight costs by $100–$500/TEU overnight. Here is how to track them and protect your pricing desk's margins.
+
+FAQ:
+- Q: What is a GRI in ocean freight?
+  A: GRI stands for General Rate Increase. It is an announcement by ocean carriers of a broad increase in base freight rates across a trade lane, typically effective on the first day of a month. GRIs range from $100 to $500 per TEU and are announced 30 days in advance. Not all announced GRIs stick — market conditions determine how much actually holds.
+- Q: What is PSS in shipping?
+  A: PSS stands for Peak Season Surcharge. Carriers apply PSS during periods of high demand — typically May through August (pre-back-to-school and holiday season) and October through November. PSS ranges from $100 to $300 per TEU and is announced 2–4 weeks before its effective date.
+- Q: What is EBS in ocean freight?
+  A: EBS stands for Emergency Bunker Surcharge. It was a temporary surcharge applied by carriers when fuel prices spiked sharply, outside the regular BAF review cycle. EBS has largely been replaced by more sophisticated BAF mechanisms tied to fuel price indices. When EBS is still used, it typically ranges from $50 to $200 per TEU.
+- Q: How does a GRI affect a freight forwarder's margins?
+  A: A GRI directly compresses margin if a forwarder has already quoted a customer at a pre-GRI rate but the carrier charges the post-GRI rate. If the customer quote was valid for 30 days and the GRI takes effect on day 15, the forwarder absorbs the difference. Shortening quote validity periods and tracking GRI announcement dates is essential to protect margin.
+- Q: Do all GRI announcements actually take effect?
+  A: No. Carriers announce GRIs as a market signal, but whether the full amount sticks depends on demand and capacity. During oversupply periods, carriers announce $500 GRIs but may only achieve $100–$200 in the market. During tight markets (like 2021–2022), GRIs stick fully or even exceed the announced amount. Monitoring the Freightos Baltic Index or Drewry WCI tells you how much has actually landed.
+
+#### How to Read a Carrier Rate Sheet — and Why It's Hard
+https://susea.ai/blog/how-to-read-carrier-rate-sheet (by Kiran Patel, 2026-05-26)
+Carrier rate sheets arrive as PDFs, Excel files, and WhatsApp forwards. Here is how to parse them correctly before you quote a customer.
+
+FAQ:
+- Q: What is a carrier rate sheet?
+  A: A carrier rate sheet (also called a tariff sheet or rate card) is a document issued by an ocean carrier or NVOCC listing the freight rates, surcharges, and validity periods for specific trade lanes and container types. Rate sheets arrive in PDF, Excel, email, or WhatsApp format and need to be parsed before being used in customer quotes.
+- Q: What information is on a carrier rate sheet?
+  A: A typical carrier rate sheet lists: origin and destination ports (or port pairs), container type (20', 40', 40'HC), base ocean freight rate, applicable surcharges (BAF, THC, LSS, etc.) and whether they are included or excluded from the rate, validity period (from/to dates), commodity restrictions if any, and free time at origin and destination.
+- Q: Why do carrier rate sheets have so many versions?
+  A: Carriers update rate sheets monthly (or more frequently during volatile markets). Surcharges like BAF are reviewed monthly, GRIs are announced quarterly, and PSS applies seasonally. A pricing desk can receive 10–30 updated rate sheets per week across multiple carriers and lanes. Without a system to parse and version them, pricing staff quote on stale rates.
+- Q: How long is a carrier rate sheet valid?
+  A: Typically 30 days, but spot rate sheets (given for a specific cargo enquiry) may be valid for only 7–14 days. Always check the 'Valid Until' field. Rates quoted after the validity date expose the forwarder to cost overruns if the carrier refuses to honor the expired rate.
+- Q: How does AI help with carrier rate sheet extraction?
+  A: AI tariff extraction tools like Susea can parse PDF, Excel, email, and WhatsApp rate sheets and extract port pairs, rates, surcharges, and validity periods into a structured database automatically. What takes a pricing analyst 10–20 minutes per rate sheet is done in seconds, with version control tracking which rates have changed.
+
+#### What is a NVOCC? How They Differ from Freight Forwarders
+https://susea.ai/blog/what-is-nvocc (by Kiran Patel, 2026-05-19)
+NVOCC vs freight forwarder — the legal distinction, how each prices freight, and why it matters for your margins and compliance.
+
+FAQ:
+- Q: What is a NVOCC?
+  A: A NVOCC (Non-Vessel Operating Common Carrier) is a freight intermediary that issues its own bills of lading to shippers and contracts with ocean carriers for vessel space. Unlike a freight forwarder, a NVOCC acts as a carrier in the eyes of the law — it takes on legal carrier liability and can set its own tariff rates.
+- Q: What is the difference between a NVOCC and a freight forwarder?
+  A: A freight forwarder acts as an agent on behalf of a shipper, arranging transportation and handling documentation without taking carrier liability. A NVOCC acts as a principal — it issues its own house bills of lading, takes on carrier liability to the shipper, and assumes responsibility for delivering cargo. NVOCCs require a license (FMC in the US, Directorate General of Shipping in India) and must file tariffs.
+- Q: Does a NVOCC need a license?
+  A: Yes. In the US, NVOCCs must be licensed by the Federal Maritime Commission (FMC) and are required to file tariffs. In India, NVOCCs operating on international routes require a license from the Directorate General of Shipping (DGS). Freight forwarders in most jurisdictions do not require a carrier license.
+- Q: Can a company be both a freight forwarder and a NVOCC?
+  A: Yes. Many large freight forwarding companies hold both freight forwarder and NVOCC licenses, allowing them to act as an agent when needed and as a principal when they consolidate LCL cargo or issue their own bills of lading. Susea is designed to serve both types of operation.
+- Q: How do NVOCCs make money on ocean freight?
+  A: NVOCCs profit by buying vessel space from ocean carriers at negotiated contract rates and reselling it to shippers at higher tariff rates. The spread between the carrier rate and the customer rate is the NVOCC's gross margin. NVOCCs that consolidate LCL cargo also earn a margin on the consolidation service.
+
+#### FCL vs LCL: How to Choose, Quote and Price the Right Mode
+https://susea.ai/blog/fcl-vs-lcl (by Kiran Patel, 2026-05-15)
+FCL or LCL? The decision affects transit time, cost, and quoting complexity. Here is how to evaluate and price both correctly.
+
+FAQ:
+- Q: What is FCL in ocean freight?
+  A: FCL stands for Full Container Load. The shipper books and uses an entire container — typically a 20', 40', or 40' High Cube — regardless of whether cargo fills it completely. FCL pricing is charged per container, not per ton or CBM.
+- Q: What is LCL in ocean freight?
+  A: LCL stands for Less than Container Load. Multiple shippers share a single container, consolidated by a freight forwarder or NVOCC. LCL is priced per revenue ton (1 ton or 1 CBM, whichever is greater). It suits smaller shipments that do not fill a full container.
+- Q: At what cargo volume does FCL become cheaper than LCL?
+  A: As a rule of thumb, FCL becomes cost-competitive around 12–15 CBM for a 20' container or 22–28 CBM for a 40' container, depending on the trade lane and current rate environment. Beyond these thresholds, the per-CBM FCL cost is typically lower than LCL freight plus consolidation fees.
+- Q: Is FCL faster than LCL?
+  A: Generally yes. FCL cargo moves directly from origin to destination once loaded. LCL cargo requires consolidation at origin CFS (Container Freight Station) and deconsolidation at destination CFS, adding 3–7 days to transit on each end. On a 14-day transit like India–UAE, LCL can add 6–14 days total.
+- Q: What surcharges apply to LCL but not FCL?
+  A: LCL shipments typically carry additional charges: CFS charges (origin and destination Container Freight Station handling), WHF (Wharfage), B/L per-house charges, and consolidation fees. LCL rates also have a minimum charge (typically 1 CBM or 500 kg). FCL does not carry CFS charges but has its own surcharges (BAF, THC, LSS, etc.) applied per container.
+
+#### Ocean Freight Surcharges Explained: BAF, CAF, THC and More
+https://susea.ai/blog/ocean-freight-surcharges-explained (by Kiran Patel, 2026-05-12)
+BAF, CAF, THC, LSS, ISPS — what every surcharge means, how it is calculated, and why most freight quotes get them wrong.
+
+FAQ:
+- Q: What is BAF in ocean freight?
+  A: BAF stands for Bunker Adjustment Factor. It is a variable surcharge applied by ocean carriers to offset fuel cost fluctuations. BAF is typically quoted per TEU or per container and reviewed monthly or quarterly. In 2024–2025, BAF on major trades ranged from $80 to $320 per TEU depending on the trade lane and fuel price.
+- Q: What is THC in shipping?
+  A: THC stands for Terminal Handling Charge. It covers the cost of moving a container within a port terminal — loading, unloading, and positioning. THC is charged at both origin and destination ports and varies by port. At Nhava Sheva (Mumbai), THC for a 40' container is typically $120–$180. At Jebel Ali (Dubai), it is $80–$140.
+- Q: What is the difference between CAF and BAF?
+  A: BAF (Bunker Adjustment Factor) is a fuel-cost surcharge, while CAF (Currency Adjustment Factor) is a surcharge designed to offset exchange rate fluctuations between the carrier's billing currency and the local currency in a trade lane. CAF is common on Asia–Europe and Asia–Americas trades. Both are applied on top of the base ocean freight rate.
+- Q: What is LSS surcharge in ocean freight?
+  A: LSS stands for Low Sulphur Surcharge (also called LSFO Surcharge or IMO 2020 surcharge). Introduced after the IMO 2020 regulation required ships to burn low-sulphur fuel (0.5% sulphur cap), LSS compensates carriers for the higher cost of compliant fuel. It is typically $40–$120 per TEU on most trades.
+- Q: Is ISPS mandatory? Can I negotiate it?
+  A: ISPS (International Ship and Port Facility Security) is a mandatory security levy set by the International Maritime Organization. It is non-negotiable — all vessels and ports compliant with the ISPS Code collect this charge. The rate is typically $8–$25 per container depending on the port, and it appears on nearly every ocean freight invoice.
+
+## Company and contact
+
+- Website: https://susea.ai
+- Email: getstarted@susea.ai
+- WhatsApp: https://wa.me/917048153127
+- Book a demo: https://calendly.com/darshit-alphabitssolutions/30min
+- LinkedIn: https://www.linkedin.com/company/susea-ai/
+- Instagram: https://www.instagram.com/susea.ai
+- Privacy Policy: https://susea.ai/privacy
+- Terms of Use: https://susea.ai/terms
