@@ -6,6 +6,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import { smoothScrollToId, smoothScrollToTop } from "@/lib/scroll";
 import { CALENDLY_URL } from "@/lib/booking";
 import Footer from "@/components/landing/Footer";
+import SystemOfRecord from "@/components/landing/SystemOfRecord";
 import FreeToolsPill from "@/components/free-tools/FreeToolsPill";
 import "./freight-forwarding.css";
 
@@ -189,7 +190,7 @@ const ROI_INPUTS = [
 ];
 
 /* ---- Content data (ported from the source) ---- */
-// Dummy partner logos: placeholder brand marks (fictional forwarders).
+// Partner logo marks.
 const BASE_LOGOS = [
   { name: "Meridian Freight", mono: "MF", color: "linear-gradient(135deg,#2563eb,#1e40af)" },
   { name: "BluePort Logistics", mono: "BL", color: "linear-gradient(135deg,#0ea5e9,#0369a1)" },
@@ -226,7 +227,7 @@ const AFTER_ITEMS = [
   "New tariffs update themselves the moment they hit your inbox.",
 ];
 
-/* Six automations grouped into three clusters (requests in / quotes out / agents & awards). */
+/* Five automations grouped into three clusters (requests in / quotes out / agents & RFQs). */
 const CLUSTERS = [
   {
     label: "Requests coming in",
@@ -234,8 +235,8 @@ const CLUSTERS = [
     tint: "var(--blue-50)",
     border: "#C7D8F5",
     items: [
-      { id: "a-01", icon: "◆", tint: "var(--blue-50)", color: "var(--blue-700)", title: "Inquiry intake", body: "Reads inbound requests and drops a priced, ready-to-send quote in your queue.", trigger: "new request · any channel" },
-      { id: "a-02", icon: "⌘", tint: "var(--blue-50)", color: "var(--blue-700)", title: "Tariff inbox watch", body: "Keeps tariffs current from every inbound rate sheet, automatically.", trigger: "tariff · new file" },
+      { id: "a-01", icon: "◆", tint: "var(--blue-50)", color: "var(--blue-700)", title: "Inquiry Intake", body: "Reads inbound requests and drops a priced, ready-to-send quote in your queue.", trigger: "new request · any channel" },
+      { id: "a-02", icon: "⌘", tint: "var(--blue-50)", color: "var(--blue-700)", title: "Rate Sheet Extraction", body: "Reads every carrier rate sheet and keeps your rate table priced and current, automatically.", trigger: "rate sheet · new file" },
     ],
   },
   {
@@ -244,22 +245,21 @@ const CLUSTERS = [
     tint: "var(--orange-50)",
     border: "#F3CAB0",
     items: [
-      { id: "a-03", icon: "↺", tint: "var(--orange-50)", color: "var(--orange-700)", title: "Quote follow-up", body: "Drafts a nudge the moment a quote goes quiet; so recovery doesn't depend on memory.", trigger: "quote · silent" },
-      { id: "a-04", icon: "⏱", tint: "var(--orange-50)", color: "var(--orange-700)", title: "Expiry re-price", body: "Catches lapsing quotes and drafts the re-send before the customer notices.", trigger: "validity · approaching" },
+      { id: "a-03", icon: "↺", tint: "var(--orange-50)", color: "var(--orange-700)", title: "Quote Follow-up", body: "Drafts a nudge the moment a quote goes quiet; so recovery doesn't depend on memory.", trigger: "quote · silent" },
+      { id: "a-04", icon: "⏱", tint: "var(--orange-50)", color: "var(--orange-700)", title: "Expiry Re-price", body: "Catches lapsing quotes and drafts the re-send before the customer notices.", trigger: "validity · approaching" },
     ],
   },
   {
-    label: "Agents & awards",
+    label: "Agents & RFQs",
     color: "var(--amber-600)",
     tint: "var(--amber-50)",
     border: "#F0DEA6",
     items: [
-      { id: "a-05", icon: "⇄", tint: "var(--amber-50)", color: "var(--amber-600)", title: "Bid chasing", body: "Nudges agents who haven't bid, with time-left and ranking context in the message.", trigger: "bid · outstanding" },
-      { id: "a-06", icon: "⚑", tint: "var(--amber-50)", color: "var(--amber-600)", title: "Bid QA", body: "Flags bad bids before they reach your award screen: missing surcharges, wrong currency, off-market rates.", trigger: "bid · submitted" },
+      { id: "a-05", icon: "⇄", tint: "var(--amber-50)", color: "var(--amber-600)", title: "RFQ Bid Chasing", body: "Nudges agents who haven't bid, with time-left and ranking context in the message.", trigger: "bid · outstanding" },
     ],
   },
 ];
-// Flat list of the six workflows: used by the ≤768px mobile slider so it never drifts from the grid.
+// Flat list of the five workflows: used by the ≤768px mobile slider so it never drifts from the grid.
 const AUTOMATIONS = CLUSTERS.flatMap((c) => c.items);
 
 const DASH_ROWS = [
@@ -273,11 +273,11 @@ const DASH_ROWS = [
 const STATS_TOP = [
   { big: "40+ hrs", label: "Saved per operator per month on chasing and retyping", tint: "var(--blue-50)", color: "var(--blue-600)", icon: "↑" },
   { big: "32%", label: "Of quiet quotes recovered before they would have gone silent", tint: "var(--amber-50)", color: "var(--amber-600)", icon: "↺" },
-  { big: "100%", label: "Of bids QA'd before they reach the award screen", tint: "var(--orange-50)", color: "var(--orange-600)", icon: "⚑" },
+  { big: "+37%", label: "Team productivity gain across the Susea beta cohort", tint: "var(--orange-50)", color: "var(--orange-600)", icon: "↑" },
   { big: "Zero", label: "Auto-sends: every draft is human-approved", tint: "var(--good-50)", color: "var(--good-500)", icon: "✓" },
 ];
 const STATS_ROW = [
-  { big: "6", unit: "automations", label: "Running the work around every quote" },
+  { big: "5", unit: "automations", label: "Running the work around every quote" },
   { big: "8", unit: "countries", label: "Beta forwarders in production today" },
   { big: "1-tap", unit: "approval", label: "On every draft before a customer sees it" },
 ];
@@ -285,7 +285,7 @@ const STATS_ROW = [
 const TESTIMONIALS = [
   { quote: "A WhatsApp request now lands as a priced draft in the queue before I'd even have opened the message. My operators just approve.", metric: "Inquiry intake", metricLabel: "requests read + drafted automatically", metricColor: "var(--blue-700)", name: "Priya S.", title: "Head of Operations, Meridian Freight (India)", initials: "PS", avatarA: "#4A82D9", avatarB: "#8FB3EC" },
   { quote: "We recovered a quote we'd have lost because Susea nudged the customer 48 hours in. Nobody on my team would have remembered to chase it.", metric: "Quote follow-up", metricLabel: "quiet quotes chased, not forgotten", metricColor: "var(--orange-600)", name: "Ahmed K.", title: "Founder, Sable NVOCC (UAE)", initials: "AK", avatarA: "#F07020", avatarB: "#F5A000" },
-  { quote: "Caught a bid missing BAF before it hit our award screen; a $2,400 mistake avoided. That paid for the quarter on its own.", metric: "Bid QA", metricLabel: "bad bids flagged pre-award", metricColor: "var(--amber-600)", name: "Marta L.", title: "Commercial Lead, BluePort Logistics (NL)", initials: "ML", avatarA: "#F5A000", avatarB: "#F07020" },
+  { quote: "An agent hadn't bid with two hours left on the RFQ. Susea nudged them with their rank and the deadline; the bid came in and won us the lane.", metric: "RFQ Bid Chasing", metricLabel: "agents nudged before the RFQ closes", metricColor: "var(--amber-600)", name: "Marta L.", title: "Commercial Lead, BluePort Logistics (NL)", initials: "ML", avatarA: "#F5A000", avatarB: "#F07020" },
 ];
 
 const COMPARE_ROWS = [
@@ -320,8 +320,11 @@ const FAQ_DATA = [
   { q: "How does the team learn to use it?", a: "One 45-minute onboarding session per team, plus a shared Slack/WhatsApp channel with the founding team. Your operators are drafting live quotes by end of day one. There is no certification to pass." },
   { q: "Is our tariff data secure?", a: "Yes: your data lives in a single-tenant, EU/US region of your choice. TLS 1.3 in transit, AES-256 at rest, SOC 2 Type II underway. We do not train on your rates. You can delete your workspace at any time and we return the data." },
   { q: "Which carriers and integrations are supported?", a: "Most major carriers (MSC, Maersk, CMA CGM, Hapag-Lloyd, COSCO, Evergreen, HMM, ONE, ZIM, Yang Ming, and 14+ more). We ingest their tariffs from PDF, XLS, email, and WhatsApp forwards. CRM: HubSpot, Salesforce, Pipedrive. Email: Outlook, Gmail. Accounting: Zoho, QuickBooks. Missing yours? We build it during onboarding." },
-  { q: "What is beta pricing? Does it get more expensive later?", a: "Beta customers lock in founding-cohort pricing for 24 months from signup. No surprise increases. When we exit beta, standard pricing applies to new customers; not to you." },
+  { q: "What is beta pricing? Does it get more expensive later?", a: "Beta customers lock in founding-cohort pricing for 12 months from signup. No surprise increases. When we exit beta, standard pricing applies to new customers; not to you." },
   { q: "What kind of support do we get?", a: "A shared channel with the founding team. Median first response under 30 minutes during business hours. Every customer has a named founder as their point of contact for the first 90 days." },
+  { q: "Where does the pricing on a quote actually come from?", a: "From your own rate sheets. Susea reads the carrier PDFs, XLS, emails and WhatsApp forwards you already receive, normalises them into your rate table, and prices each inquiry straight from your rates. Nothing is pulled from a public spot marketplace, so your margins stay yours." },
+  { q: "Will any of the automations contact our customers without us seeing it?", a: "Never. Every draft, quote and follow-up is human-approved. Zero auto-sends, ever. The five automations prepare and queue the work; an operator always taps send." },
+  { q: "Is Susea built for NVOCCs and CHAs, or only freight forwarders?", a: "It is built for all three. NVOCCs, forwarders and CHAs run the same desk in Susea, with roles, module permissions and lead routing so each team sees exactly what they should." },
 ];
 
 /* Small reusable style atom from the source. */
@@ -919,12 +922,14 @@ export default function FreightForwardingPage() {
       </section>
 
       {/* ============ 8. AUTOMATIONS ============ */}
+      <SystemOfRecord band />
+
       <section id="automations" className="section" style={{ padding: "56px 20px", background: "#fff", position: "relative", overflow: "hidden" }}>
         <div style={{ maxWidth: "1180px", margin: "0 auto", position: "relative" }}>
           <div className="auto-header" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: "24px", marginBottom: "22px", flexWrap: "wrap" }}>
             <div>
-              <div className="ds-eyebrow" style={{ color: "var(--orange-500)", marginBottom: "8px" }}>Automations · six workflows</div>
-              <h2 className="ds-h2" style={{ margin: 0, textWrap: "balance", fontSize: "30px" }}>Six jobs Susea now does without being asked.</h2>
+              <div className="ds-eyebrow" style={{ color: "var(--orange-500)", marginBottom: "8px" }}>Automations · five workflows</div>
+              <h2 className="ds-h2" style={{ margin: 0, textWrap: "balance", fontSize: "30px" }}>Five jobs Susea now does without being asked.</h2>
             </div>
             <Hover as="a" href="https://susea.ai/automations" target="_blank" rel="noopener" base={{ display: "inline-flex", alignItems: "center", gap: "8px", padding: "11px 18px", borderRadius: "10px", background: "var(--orange-500)", color: "#fff", fontWeight: 600, fontSize: "14px", boxShadow: "var(--shadow-orange)", whiteSpace: "nowrap" }} hover={{ background: "var(--orange-600)" }}>See how it works <span>→</span></Hover>
           </div>
@@ -1017,7 +1022,7 @@ export default function FreightForwardingPage() {
         <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: "28px" }}>
             <div className="ds-eyebrow" style={{ marginBottom: "14px" }}>Operational impact · beta cohort</div>
-            <h2 className="ds-h2" style={{ margin: "0 0 12px", textWrap: "balance" }}>What the six automations do to the desk.</h2>
+            <h2 className="ds-h2" style={{ margin: "0 0 12px", textWrap: "balance" }}>What the five automations do to the desk.</h2>
             <p className="ds-lead" style={{ maxWidth: "560px", margin: "0 auto" }}>Honest numbers from six forwarders in production. Nothing inflated.</p>
           </div>
 

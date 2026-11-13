@@ -6,7 +6,21 @@ import Nav from "@/components/landing/Nav";
 import TestimonialsSlider from "@/components/landing/TestimonialsSlider";
 import Footer from "@/components/landing/Footer";
 import Waitlist from "@/components/landing/Waitlist";
+import FaqSection from "@/components/landing/FaqSection";
 import { smoothScrollToId } from "@/lib/scroll";
+
+const FAQS = [
+  { q: "What is an RFQ in Susea?", a: "A Request for Quotation you float to your own carrier agents to source buy rates. You upload the lanes, agents bid, and you award the best, all inside Susea instead of across scattered emails." },
+  { q: "Can I invite my own agents, or only a fixed network?", a: "Your own. Invite the carrier agents you already work with to bid on your RFQs. Susea doesn't put you on a shared marketplace; your relationships and your rates stay yours." },
+  { q: "Do my agents need an account or login to bid?", a: "No heavy onboarding. Agents receive the request and respond on the channels they already use, including email and WhatsApp, and their bids land back in one comparable table." },
+  { q: "Can I float many lanes in a single RFQ?", a: "Yes. Upload many lanes at once and launch them to your agent network in one click, rather than sending a separate email per lane." },
+  { q: "How are bids compared and ranked?", a: "All responses come back into one view, ranked so you can award on total-landed cost and transit, not just on who replied first." },
+  { q: "Does Susea chase agents who haven't bid?", a: "Yes. The RFQ Bid Chasing automation nudges non-responding agents with time-left and ranking context, so the RFQ closes on time without you chasing manually." },
+  { q: "What happens when I award a bid?", a: "The awarded rate is captured as a contract and flows back into your rate table, so it's ready for instant quoting without re-keying." },
+  { q: "Can I keep rates confidential between competing agents?", a: "Yes. Agents see their own bids and status, not each other's numbers, so your negotiation stays fair and private." },
+  { q: "How do awarded contract rates reach my quotes?", a: "Once awarded, contracted rates land in the same rate table Susea prices from, so your operators quote customers instantly on the rates you just secured." },
+  { q: "Is my RFQ and rate data secure?", a: "Yes. Your data lives in a single-tenant region of your choice, encrypted in transit and at rest, and we never train on your rates. You can export or delete your workspace at any time." },
+];
 
 /* ─── Auction data ─────────────────────────────────────────────────── */
 const AGENTS_INIT = [
@@ -491,7 +505,7 @@ const RFQ_STATS = [
 ];
 
 const STEPS = [
-  { n: "1", title: "Build & launch", desc: "Upload many lanes at once and float the RFQ to your own agents in a single click: spot or contract.", icon: "rocket" },
+  { n: "1", title: "Build & launch", desc: "Upload many lanes at once and float the RFQ to your own agents in a single click.", icon: "rocket" },
   { n: "2", title: "Agents bid live", desc: "Invited agents bid in your chosen visibility mode: sealed, rank-only, best-price or open, and re-bid down to climb the ranking.", icon: "gavel" },
   { n: "3", title: "AI compares & ranks", desc: "Every bid is normalized and sanity-checked. AI recommends the best agent by cost, transit or schedule.", icon: "sparkles" },
   { n: "4", title: "Approve & award", desc: "Route the winner through your approval matrix with documented justification; fully audit-ready.", icon: "shield-check" },
@@ -628,6 +642,11 @@ export default function RFQPage() {
 
       <TestimonialsSlider />
 
+      <FaqSection
+        eyebrow="RFQ FAQ"
+        heading="Running RFQs to your own agents."
+        items={FAQS}
+      />
       <Waitlist />
       <Footer />
     </>

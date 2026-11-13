@@ -6,6 +6,20 @@ import Icon from "@/components/ui/Icon";
 import TestimonialsSlider from "@/components/landing/TestimonialsSlider";
 import Footer from "@/components/landing/Footer";
 import Waitlist from "@/components/landing/Waitlist";
+import FaqSection from "@/components/landing/FaqSection";
+
+const FAQS = [
+  { q: "Can I turn the automations on one at a time?", a: "Yes. Every automation is off until you switch it on, per workflow. Most beta teams start with Quote Follow-up, then add Inquiry Intake and the rest over their first fortnight." },
+  { q: "Does anything ever get sent without me?", a: "No. Every draft is human-approved. Zero auto-sends, ever. The automations prepare and queue the work; a person always taps send." },
+  { q: "What happens if an automation gets something wrong?", a: "You see the draft before anything leaves. Edit it, re-price it or discard it like any draft; nothing is committed to a customer or agent until you approve." },
+  { q: "Which channels do the automations work across?", a: "Outlook, Gmail, WhatsApp and your own corporate email. Requests come in and drafts go out on the channels your desk already uses, with no new login for your customers." },
+  { q: "Can I change the logic or templates behind an automation?", a: "Yes. Each automation is a template: the trigger, the rules and the message copy are all editable, so the follow-ups and nudges sound like your team, not a robot." },
+  { q: "How do the automations know our pricing and rules?", a: "They price from your own rate sheets and your configured margins, taxes and terms. Set your pricing rules once and every drafted quote follows them." },
+  { q: "Do the automations help with RFQs to our agents too?", a: "Yes. RFQ Bid Chasing nudges agents who haven't bid, with time-left and ranking context, so your RFQs close on time without manual chasing." },
+  { q: "Will automations touch quotes that are already in flight?", a: "Only as you'd expect: Quote Follow-up tracks quotes you've sent and Expiry Re-price catches ones nearing their validity date. Both draft for your approval rather than acting silently." },
+  { q: "How long until the automations are live after we join?", a: "Onboarding takes 3–5 business days. A founder helps you connect carriers, import your rate sheets and switch on your first two automations, so you're drafting live from day one." },
+  { q: "Can I see exactly what an automation did, and why?", a: "Yes. Every automation logs its trigger, the data it used and the draft it produced, so each action is auditable and editable after the fact." },
+];
 
 // ─── Workflow specs ────────────────────────────────────────────────────────────
 const T = (label, sub) => ({ type: "trigger", label, sub });
@@ -16,10 +30,10 @@ const D = (label) => ({ type: "decision", label });
 
 const WORKFLOWS = [
   {
-    title: "Inquiry intake",
+    title: "Inquiry Intake",
     accent: "#2f6bd8",
     iconName: "message-square",
-    sub: "Reads inbound requests and drops a priced, ready-to-send quote in your queue.",
+    sub: "Before: read, retype, quote. After: a priced draft, waiting for your tap.",
     pre: [
       T("Message arrives", "WhatsApp / email"),
       A("Extracts details", "route, container, cargo, dates"),
@@ -30,23 +44,23 @@ const WORKFLOWS = [
     ],
   },
   {
-    title: "Tariff inbox watch",
+    title: "Rate Sheet Extraction",
     accent: "#0891b2",
     iconName: "mail-search",
-    sub: "Keeps tariffs current from every inbound rate sheet, automatically.",
+    sub: "Before: carrier sheets compared by hand. After: all rate options, priced on arrival.",
     pre: [
       T("Rate sheet / GRI arrives", "inbox + WhatsApp groups"),
       A("Reads & extracts rates"),
-      A("Compares vs current tariff"),
+      A("Compares vs current rate table"),
       H("Review flagged changes"),
-      O("Tariff database updated"),
+      O("Rate table updated"),
     ],
   },
   {
-    title: "Quote follow-up",
+    title: "Quote Follow-up",
     accent: "#7c3aed",
     iconName: "clock",
-    sub: "Drafts a nudge the moment a quote goes quiet.",
+    sub: "Before: remembered on Friday, if at all. After: nudged at 48 hours, drafted for you.",
     pre: [T("Quote sent"), A("Tracks reply & expiry clock"), D("Reply received?")],
     branch: {
       a: { label: "Yes", nodes: [O("Follow-up cancelled")] },
@@ -57,10 +71,10 @@ const WORKFLOWS = [
     },
   },
   {
-    title: "Expiry re-price",
+    title: "Expiry Re-price",
     accent: "#d98a00",
     iconName: "refresh-cw",
-    sub: "Catches lapsing quotes and drafts the re-send before the customer notices.",
+    sub: "Before: validity dates slip past everyone. After: caught, re-priced, ready to re-send.",
     pre: [
       T("Quote nears expiry", "still open"),
       A("Re-checks current rates"),
@@ -70,10 +84,10 @@ const WORKFLOWS = [
     ],
   },
   {
-    title: "Bid chasing",
+    title: "RFQ Bid Chasing",
     accent: "#059669",
     iconName: "search",
-    sub: "Nudges agents who haven't bid, with time-left and ranking context.",
+    sub: "Before: chasing agents for rates by email. After: agents nudged with time-left and rank.",
     pre: [
       T("RFQ open", "deadline approaching"),
       A("Detects agents with no bid"),
@@ -82,53 +96,12 @@ const WORKFLOWS = [
       O("Nudge sent to non-bidders"),
     ],
   },
-  {
-    title: "Bid QA",
-    accent: "#dc2626",
-    iconName: "shield-check",
-    sub: "Flags bad bids before they reach your award screen.",
-    pre: [T("Agent submits bid"), A("Checks surcharges, currency, transit"), D("Issues found?")],
-    branch: {
-      a: { label: "Clean", nodes: [O("Enters award screen")] },
-      b: {
-        label: "Issues",
-        nodes: [A("Flags issues"), H("Review flag"), O("Clarification requested")],
-      },
-    },
-  },
-  {
-    title: "Award justification",
-    accent: "#1e5bc6",
-    iconName: "file-text",
-    sub: "Drafts the audit-ready rationale memo for every award.",
-    pre: [
-      T("You select winning bid"),
-      A("Pulls cost, transit, reliability data"),
-      A("Drafts rationale memo"),
-      H("You review memo"),
-      O("Memo attached to contract"),
-    ],
-  },
-  {
-    title: "Contract utilization alerts",
-    accent: "#e2611a",
-    iconName: "database",
-    sub: "Flags awarded contracts running under-used before savings are lost.",
-    pre: [
-      T("Post-award", "ongoing tracking"),
-      A("Compares shipped vs. contracted volume"),
-      D("Below threshold?"),
-      A("Flags volume gap"),
-      H("You review"),
-      O("Alert surfaced in dashboard"),
-    ],
-  },
 ];
 
 const CLUSTERS = [
   { label: "Requests coming in", idxs: [0, 1] },
   { label: "Quotes going out", idxs: [2, 3] },
-  { label: "Agents & awards", idxs: [4, 5, 6, 7] },
+  { label: "Agents & RFQs", idxs: [4] },
 ];
 
 // ─── Workflow diagram ──────────────────────────────────────────────────────────
@@ -653,9 +626,9 @@ const AFTER = [
 ];
 
 const STATS = [
-  { v: "6.5h", l: "Saved chasing quotes & bids, per week", placeholder: true },
-  { v: "32%", l: "Of quotes that would have expired silently, recovered", placeholder: true },
-  { v: "0", l: "Auto-sends; every draft is human-approved", placeholder: false },
+  { v: "40+ hrs", l: "Saved per operator, per month, on reading, retyping and chasing" },
+  { v: "+37%", l: "Team productivity gain across the Susea beta cohort" },
+  { v: "0", l: "Auto-sends; every draft is human-approved" },
 ];
 
 const QUEUE_ITEMS = [
@@ -836,7 +809,7 @@ export default function AutomationsPage() {
           <div className="sec-head">
             <span className="eyebrow"><span className="dot"></span> Capabilities</span>
             <h2 className="h-section" style={{ margin: 0 }}>
-              Eight jobs Susea now
+              Five jobs Susea now
               <br />
               does without being asked.
             </h2>
@@ -975,26 +948,6 @@ export default function AutomationsPage() {
                   position: "relative",
                 }}
               >
-                {s.placeholder && (
-                  <span
-                    style={{
-                      position: "absolute",
-                      top: 16,
-                      right: 16,
-                      fontSize: 9.5,
-                      fontWeight: 700,
-                      letterSpacing: ".06em",
-                      textTransform: "uppercase",
-                      color: "var(--ink-4)",
-                      border: "1px solid var(--line)",
-                      borderRadius: 999,
-                      padding: "2px 8px",
-                      background: "var(--paper-2)",
-                    }}
-                  >
-                    Placeholder
-                  </span>
-                )}
                 <div className="mono" style={{ fontSize: 46, fontWeight: 700, letterSpacing: "-.03em", lineHeight: 1, color: "var(--ink)" }}>
                   {s.v}
                 </div>
@@ -1003,7 +956,7 @@ export default function AutomationsPage() {
             ))}
           </div>
           <p style={{ margin: "12px 0 0", fontSize: 11.5, color: "var(--ink-4)", textAlign: "center" }}>
-            Placeholder figures shown for illustration; swapped for real pilot data before launch.
+            Susea beta cohort. Your numbers on susea.ai.
           </p>
         </div>
       </section>
@@ -1090,6 +1043,11 @@ export default function AutomationsPage() {
       </section>
 
       <TestimonialsSlider />
+      <FaqSection
+        eyebrow="Automations FAQ"
+        heading="How the automations actually behave."
+        items={FAQS}
+      />
       <Waitlist />
       <Footer />
     </>

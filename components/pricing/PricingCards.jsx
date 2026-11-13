@@ -16,7 +16,7 @@ const PLANS = [
       "50 RFQs / month",
       "50 Quotes / month",
       "Up to 20 Carrier Agents",
-      "Spot Ocean Freight Rates",
+      "Instant Ocean Freight Rates",
       "RFQ Auctions",
       "Quote Generator",
     ],
@@ -34,7 +34,7 @@ const PLANS = [
       "150 RFQs / month",
       "150 Quotes / month",
       "Up to 50 Carrier Agents",
-      "Spot Ocean Freight Rates",
+      "Instant Ocean Freight Rates",
       "RFQ Auctions",
       "Quote Generator",
       "Priority Support",
@@ -47,7 +47,7 @@ const PLANS = [
     description:
       "For large logistics companies with custom workflows and unlimited scale.",
     cta: "Talk to Sales",
-    ctaHref: "mailto:info@alphabitssolutions.com",
+    ctaHref: "mailto:getstarted@susea.ai",
     ctaClass: "btn-orange",
     features: [
       "Unlimited RFQs",

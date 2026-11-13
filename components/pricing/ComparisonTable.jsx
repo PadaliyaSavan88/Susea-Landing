@@ -1,7 +1,7 @@
 import Icon from '@/components/ui/Icon'
 
 const ROWS = [
-  { name: 'Spot Ocean Rates',         starter: true,  pro: true,  enterprise: true },
+  { name: 'Instant Ocean Rates',      starter: true,  pro: true,  enterprise: true },
   { name: 'RFQ Auctions',             starter: true,  pro: true,  enterprise: true },
   { name: 'Quote Generator',          starter: true,  pro: true,  enterprise: true },
   { name: 'Carrier Management',       starter: true,  pro: true,  enterprise: true },

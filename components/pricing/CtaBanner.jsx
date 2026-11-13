@@ -18,7 +18,7 @@ export default function CtaBanner() {
             </a>
             <a
               className="btn btn-ghost btn-lg"
-              href="mailto:info@alphabitssolutions.com"
+              href="mailto:getstarted@susea.ai"
             >
               Book a Demo
             </a>

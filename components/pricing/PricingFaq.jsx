@@ -23,6 +23,26 @@ const FAQS = [
     q: 'Can I cancel anytime?',
     a: 'Yes, no long-term contracts. Cancel from account settings at any time; access continues until the end of your current billing period.',
   },
+  {
+    q: 'What is founding-cohort pricing?',
+    a: 'Beta customers lock in founding-cohort pricing for 12 months from signup, with no surprise increases. When we exit beta, standard pricing applies to new customers, not to you.',
+  },
+  {
+    q: 'Is there a discount for paying annually?',
+    a: 'Yes. Annual billing is priced lower than paying month to month; you can see the exact per-seat figures by toggling the billing switch at the top of this page.',
+  },
+  {
+    q: 'What counts as an RFQ versus a quote?',
+    a: 'A quote is a priced offer you send to a customer. An RFQ is a request you float to your own carrier agents to source buy rates. Each has its own monthly allowance on Starter and Pro, and both are unlimited on Enterprise.',
+  },
+  {
+    q: 'Do you charge per carrier agent I invite?',
+    a: 'No. Inviting your carrier agents to bid on your RFQs is included; each plan simply has a cap on how many agents you can have active at once. Enterprise is unlimited.',
+  },
+  {
+    q: 'What payment methods and currencies do you support?',
+    a: 'We accept all major cards, and can invoice annually for Pro and Enterprise. If you need a specific currency or purchase-order process, raise it during onboarding and we will set it up.',
+  },
 ]
 
 export default function PricingFaq() {

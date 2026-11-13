@@ -20,7 +20,7 @@ export default function PricingPage() {
           <div className="container pricing-hero-inner">
             <span className="eyebrow"><span className="dot"></span> Simple and transparent pricing</span>
             <h1 className="pricing-h1">Simple pricing for modern <em>freight forwarders</em>.</h1>
-            <p className="lead">Everything you need to search Spot Rates, manage RFQs, and create quotations faster.</p>
+            <p className="lead">Everything you need to quote instantly from your rate sheets, manage RFQs, and create quotations faster.</p>
             <BillingToggle annual={annual} onChange={setAnnual} />
           </div>
         </section>

@@ -6,6 +6,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import { smoothScrollToId, smoothScrollToTop } from "@/lib/scroll";
 import { CALENDLY_URL } from "@/lib/booking";
 import Footer from "@/components/landing/Footer";
+import SystemOfRecord from "@/components/landing/SystemOfRecord";
 import FreeToolsPill from "@/components/free-tools/FreeToolsPill";
 import OceanCta from "@/components/free-tools/OceanCta";
 import WhySusea from "@/components/landing/WhySusea";
@@ -322,72 +323,45 @@ const AUTOMATIONS = [
     icon: "◆",
     tint: "var(--blue-50)",
     color: "var(--blue-700)",
-    title: "AI quotation drafting",
-    body: "Inbound RFQ parsed, cargo details extracted, all-in rate drafted from your live tariffs.",
-    trigger: "new RFQ · any channel",
+    title: "Inquiry Intake",
+    body: "Inbound request read, cargo details extracted, an all-in rate drafted from your rate sheets, waiting for your tap.",
+    trigger: "new inquiry · any channel",
   },
   {
     id: "a-02",
-    icon: "↺",
-    tint: "var(--orange-50)",
-    color: "var(--orange-700)",
-    title: "Silent-quote recovery",
-    body: "Quotes with no reply after 48h get a personalised follow-up before validity expires.",
-    trigger: "quote · silent 48h",
-  },
-  {
-    id: "a-03",
-    icon: "$",
-    tint: "var(--amber-50)",
-    color: "var(--amber-600)",
-    title: "Rate & GRI alerts",
-    body: "Lane surcharge changes ping the operator with impacted open quotes flagged.",
-    trigger: "carrier rate change",
-  },
-  {
-    id: "a-04",
-    icon: "⇄",
-    tint: "var(--blue-50)",
-    color: "var(--blue-700)",
-    title: "RFQ broadcast",
-    body: "Send a lane to your carrier network with one click; responses come back to one table.",
-    trigger: "RFQ · broadcast",
-  },
-  {
-    id: "a-05",
-    icon: "✓",
-    tint: "var(--good-50)",
-    color: "var(--good-600)",
-    title: "Auto-approval routing",
-    body: "Quotes above margin threshold auto-approve; below-threshold route to a named approver.",
-    trigger: "quote · draft ready",
-  },
-  {
-    id: "a-06",
     icon: "⌘",
     tint: "var(--orange-50)",
     color: "var(--orange-700)",
-    title: "Tariff intake",
-    body: "Carrier PDFs, XLS, emails, WhatsApp forwards, auto-parsed into your rate table.",
-    trigger: "tariff · new file",
+    title: "Rate Sheet Extraction",
+    body: "Carrier PDFs, XLS, emails and WhatsApp forwards auto-parsed into your rate table, with every option priced on arrival.",
+    trigger: "rate sheet · new file",
   },
   {
-    id: "a-07",
-    icon: "⋯",
+    id: "a-03",
+    icon: "↺",
     tint: "var(--amber-50)",
     color: "var(--amber-600)",
-    title: "Award & contract handoff",
-    body: "When a customer awards, contract terms flow into spot pricing automatically.",
-    trigger: "RFQ · awarded",
+    title: "Quote Follow-up",
+    body: "Quotes with no reply after 48h get a personalised follow-up, drafted for you, before validity expires.",
+    trigger: "quote · silent 48h",
   },
   {
-    id: "a-08",
-    icon: "⚑",
+    id: "a-04",
+    icon: "⟳",
+    tint: "var(--good-50)",
+    color: "var(--good-600)",
+    title: "Expiry Re-price",
+    body: "Lapsing quotes are caught, re-priced against current rates, and the re-send is drafted before the customer notices.",
+    trigger: "validity · approaching",
+  },
+  {
+    id: "a-05",
+    icon: "⇄",
     tint: "var(--blue-50)",
     color: "var(--blue-700)",
-    title: "Margin leak detection",
-    body: "Nightly sweep flags quotes where surcharge drift ate more than 1.5% of margin.",
-    trigger: "nightly · 02:00",
+    title: "RFQ Bid Chasing",
+    body: "Agents who haven't bid are nudged with time-left and ranking context, so the RFQ closes on time.",
+    trigger: "bid · outstanding",
   },
 ];
 
@@ -546,7 +520,7 @@ const COMPARE_ROWS = [
   {
     cap: "Automation",
     trad: "None; every step is a person",
-    susea: "8 workflows out of the box · every trigger auditable, editable",
+    susea: "5 workflows out of the box · every trigger auditable, editable",
   },
   {
     cap: "Follow-ups",
@@ -624,11 +598,23 @@ const FAQ_DATA = [
   },
   {
     q: "What is beta pricing? Does it get more expensive later?",
-    a: "Beta customers lock in founding-cohort pricing for 24 months from signup. No surprise increases. When we exit beta, standard pricing applies to new customers, not to you.",
+    a: "Beta customers lock in founding-cohort pricing for 12 months from signup. No surprise increases. When we exit beta, standard pricing applies to new customers, not to you.",
   },
   {
     q: "What kind of support do we get?",
     a: "A shared channel with the founding team. Median first response under 30 minutes during business hours. Every customer has a named founder as their point of contact for the first 90 days.",
+  },
+  {
+    q: "Is Susea a CRM, or does it replace the one we use?",
+    a: "Susea is the Freight Forwarding CRM: leads, clients, quotes, RFQs and every customer conversation in one system built for a forwarding desk. If you already run a generic CRM, Susea sits alongside it and hands off cleanly; most teams find the forwarding-specific workflows mean they live in Susea day to day.",
+  },
+  {
+    q: "How does instant pricing from our own rate sheets work?",
+    a: "Drop in carrier rate sheets as PDF, XLS, email or WhatsApp forwards. Susea reads and normalises them into your rate table, so a new inquiry is priced straight from your own rates in seconds: no spot marketplace, no retyping. You approve every quote before it goes out.",
+  },
+  {
+    q: "Does anything ever get sent to a customer automatically?",
+    a: "No. Every draft, quote and follow-up is human-approved. Zero auto-sends, ever. The automations prepare the work and queue it; a person always taps send.",
   },
 ];
 
@@ -1989,7 +1975,7 @@ export default function FreightForwardingPage() {
                   color: "var(--ink-2)",
                 }}
               >
-                Beta cohort · priority onboarding
+                The Freight Forwarding CRM · now in beta
               </span>
             </div>
             <h1
@@ -2029,8 +2015,9 @@ export default function FreightForwardingPage() {
                 textWrap: "pretty",
               }}
             >
-              The AI operating system for modern freight forwarders. Turn RFQs,
-              WhatsApp threads and carrier PDFs into customer-ready quotes in{" "}
+              The Freight Forwarding CRM for NVOCC, forwarders &amp; CHA, with an
+              AI layer drafting, following up and chasing on top. Carrier PDFs and
+              WhatsApp threads become customer-ready quotes in{" "}
               <strong
                 style={{ color: "var(--ink)", fontFamily: "var(--font-mono)" }}
               >
@@ -3253,7 +3240,7 @@ export default function FreightForwardingPage() {
                 marginInline: "auto",
               }}
             >
-              Two ways to price. One automation layer underneath.
+              Two ways to price. One CRM underneath.
             </h2>
             <p
               className="ds-lead"
@@ -3278,9 +3265,9 @@ export default function FreightForwardingPage() {
                 accent: "var(--blue-500)",
                 tint: "var(--blue-50)",
                 fg: "var(--blue-700)",
-                tag: "Instant · Spot",
+                tag: "Instant · Rate sheets",
                 h: "Send a quote in the time it takes to sip coffee.",
-                p: "Cargo details in → AI drafts an all-in rate → your operator approves → customer has it in Gmail. 90 seconds, deterministic pricing, your margins.",
+                p: "Cargo details in → AI prices it straight from your extracted carrier rate sheets → your operator approves → customer has it in Gmail. 90 seconds, deterministic pricing, your margins.",
                 stats: [
                   ["< 90s", "From RFQ to sent quote"],
                   ["14+", "Carriers compared per lane"],
@@ -3393,6 +3380,9 @@ export default function FreightForwardingPage() {
         </div>
       </section>
 
+      {/* ============ 7.5 SYSTEM OF RECORD ============ */}
+      <SystemOfRecord />
+
       {/* ============ 8. AUTOMATIONS ============ */}
       <section
         id="automations"
@@ -3424,7 +3414,7 @@ export default function FreightForwardingPage() {
               className="ds-eyebrow"
               style={{ color: "var(--orange-500)", marginBottom: "14px" }}
             >
-              Automations · 8 workflows out of the box
+              Automations · 5 workflows out of the box
             </div>
             <h2
               className="ds-h2"
@@ -3556,7 +3546,7 @@ export default function FreightForwardingPage() {
                 }}
               >
                 {[
-                  "Live pricing terminal: spot vs. contract, side by side",
+                  "Live pricing terminal: instant rate-sheet pricing vs. contract, side by side",
                   "AI drafts with a diff view: you see exactly what Susea changed",
                   "Every carrier response, every version, every follow-up: logged",
                   "Works alongside your CRM, email, and WhatsApp; nothing to rip out",

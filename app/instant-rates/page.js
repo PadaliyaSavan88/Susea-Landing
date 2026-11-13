@@ -5,6 +5,20 @@ import Icon from "@/components/ui/Icon";
 import PricingDashboard from "@/components/landing/PricingDashboard";
 import TestimonialsSlider from "@/components/landing/TestimonialsSlider";
 import Footer from "@/components/landing/Footer";
+import FaqSection from "@/components/landing/FaqSection";
+
+const FAQS = [
+  { q: "Where does instant pricing actually come from?", a: "From your own rate sheets. Susea reads the carrier rates you already receive and prices each inquiry straight from them, so the number is yours, not a figure pulled from a public marketplace." },
+  { q: "Which file types can Susea read rates from?", a: "Carrier PDFs, Excel sheets, emails and forwarded WhatsApp rate messages. Susea extracts and normalises them into one comparable rate table." },
+  { q: "How fast is an instant quote?", a: "Cargo details in, a priced, customer-ready draft out in under 90 seconds, waiting for your operator to approve and send." },
+  { q: "Do you pull rates from a public spot marketplace?", a: "No. Susea does not quote from a spot exchange. Instant pricing is built entirely on the rate sheets you load, so your buy rates and margins stay confidential." },
+  { q: "How are surcharges handled?", a: "Surcharges such as BAF, CAF, THC, LSS and ISPS are modelled and applied automatically on every quote, so the all-in price is right the first time." },
+  { q: "Does the price stay accurate as carrier rates change?", a: "Yes. The Rate Sheet Extraction automation keeps your rate table current from every new sheet and GRI, so instant quotes reflect today's rates, not last month's." },
+  { q: "Can I set my own margins and pricing rules?", a: "Yes. Configure margins, taxes, terms and rounding once; every instant quote is drafted to follow them, and your pricing math stays deterministic and yours." },
+  { q: "Is the quote customer-ready and branded?", a: "Yes. Quotes go out branded as your company, ready to send over email or WhatsApp, with the detail your customer needs to say yes." },
+  { q: "What if a rate sheet is messy or inconsistent?", a: "Susea reads varied carrier formats and flags anything it isn't sure about for a quick human check, rather than silently guessing." },
+  { q: "Does a human approve before a quote is sent?", a: "Always. Instant pricing drafts the quote; an operator reviews and taps send. Zero auto-sends, ever." },
+];
 import Waitlist from "@/components/landing/Waitlist";
 
 function jumpTo(id) {
@@ -51,7 +65,7 @@ export default function InstantRatesPage() {
         <div className="container">
           <div id="rates" style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: 22 }}>
             <span className="eyebrow">
-              <span className="dot"></span> Spot pricing · Instant rates
+              <span className="dot"></span> Instant pricing · from your rate sheets
             </span>
             <h1
               style={{
@@ -132,7 +146,7 @@ export default function InstantRatesPage() {
             By the time you&rsquo;ve checked three tariff sheets, called an
             agent to confirm a surcharge, and typed the numbers into Excel, your
             customer has already asked someone else. Speed isn&rsquo;t a
-            nice-to-have in spot pricing; it&rsquo;s the whole pitch.
+            nice-to-have in instant pricing; it&rsquo;s the whole pitch.
           </p>
         </div>
       </section>
@@ -249,6 +263,11 @@ export default function InstantRatesPage() {
 
       <TestimonialsSlider />
 
+      <FaqSection
+        eyebrow="Instant pricing FAQ"
+        heading="Pricing straight from your rate sheets."
+        items={FAQS}
+      />
       <Waitlist />
       <Footer />
     </>
