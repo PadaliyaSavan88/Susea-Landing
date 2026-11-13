@@ -3,17 +3,17 @@ import Script from 'next/script'
 
 export const metadata = {
   metadataBase: new URL("https://susea.ai"),
-  title: "Susea: AI Operating System for Ocean Freight",
+  title: "Susea — the Freight Forwarding CRM for NVOCC, Forwarders & CHA",
   description:
-    "The pricing & quotation OS for freight forwarders. Get instant spot rates, run live RFQ auctions, and quote customers in under 90 seconds.",
+    "The Freight Forwarding CRM built for how your desk works. Instant quotes priced straight from your own rate sheets, live RFQ auctions, and AI follow-ups, with customers quoted in under 90 seconds.",
   icons: {
     icon: "/favicon.png",
     shortcut: "/favicon.png",
     apple: "/favicon.png",
   },
   openGraph: {
-    title: "Susea: AI Operating System for Ocean Freight",
-    description: "The pricing & quotation OS for freight forwarders.",
+    title: "Susea — the Freight Forwarding CRM for NVOCC, Forwarders & CHA",
+    description: "The Freight Forwarding CRM for freight forwarders, with automations on top.",
     url: "https://susea.ai",
     siteName: "Susea",
     images: [
@@ -26,8 +26,8 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Susea: AI Operating System for Ocean Freight",
-    description: "The pricing & quotation OS for freight forwarders.",
+    title: "Susea — the Freight Forwarding CRM for NVOCC, Forwarders & CHA",
+    description: "The Freight Forwarding CRM for freight forwarders, with automations on top.",
     images: ["/og-image.png"],
   },
 };

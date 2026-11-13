@@ -2,6 +2,20 @@
 import { useEffect, useRef } from 'react'
 
 const LOGOS = {
+  contrans: (
+    <svg viewBox="0 0 32 32" width="28" height="28" fill="none" aria-hidden="true">
+      <rect x="4" y="9" width="24" height="14" rx="2" stroke="#2f6bd8" strokeWidth="2" />
+      <line x1="10" y1="9" x2="10" y2="23" stroke="#2f6bd8" strokeWidth="1.5" opacity="0.5" />
+      <line x1="16" y1="9" x2="16" y2="23" stroke="#2f6bd8" strokeWidth="1.5" opacity="0.5" />
+      <line x1="22" y1="9" x2="22" y2="23" stroke="#2f6bd8" strokeWidth="1.5" opacity="0.5" />
+    </svg>
+  ),
+  tastrans: (
+    <svg viewBox="0 0 32 32" width="28" height="28" fill="none" aria-hidden="true">
+      <path d="M4 20 C8 12 13 12 16 17 C19 22 24 22 28 13" stroke="#0891b2" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+      <circle cx="16" cy="8" r="2.5" stroke="#0891b2" strokeWidth="2" />
+    </svg>
+  ),
   meridian: (
     <svg viewBox="0 0 32 32" width="28" height="28" fill="none" aria-hidden="true">
       <rect x="2" y="5" width="18" height="9" rx="2" fill="#2f6bd8" opacity="0.3" />
@@ -60,6 +74,20 @@ const LOGOS = {
 }
 
 const TESTIMONIALS = [
+  {
+    logo: LOGOS.contrans,
+    company: 'ConTrans WorldTrade Pvt Ltd',
+    name: 'Jaypal P.',
+    title: 'CEO · India',
+    quote: 'Customer WhatsApps, agent emails, and my team\'s notes on a shipment used to live in five places. Now it\'s one thread inside the quote. Nobody asks "where\'s that message?" anymore.',
+  },
+  {
+    logo: LOGOS.tastrans,
+    company: 'Tas Trans',
+    name: 'Annita T.',
+    title: 'Founder · Greece',
+    quote: 'We weren\'t losing on rate. We were losing on the fact that nobody had time to reply. Susea follows up for us, in our voice, so quiet quotes don\'t just quietly die.',
+  },
   {
     logo: LOGOS.meridian,
     company: 'Meridian Freight Solutions',

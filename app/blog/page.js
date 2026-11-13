@@ -74,7 +74,7 @@ export default function BlogPage() {
         <section className="blog-listing">
           <div className="container">
             {posts.length === 0 ? (
-              <p style={{ color: 'var(--ink-3)', textAlign: 'center', padding: '80px 0' }}>Posts coming soon.</p>
+              <p style={{ color: 'var(--ink-3)', textAlign: 'center', padding: '80px 0' }}>No articles have been published yet.</p>
             ) : (
               <div className="blog-grid">
                 {posts.map(post => <PostCard key={post.slug} post={post} />)}
